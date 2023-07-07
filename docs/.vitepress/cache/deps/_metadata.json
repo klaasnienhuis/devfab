@@ -1,0 +1,29 @@
+{
+  "hash": "749a6d38",
+  "browserHash": "18bbda5d",
+  "optimized": {
+    "vue": {
+      "src": "../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "603f42e8",
+      "needsInterop": false
+    },
+    "vitepress > @vue/devtools-api": {
+      "src": "../../../../../node_modules/@vue/devtools-api/lib/esm/index.js",
+      "file": "vitepress___@vue_devtools-api.js",
+      "fileHash": "02953773",
+      "needsInterop": false
+    },
+    "@sketchfab/viewer-api": {
+      "src": "../../../../node_modules/@sketchfab/viewer-api/viewer-api.js",
+      "file": "@sketchfab_viewer-api.js",
+      "fileHash": "50cfabf0",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-76J2PTFD": {
+      "file": "chunk-76J2PTFD.js"
+    }
+  }
+}
