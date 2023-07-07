@@ -5,6 +5,7 @@
     "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
+    "vitepress": "latest",
     "@sketchfab/viewer-api": "^1.12.1",
     "vue": "^3.3.4"
   }
