@@ -2,6 +2,11 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  vite: {
+    ssr: {
+      noExternal: [ /\.css$/, /^vuetify/ ],
+    },
+  },
   title: "devfab",
   description: "Fab development tutorials",
   themeConfig: {
@@ -13,9 +18,12 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: 'Loading',
+        text: 'Model Loading',
         items: [
-          { text: 'Model Loading', link: '/model-loading' },
+          { text: 'Getting started', link: '/model-loading/getting-started' },
+          { text: 'Init options', link: '/model-loading/initialization-options' },
+          { text: 'Callbacks', link: '/model-loading/callbacks' },
+          { text: 'Event listeners', link: '/model-loading/events' },
         ]
       },
       {

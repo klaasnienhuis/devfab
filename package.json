@@ -5,8 +5,13 @@
     "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
-    "vitepress": "latest",
     "@sketchfab/viewer-api": "^1.12.1",
-    "vue": "^3.3.4"
+    "vitepress": "latest",
+    "vue": "^3.3.4",
+    "vuetify": "^3.3.7"
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "^5.61.0",
+    "vue-eslint-parser": "^9.3.1"
   }
 }

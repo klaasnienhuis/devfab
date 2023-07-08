@@ -7,7 +7,7 @@ var require_viewer_api = __commonJS({
   "node_modules/@sketchfab/viewer-api/viewer-api.js"(exports, module) {
     !function(t, e) {
       "object" == typeof exports && "object" == typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define([], e) : "object" == typeof exports ? exports.Sketchfab = e() : t.Sketchfab = e();
-    }(self, () => (() => {
+    }(exports, () => (() => {
       "use strict";
       var t = { d: (e2, i2) => {
         for (var n2 in i2)

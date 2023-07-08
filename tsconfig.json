@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+  },
+  "vueCompilerOptions": {
+  },
+  "include": ["./docs/.vitepress/**/*.vue"],
+  "exclude": ["node_modules/"]
+}

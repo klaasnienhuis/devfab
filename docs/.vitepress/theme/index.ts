@@ -2,7 +2,11 @@
 import { h } from 'vue'
 import Theme from 'vitepress/theme'
 import './style.css'
+import "vuetify/styles";
+import { createVuetify } from "vuetify";
+import * as components from 'vuetify/components'
 
+const vuetify = createVuetify({components});
 export default {
   extends: Theme,
   Layout: () => {
@@ -11,6 +15,6 @@ export default {
     })
   },
   enhanceApp({ app, router, siteData }) {
-    // ...
+    app.use(vuetify);
   }
 }
