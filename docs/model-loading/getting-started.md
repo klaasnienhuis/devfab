@@ -59,7 +59,11 @@ client.init("dGUrytaktlDeNudCEGKk31oTJY");
 
 The sketchfab iframe is now populated with the 3D model and ready to go.
 
-<ModelLoading />
+<iframe height="500" style="width: 100%;" scrolling="no" title="Sketchfab Model loading getting started" src="https://codepen.io/klaasnienhuis/embed/JjerBWr/b85e4d2bc3ef371e2486730725e1e892?default-tab=js%2Cresult&editable=true&theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/klaasnienhuis/pen/JjerBWr/b85e4d2bc3ef371e2486730725e1e892">
+  Sketchfab Model loading getting started</a> by Klaas Nienhuis (<a href="https://codepen.io/klaasnienhuis">@klaasnienhuis</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
 
 ::: info Links
 View this example on [CodePen](https://codepen.io/klaasnienhuis/pen/JjerBWr/b85e4d2bc3ef371e2486730725e1e892?editors=0010)

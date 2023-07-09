@@ -17,10 +17,16 @@ In this example, we log a message to the console when the model has been loaded 
 ```js
 client.init("dGUrytaktlDeNudCEGKk31oTJY", {
   autostart: 1,
-  success: (api) => console.log("Sketchfab API success", api),
+  success: (api) => console.log("Sketchfab API success"),
   error: () => console.error("Sketchfab API error")
 });
 ```
+
+<iframe height="500" style="width: 100%;" scrolling="no" title="Sketchfab Model loading - init options" src="https://codepen.io/klaasnienhuis/embed/eYQeJVM/83086d655cab05d98f1e4e1632aba75b?default-tab=js%2Cresult&editable=true&theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/klaasnienhuis/pen/eYQeJVM/83086d655cab05d98f1e4e1632aba75b">
+  Sketchfab Model loading - init options</a> by Klaas Nienhuis (<a href="https://codepen.io/klaasnienhuis">@klaasnienhuis</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
 
 ## API object
 
