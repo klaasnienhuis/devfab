@@ -27,6 +27,13 @@ export default defineConfig({
         ]
       },
       {
+        text: 'Objects',
+        items: [
+          { text: 'Nodemap', link: '/model-loading/getting-started' },
+          { text: 'Showing and hiding', link: '/model-loading/initialization-options' },
+        ]
+      },
+      {
         text: 'Examples',
         items: [
           { text: 'Markdown Examples', link: '/markdown-examples' },
