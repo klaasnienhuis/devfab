@@ -1,3 +1,7 @@
+<script setup>
+import CodePenEmbed from '../components/CodePenEmbed.vue'
+</script>
+
 # Event listeners
 
 The Sketchfab API offers a handful of event listeners. The one you'll use the most is the `viewerready` event. This event tells us when the viewer is ready (surprise). This is important, because we can't do anything before. Once the viewer is ready we can access its scene data, for instance to find out how many materials there are in the scene.
@@ -14,11 +18,8 @@ client.init("dGUrytaktlDeNudCEGKk31oTJY", {
 
 In this example `autostart: 1` starts playing the 3D model. The `viewerready` event tells us when the model is ready. From this moment on, we can "talk" to the model through the `api` object.
 
-<iframe height="500" style="width: 100%;" scrolling="no" title="Sketchfab Model loading - callbacks" src="https://codepen.io/klaasnienhuis/embed/mdQqVoV/e15ad74980cad88070b0ac4c2989c370?default-tab=js%2Cresult&editable=true&theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/klaasnienhuis/pen/mdQqVoV/e15ad74980cad88070b0ac4c2989c370">
-  Sketchfab Model loading - callbacks</a> by Klaas Nienhuis (<a href="https://codepen.io/klaasnienhuis">@klaasnienhuis</a>)
-  on <a href="https://codepen.io">CodePen</a>.
-</iframe>
+
+<CodePenEmbed id="mdQqVoV/e15ad74980cad88070b0ac4c2989c370" tab="js" />
 
 ## Entrypoint
 
@@ -38,8 +39,4 @@ client.init("dGUrytaktlDeNudCEGKk31oTJY", {
 
 This example does not start the model automatically, because of `autostart: 0`. But we still want to change the background color after the user presses the play button. That's why the code to change the background color is placed in the callback of the `viewerready` event. That will guarantee we won't change the background color before the viewer is ready for it.
 
-<iframe height="500" style="width: 100%;" scrolling="no" title="Sketchfab Model loading - events" src="https://codepen.io/klaasnienhuis/embed/ExObPMr/a3679a70f8d38a2c1b9f95fc30e0bc36?default-tab=result&editable=true&theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/klaasnienhuis/pen/ExObPMr/a3679a70f8d38a2c1b9f95fc30e0bc36">
-  Sketchfab Model loading - events</a> by Klaas Nienhuis (<a href="https://codepen.io/klaasnienhuis">@klaasnienhuis</a>)
-  on <a href="https://codepen.io">CodePen</a>.
-</iframe>
+<CodePenEmbed id="ExObPMr/a3679a70f8d38a2c1b9f95fc30e0bc36" />

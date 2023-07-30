@@ -8,17 +8,17 @@ hero:
   tagline: Mastering development with Sketchfab
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: Getting Started
+      link: /model-loading/getting-started
     - theme: alt
       text: API Examples
       link: /api-examples
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Embedding
+    details: Use 3D models in your website and customize the experience by changing appearance and behavior of the model.
+  - title: Objects
+    details: Understand the structure of your models and how to manipulate objects with the API.
   - title: Feature C
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---

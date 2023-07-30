@@ -12,7 +12,7 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'Home', link: '/' },
+      { text: 'Guide', link: '/model-loading/getting-started' },
       { text: 'Examples', link: '/markdown-examples' }
     ],
 
@@ -29,17 +29,18 @@ export default defineConfig({
       {
         text: 'Objects',
         items: [
-          { text: 'Nodemap', link: '/model-loading/getting-started' },
-          { text: 'Showing and hiding', link: '/model-loading/initialization-options' },
+          { text: 'Nodemap', link: '/objects/nodemap' },
+          { text: 'Scenegraph', link: '/objects/scenegraph' },
+          { text: 'Showing and hiding', link: '/objects/object-visibility' },
         ]
       },
-      {
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
-      }
+      // {
+      //   text: 'Examples',
+      //   items: [
+      //     { text: 'Markdown Examples', link: '/markdown-examples' },
+      //     { text: 'Runtime API Examples', link: '/api-examples' }
+      //   ]
+      // }
     ],
 
     socialLinks: [

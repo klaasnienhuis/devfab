@@ -1,5 +1,6 @@
 <script setup>
 import ModelLoading from '../components/ModelLoading.vue'
+import CodePenEmbed from '../components/CodePenEmbed.vue'
 </script>
 
 # Initialization options
@@ -28,11 +29,7 @@ client.init("dGUrytaktlDeNudCEGKk31oTJY", {
 
 - `scrollwheel: 0` disables the scrollwheel on the 3d model. This is practical when embedding models on ecommerce sites for instance.
 
-<iframe height="500" style="width: 100%;" scrolling="no" title="Sketchfab Model loading getting started" src="https://codepen.io/klaasnienhuis/embed/MWzOKrr/3a4868323ef37b8f918581ac658b97ef?default-tab=result&editable=true&theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/klaasnienhuis/pen/MWzOKrr/3a4868323ef37b8f918581ac658b97ef">
-  Sketchfab Model loading getting started</a> by Klaas Nienhuis (<a href="https://codepen.io/klaasnienhuis">@klaasnienhuis</a>)
-  on <a href="https://codepen.io">CodePen</a>.
-</iframe>
+<CodePenEmbed id="MWzOKrr/3a4868323ef37b8f918581ac658b97ef" />
 
 Instead of just loading the model, it's now started too and rotates slowly. Don't do this when you have many 3D models on a single page! You can find all the init options in the [Sketchfab documentation](https://sketchfab.com/developers/viewer/initialization). Some options are available for all accounts, other options require an enterprise account.
 
@@ -56,13 +53,7 @@ You can set the camera constraints with the init parameters. For these settings 
 }
 ```
 
-<iframe height="500" style="width: 100%;" scrolling="no" title="Sketchfab Model loading - init options" src="https://codepen.io/klaasnienhuis/embed/MWzOyaP/7e86fcc7dd363168344dd10607890879?default-tab=result&editable=true&theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/klaasnienhuis/pen/MWzOyaP/7e86fcc7dd363168344dd10607890879">
-  Sketchfab Model loading - init options</a> by Klaas Nienhuis (<a href="https://codepen.io/klaasnienhuis">@klaasnienhuis</a>)
-  on <a href="https://codepen.io">CodePen</a>.
-</iframe>
-
-
+<CodePenEmbed id="MWzOyaP/7e86fcc7dd363168344dd10607890879" />
 
 ## Cleaned up viewer
 
@@ -77,11 +68,7 @@ Sketchfab adds many tools and information to the viewer window. When integrating
 }
 ```
 
-<iframe height="500" style="width: 100%;" scrolling="no" title="Sketchfab Model loading - init options - clean viewer" src="https://codepen.io/klaasnienhuis/embed/ZEmaWOV/c0d0a4def61617f2d3ae14099f6a1d37?default-tab=result&editable=true&theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/klaasnienhuis/pen/ZEmaWOV/c0d0a4def61617f2d3ae14099f6a1d37">
-  Sketchfab Model loading - init options - clean viewer</a> by Klaas Nienhuis (<a href="https://codepen.io/klaasnienhuis">@klaasnienhuis</a>)
-  on <a href="https://codepen.io">CodePen</a>.
-</iframe>
+<CodePenEmbed id="ZEmaWOV/c0d0a4def61617f2d3ae14099f6a1d37" />
 
 ## Secret settings
 
