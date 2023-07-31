@@ -19,7 +19,7 @@ features:
     details: Use 3D models in your website and customize the experience by changing appearance and behavior of the model.
   - title: Objects
     details: Understand the structure of your models and how to manipulate objects with the API.
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Materials
+    details: Change the appearance of your models by changing materials and textures.
 ---
 

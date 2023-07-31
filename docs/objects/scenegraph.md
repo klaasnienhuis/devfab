@@ -31,7 +31,7 @@ The fbx exporter splits each object into two nodes: a `MatrixTransform` and a `G
 
 ## Group nodes
 
-A `Group` node is inserted between the `MatrixTransform` and the `Geometry` node. This is a node that can contain multiple nodes. In this case, the `Group` node contains a single node, the `Geometry` node. It's a result of the way the fbx exporter works. The exporter creates a `Group` node for each material. If an object has a single material, the `Group` node contains a single `Geometry` node. If an object has multiple materials, the `Group` node contains multiple `Geometry` nodes.
+A `Group` node is inserted between the `MatrixTransform` and the `Geometry` node. This is a node that can contain multiple nodes. In this case, the `Group` node contains a single node, the `Geometry` node. It's a result of the way the fbx exporter works. If an object has a single material, the `Group` node contains a single `Geometry` node. If an object has multiple materials, the `Group` node contains multiple `Geometry` nodes, one ofr each material.
 
 Here's an example of a scene with a single object that has multiple materials. 
 

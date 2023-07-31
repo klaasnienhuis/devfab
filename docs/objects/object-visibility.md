@@ -2,6 +2,8 @@
 import CodePenEmbed from '../components/CodePenEmbed.vue'
 </script>
 
+# Object visibility
+
 Now that we know how to interpret the [scenegraph](./scenegraph) and [nodemap](./nodemap), we can start to manipulate objects with the API. Let's start with showing and hiding objects.
 
 ```txt
@@ -26,7 +28,7 @@ Showing and hiding an object is quite straightforward. We use the `show` and `hi
 api.hide(3);
 ```
 
-To find the `instanceID` of an object, we can use the [nodemap](./nodemap). The following example shows a function that takes teh nodemap and the name of an object as arguments. Remember the nodemap is not an array, but an object. We use `Object.values` to get an array of all the nodes. Then we use `Array.find` to find the node with the correct name and type.
+To find the `instanceID` of an object, we can use the [nodemap](./nodemap). The following example shows a function that takes the nodemap and the name of an object as arguments. Remember the nodemap is not an array, but an object. We use `Object.values` to get an array of all the nodes. Then we use `Array.find` to find the node with the correct name and type.
 
 ```js
 const findNode = (nodemap, name) => {
