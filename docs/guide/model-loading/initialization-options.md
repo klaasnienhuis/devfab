@@ -1,6 +1,6 @@
 <script setup>
-import ModelLoading from '../components/ModelLoading.vue'
-import CodePenEmbed from '../components/CodePenEmbed.vue'
+import ModelLoading from '../../components/ModelLoading.vue'
+import CodePenEmbed from '../../components/CodePenEmbed.vue'
 </script>
 
 # Initialization options
@@ -72,14 +72,10 @@ Sketchfab adds many tools and information to the viewer window. When integrating
 
 ## Secret settings
 
-Not all available settings are documented. I'm aware of three undocumented parameters:
+Not all available settings are documented. One is especially interesting:
 
 ```js
 graph_optimizer: 1,
-merge_materials: 1,
-material_packing: 1,
 ```
 
-These settings are all aimed at optimizing the performance of the model. `graph_optimizer: 1` optimizes the geometry. I don't know its inner workings, but I assume it merges objects together to reduce the strain on the graphics card. `merge_materials: 1` does the same for materials.
-
-I'm not sure what `material_packing: 1` does. I suspect it works on the UV channels of your objects. 
+This setting is aimed at optimizing the performance of the model. `graph_optimizer: 1` optimizes the geometry. I don't know its inner workings, but I assume it merges objects together to reduce the strain on the graphics card.

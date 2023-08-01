@@ -5,14 +5,14 @@ layout: home
 hero:
   name: "devfab"
   text: "Fab development tutorials"
-  tagline: Mastering development with Sketchfab
+  tagline: Learn to create 3D interactive experiences for the web from  Sketchfab Master and Certified Partner Klaas Nienhuis.
   actions:
     - theme: brand
       text: Getting Started
-      link: /model-loading/getting-started
+      link: /guide/model-loading/getting-started
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: About
+      link: /about/
 
 features:
   - title: Embedding

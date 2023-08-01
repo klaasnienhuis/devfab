@@ -1,5 +1,5 @@
 <script setup>
-import CodePenEmbed from '../components/CodePenEmbed.vue'
+import CodePenEmbed from '../../components/CodePenEmbed.vue'
 </script>
 
 # Callbacks

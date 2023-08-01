@@ -11,40 +11,47 @@ export default defineConfig({
   description: "Fab development tutorials",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
+    search: {
+      provider: 'local'
+    },
+    footer: {
+      copyright: 'Copyright © 2023-present Klaas Nienhuis'
+    },
     nav: [
-      { text: 'Guide', link: '/model-loading/getting-started' },
-      { text: 'Examples', link: '/markdown-examples' }
+      { text: 'Guide', link: '/guide/model-loading/getting-started' },
+      { text: 'About', link: '/about/' },
     ],
 
-    sidebar: [
-      {
-        text: 'Model Loading',
-        items: [
-          { text: 'Getting started', link: '/model-loading/getting-started' },
-          { text: 'Init options', link: '/model-loading/initialization-options' },
-          { text: 'Callbacks', link: '/model-loading/callbacks' },
-          { text: 'Event listeners', link: '/model-loading/events' },
-        ]
-      },
-      {
-        text: 'Objects',
-        items: [
-          { text: 'Nodemap', link: '/objects/nodemap' },
-          { text: 'Scenegraph', link: '/objects/scenegraph' },
-          { text: 'Showing and hiding', link: '/objects/object-visibility' },
-        ]
-      },
-      // {
-      //   text: 'Examples',
-      //   items: [
-      //     { text: 'Markdown Examples', link: '/markdown-examples' },
-      //     { text: 'Runtime API Examples', link: '/api-examples' }
-      //   ]
-      // }
-    ],
-
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
-    ]
+    sidebar: {
+      '/guide/': [
+        {
+          text: 'Model Loading',
+          items: [
+            { text: 'Getting started', link: '/guide/model-loading/getting-started' },
+            { text: 'Init options', link: '/guide/model-loading/initialization-options' },
+            { text: 'Callbacks', link: '/guide/model-loading/callbacks' },
+            { text: 'Event listeners', link: '/guide/model-loading/events' },
+          ]
+        },
+        {
+          text: 'Objects',
+          items: [
+            { text: 'Nodemap', link: '/guide/objects/nodemap' },
+            { text: 'Scenegraph', link: '/guide/objects/scenegraph' },
+            { text: 'Showing and hiding', link: '/guide/objects/object-visibility' },
+          ]
+        },
+      ],
+      '/about/': [
+        {
+          text: 'About',
+          items: [
+            { text: 'Introduction', link: '/about/' },
+            { text: 'Examples', link: '/about/examples'},
+            { text: 'Contact', link: '/about/contact' },
+          ]
+        }
+      ]
+    },
   }
 })
