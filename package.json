@@ -8,6 +8,7 @@
     "@sketchfab/viewer-api": "^1.12.1",
     "vitepress": "latest",
     "vue": "^3.3.4",
+    "vue-json-pretty": "^2.2.4",
     "vuetify": "^3.3.7"
   },
   "devDependencies": {

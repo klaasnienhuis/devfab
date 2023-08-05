@@ -21,12 +21,16 @@ import {
   useLocale,
   useRtl,
   useTheme
-} from "./chunk-DC2JHQI6.js";
+} from "./chunk-7F74GRN7.js";
 import {
+  init_vue_runtime_esm_bundler,
   nextTick,
   reactive
-} from "./chunk-V634PGSD.js";
-import "./chunk-76J2PTFD.js";
+} from "./chunk-XJVAM4BN.js";
+import "./chunk-CF3WPAMV.js";
+
+// node_modules/vuetify/lib/labs/date/date.mjs
+init_vue_runtime_esm_bundler();
 
 // node_modules/vuetify/lib/labs/date/adapters/vuetify.mjs
 var firstDay = {
@@ -478,6 +482,7 @@ var makeDateProps = propsFactory({
 }, "date");
 
 // node_modules/vuetify/lib/framework.mjs
+init_vue_runtime_esm_bundler();
 function createVuetify() {
   let vuetify = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
   const {

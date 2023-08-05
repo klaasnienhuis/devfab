@@ -39,6 +39,15 @@ export default defineConfig({
             { text: 'Nodemap', link: '/guide/objects/nodemap' },
             { text: 'Scenegraph', link: '/guide/objects/scenegraph' },
             { text: 'Showing and hiding', link: '/guide/objects/object-visibility' },
+            { text: 'Rootnode', link: '/guide/objects/rootnode' },
+          ]
+        },
+        {
+          text: 'Materials',
+          items: [
+            { text: 'Material basics', link: '/guide/materials/' },
+            { text: 'Material list', link: '/guide/materials/materiallist' },
+            { text: 'Material channels', link: '/guide/materials/channels' },
           ]
         },
       ],

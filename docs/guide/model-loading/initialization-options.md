@@ -7,7 +7,7 @@ import CodePenEmbed from '../../components/CodePenEmbed.vue'
 
 There are many options when loading a Sketchfab model. If we don't say otherwise, a model is loaded like so:
 
-<ModelLoading />
+<ModelLoading id="dGUrytaktlDeNudCEGKk31oTJY" :showGraph="true" />
 
 The iframe is populated with the model, but the model has not started yet. And when you manually start the model, by clicking on the play-button, the viewer shows a title, the inspector, sketchfab logo and more. This is the default embed.
 

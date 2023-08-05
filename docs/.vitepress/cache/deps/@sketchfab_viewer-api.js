@@ -1,6 +1,6 @@
 import {
   __commonJS
-} from "./chunk-76J2PTFD.js";
+} from "./chunk-CF3WPAMV.js";
 
 // node_modules/@sketchfab/viewer-api/viewer-api.js
 var require_viewer_api = __commonJS({
