@@ -48,6 +48,7 @@ export default defineConfig({
             { text: 'Material basics', link: '/guide/materials/' },
             { text: 'Material list', link: '/guide/materials/materiallist' },
             { text: 'Material channels', link: '/guide/materials/channels' },
+            { text: 'Colors', link: '/guide/materials/colors' },
           ]
         },
       ],

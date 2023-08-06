@@ -13,6 +13,14 @@ The Sketchfab editor has all the channels neatly organized and tends to hide or 
 
 Sketchfab uses two renderers: PBR and Matcap. The PBR renderer is used for most models. The PBR renderer supports two so-called workflows: Metalness and Specular. Each of these two workflows share a bunch of channels, but also have their own uniwue channels.
 
+![Renderer](./materials-renderer-editor.jpg)
+
+*You can toggle between PBR and Matcap in the Sketchfab editor.*
+
+![Shader](./materials-shaders.jpg)
+
+*You can switch between Metalness and Specular in the Sketchfab editor.*
+
 All channels for both renderers and both workflows are listed in the [Sketchfab docs](https://sketchfab.com/developers/viewer/functions#api-materialChannels). Before going deeper into the channels, please note the following:
 
 - a metalness shader uses `Base Color` in the Sketchfab editor, but `AlbedoPBR` in the API
@@ -21,6 +29,8 @@ All channels for both renderers and both workflows are listed in the [Sketchfab 
 - there are still channels that belong to the deprecated Classic shader. These channels don't have any effect, other than to confuse
 
 Yes, this is rather odd and will take some time getting used to.
+
+While you can switch between the metalness and specular shader with the API, I don't recommend doing so. It's really easy to forget to change all the channels. It's better to stick to one shader and use the appropriate channels.
 
 ## Channel settings
 
@@ -67,7 +77,7 @@ api.getMaterialList(function (err, materials) {
 });
 ```
 
-Next, we change a channel property in the material. In this example we change one property, but you can change as many properties as you like:
+Next, we change a channel property in the material. In this example we change one property, but you can change as many properties at once as you like:
 
 ```js
 theMaterial.channels.AlbedoPBR.color = [0.17, 0.35, 1];
@@ -84,7 +94,6 @@ api.setMaterial(theMaterial, function (err) {
 
 Here is an alternative approach to changing channels. Instead of changing a property in a channel, we replace the entire channels object of the material. The result is the same, Sketchfab will update the material with the new channels and keep all channels that weren't replaced:
 
-
 <CodePenEmbed id="YzRgdyr/d223d5c1688af5888aefd2aedcec8d66" />
 
 Only the second step is different:
@@ -94,3 +103,23 @@ theMaterial.channels = {
   AlbedoPBR: { color: [1, 0, 0.3] }
 };
 ```
+
+## Metallic PBR Channels
+
+Of the entire list of channels, the following are specific to the metallic PBR workflow:
+
+- AlbedoPBR
+- MetalnessPBR
+- SpecularF0
+
+<ModelLoading id="c2fb3b0dbd4c4071bf9b4656ed41a432" :showMaterials="true" :playersettings="{autostart:0}" />
+
+## Specular PBR Channels
+
+Of the entire list of channels, the following are specific to the specular PBR workflow:
+
+- DiffusePBR
+- SpecularPBR
+
+<ModelLoading id="b10ecfe761fe425ba40b01f7096a43ff" :showMaterials="true" :playersettings="{autostart:0}" />
+
