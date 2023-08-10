@@ -67,7 +67,7 @@ Each channel has an `enable` property. By enabling and disabling the appropriate
 
 Once you know your way around the channels, changing them is quite easy. Let's look at an example:
 
-<CodePenEmbed id="OJaqJoZ/36182ec549c6485675e62cbf964ab0ed" />
+<CodePenEmbed id="XWyLmGy/d5d6db0b05e32e9092388195d53c174d" />
 
 The first step is to get the list of materials, and finding one material in particular by its name: 
 

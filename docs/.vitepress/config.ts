@@ -49,6 +49,19 @@ export default defineConfig({
             { text: 'Material list', link: '/guide/materials/materiallist' },
             { text: 'Material channels', link: '/guide/materials/channels' },
             { text: 'Colors', link: '/guide/materials/colors' },
+            { text: 'Textures', link: '/guide/materials/textures' },
+          ]
+        },
+        {
+          text: 'Studio',
+          items: [
+            { text: 'Camera, lights, action', link: '/guide/studio/' },
+          ]
+        },
+        {
+          text: 'Annotations',
+          items: [
+            { text: 'Annotations', link: '/guide/annotations/' },
           ]
         },
       ],
