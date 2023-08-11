@@ -5,7 +5,14 @@ import CodePenEmbed from '../../components/CodePenEmbed.vue'
 
 # Colors
 
-Colors in the Sketchfab API are described as an RGB array with 0-1 normalized values. For example, `[0.17, 0.35, 1]` is a blue color. Normally you'd work with hex colors or an array in the 0-255 range. 
+Colors in the Sketchfab API are described as an RGB array with 0-1 normalized values. For example, `[0.17, 0.35, 1]` is a blue color. Normally you'd work with hex colors or an array in the 0-255 range.
+
+Here we set the color of the `AlbedoPBR` channel to a lime color:
+
+```js
+material.channels.AlbedoPBR.color = [0.2, 1, 0.3];
+api.setMaterial(material);
+```
 
 ## Converting colors
 

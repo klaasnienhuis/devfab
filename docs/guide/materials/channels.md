@@ -61,7 +61,7 @@ Each channel has its own properties. You can find out which properties are avail
 }
 ```
 
-Each channel has an `enable` property. By enabling and disabling the appropriate channels you can switch between metalness and specular workflows and toggle between the roughness and glossiness channel. You'll also notice that the `AlbedoPBR.color` property is an array of three normalized values for RGB. Some channels have an optional `texture` property. We'll get into textures later. But usually textures and colors are mutually exclusive. If you want a texture on the `AlbedoPBR` channel, you'll have to remove the `color` property.
+Each channel has an `enable` property. By enabling and disabling the appropriate channels you can switch between metalness and specular workflows and toggle between the roughness and glossiness channel. You'll also notice that the `AlbedoPBR.color` property is an array of three normalized values for RGB. Some channels have an optional `texture` property. Read more about textures [here](./textures). But usually textures and colors are mutually exclusive. If you want a texture on the `AlbedoPBR` channel, you'll have to remove the `color` property.
 
 ## Changing channels
 

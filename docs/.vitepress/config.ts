@@ -72,6 +72,7 @@ export default defineConfig({
             { text: 'Introduction', link: '/about/' },
             { text: 'Examples', link: '/about/examples'},
             { text: 'Contact', link: '/about/contact' },
+            { text: 'Attribution', link: '/about/credits' },
           ]
         }
       ]
