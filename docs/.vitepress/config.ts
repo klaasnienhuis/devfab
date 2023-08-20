@@ -2,12 +2,13 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  head: [],
   vite: {
     ssr: {
       noExternal: [ /\.css$/, /^vuetify/ ],
     },
   },
-  title: "devfab",
+  title: "devfab.io",
   description: "Fab development tutorials",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config

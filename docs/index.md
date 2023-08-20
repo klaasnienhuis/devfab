@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: "devfab"
+  name: "devfab.io"
   text: "Fab development tutorials"
   tagline: Learn to create 3D interactive experiences for the web from Sketchfab Master and Certified Partner Klaas Nienhuis.
   actions:
@@ -30,5 +30,11 @@ features:
       light: /icons/materials-black.png
       dark: /icons/materials-white.png
     details: Change the appearance of your models by changing materials and textures.
+  - title: Updates
+    icon:
+      light: /icons/newsletter-black.png
+      dark: /icons/newsletter-white.png
+    details: Get the latest tutorials whenever devfab.io is updated.
+    link: https://subscribepage.io/Rcju8g
+    linkText: Subscribe to updates
 ---
-

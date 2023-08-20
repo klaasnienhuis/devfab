@@ -62,9 +62,9 @@ Textures also show up in the materials. Here is a list of the two materials in t
 }
 ```
 
-This is the AlbedoPBR channel of the teapot material. You see there's no more color property, like we saw in the [Material Channels](./channels) topic. Instead, there's a `texture` property. For almost all channels, color and texture are mutually exclusive. Read more about that here: [Texture and color](#texture-and-color)
+This is the AlbedoPBR channel of the teapot material. You see there's no more `color` property, like we saw in the [Material Channels](./channels) topic. Instead, there's a `texture` property. For almost all channels, color and texture are mutually exclusive. Read more about that here: [Texture and color](#texture-and-color)
 
-The texture property contains the uid of the texture we found in the texture list. This is how the API knows which texture to use in the material. We'll ignore all other texture properties thatn uid for now. There's also a UVTransforms property. This is used to transform the texture coordinates. We'll look at this later.
+The texture property contains the uid of the texture we found in the texture list. This is how the API knows which texture to use in the material. We'll ignore all texture properties except uid for now. There's also a UVTransforms property. This is used to transform the texture coordinates. We'll look at this later.
 
 ## Changing textures
 
@@ -74,7 +74,7 @@ Now that we know how to get the list of textures and how to find them in the mat
 
 Here is the critical part of the code:
 
-```js
+```js:line-numbers
 api.getTextureList(function (err, texturelist) {
   const dotsTexture = texturelist.find((item) => item.name === "dots.png");
   potMaterial.channels.AlbedoPBR.texture.uid = dotsTexture.uid;
@@ -95,7 +95,7 @@ You can load new textures into the scene. This is useful when you have many text
 
 This is the critical part of the code:
 
-```js
+```js:line-numbers
 api.addTexture(textureUrl, (err, uid) => {
   diskMaterial.channels.AlbedoPBR.texture = { uid: uid };
   api.setMaterial(diskMaterial, function () {});
@@ -106,7 +106,7 @@ api.addTexture(textureUrl, (err, uid) => {
 2. Create a new texture object with the uid of the texture
 3. Set the material with `api.setMaterial`
 
-You see that the texture object is very minimal. It only contains the uid. We can ignore all other properties that we saw earlier until we cover them in a new lesson.
+You see that the new texture object that we create is very minimal. It only contains the uid. We can ignore all other properties that we saw earlier until we cover them in a new lesson.
 
 ## Reusing textures
 

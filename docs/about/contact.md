@@ -4,13 +4,13 @@ I'd love to hear from you if you have questions about this site, suggestions, or
 
 [![Form](https://img.shields.io/badge/Klaas_Nienhuis-Contact-red)][form]
 
-Or through one of the channels below.
+<!-- Or through one of the channels below.
 
 [![Twitter](https://img.shields.io/badge/Twitter-Follow-blue)][twitter]
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)][linkedin]
 
-[![Sketchfab](https://img.shields.io/badge/Sketchfab-Follow-blue)][sketchfab]
+[![Sketchfab](https://img.shields.io/badge/Sketchfab-Follow-blue)][sketchfab] -->
 
 ## Sketchfab support and links
 
