@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import VueJsonPretty from 'vue-json-pretty';
 import 'vue-json-pretty/lib/styles.css';
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import { useData } from 'vitepress'
+const { isDark } = useData()
 
 const props = defineProps({
   id: {
@@ -28,7 +30,9 @@ const viewerIframeRef = ref(null)
 const tree = ref("");
 const materialTree = ref({});
 const viewerready = ref(false)
-
+const showSidebar = computed(() => {
+  return props.showGraph || props.showMaterials
+})
 const recursePrint = (node) => {
   const name = `${node.instanceID}: ${node.name} (${node.type})`;
   const symbol = node.children?.length
@@ -105,7 +109,7 @@ onMounted(() => {
 
 <template>
   <v-responsive :aspect-ratio="16 / 9" class="w-100">
-    <div v-if="viewerready" class="scenegraph">
+    <div v-if="viewerready && showSidebar" class="scenegraph" :class="{isDark: isDark}">
       <pre v-if="showGraph">{{ tree }}</pre>
       <VueJsonPretty v-if="showMaterials" :data="materialTree" :deep="2" />
     </div>
@@ -124,6 +128,9 @@ onMounted(() => {
   overflow: auto;
   text-align: left;
   pointer-events: all;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.6);
+}
+.scenegraph.isDark {
+  background: rgba(0, 0, 0, 0.6);
 }
 </style>

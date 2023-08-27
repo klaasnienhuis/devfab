@@ -54,10 +54,16 @@ export default defineConfig({
           ]
         },
         {
+          text: 'Camera',
+          items: [
+            { text: 'Camera basics', link: '/guide/camera/' },
+            { text: 'Camera Constraints', link: '/guide/camera/camera-constraints' },
+          ]
+        },
+        {
           text: 'Studio',
           items: [
-            { text: 'Camera', link: '/guide/studio/' },
-            { text: 'Camera Constraints', link: '/guide/studio/camera-constraints' },
+            { text: 'Studio', link: '/guide/studio/' },
           ]
         },
         {

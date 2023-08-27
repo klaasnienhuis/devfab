@@ -6,6 +6,18 @@ import CodePenEmbed from '../../components/CodePenEmbed.vue'
 
 The nodes in a Sketchfab scene are organized in a hierarchy. This hierarchy is called the `SceneGraph`. The SceneGraph is a tree structure, where each node can have children and each child can have children, and so on. While the SceneGraph is harder than the [NodeMap](../objects/nodemap) to work with, it's the best way to understand how a Sketchfab scene is organized.
 
+The nodes in the scenegraph are exactly the same as the nodes from the nodemap. It's the structure that's different. The nodemap is a flat list of nodes. The scenegraph is a tree structure. But they use the exact same nodes.
+
+## Reading the scenegraph
+
+You can get the scenegraph and print it to the console like so:
+
+```js
+api.getSceneGraph(function (err, sceneGraph) {
+  console.log(sceneGraph)
+});
+```
+
 <CodePenEmbed id="rNQQbxz/690d3035ff08a5410d62135261672c7f" />
 
 This is the scenegraph of the scene with the teapot and disc. The original 3D model (created in 3dsMax) contains two objects, called `Teapot001` and `Cylinder001`. These are the hightlighted objects with the ID 3 and 22. 
@@ -31,7 +43,7 @@ The fbx exporter splits each object into two nodes: a `MatrixTransform` and a `G
 
 ## Group nodes
 
-A `Group` node is inserted between the `MatrixTransform` and the `Geometry` node. This is a node that can contain multiple nodes. In this case, the `Group` node contains a single node, the `Geometry` node. It's a result of the way the fbx exporter works. If an object has a single material, the `Group` node contains a single `Geometry` node. If an object has multiple materials, the `Group` node contains multiple `Geometry` nodes, one ofr each material.
+A `Group` node is inserted between the `MatrixTransform` and the `Geometry` node. This is a node that can contain multiple nodes. In this case, the `Group` node contains a single node, the `Geometry` node. It's a result of the way the fbx exporter works. If an object has a single material, the `Group` node contains a single `Geometry` node. If an object has multiple materials, the `Group` node contains multiple `Geometry` nodes, one for each material.
 
 Here's an example of a scene with a single object that has multiple materials. 
 

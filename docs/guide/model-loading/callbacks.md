@@ -14,7 +14,7 @@ client.init("dGUrytaktlDeNudCEGKk31oTJY", {
 });
 ```
 
-We can also hook up our own code. The init function provides two callbacks: `success` and `error`. The success callback is used to perform actions once the model has loaded. You can do many things with the Sketchfab model, but only after is has been started. This calback is the only way to know when that is.
+We can also hook up our own code. The init function provides two callbacks: `success` and `error`. The success callback is used to perform actions once the model has loaded. You can do many things with the Sketchfab model, but only after it has been started. This calback is the only way to know when that is.
 
 In this example, we log a message to the console when the model has been loaded and raise an error when there's an error with loading the sketchfab model.
 

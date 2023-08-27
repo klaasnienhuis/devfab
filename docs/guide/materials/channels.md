@@ -11,7 +11,7 @@ The Sketchfab editor has all the channels neatly organized and tends to hide or 
 
 ## Shader
 
-Sketchfab uses two renderers: PBR and Matcap. The PBR renderer is used for most models. The PBR renderer supports two so-called workflows: Metalness and Specular. Each of these two workflows share a bunch of channels, but also have their own uniwue channels.
+Sketchfab uses two renderers: PBR and Matcap. The PBR renderer is used for most models. The PBR renderer supports two so-called workflows: Metalness and Specular. Each of these two workflows share a bunch of channels, but also have their own unique channels.
 
 ![Renderer](./materials-renderer-editor.jpg)
 

@@ -38,6 +38,10 @@ const findNode = (nodemap, name) => {
 };
 ```
 
+### What is the name?
+
+Working with objects like this, requires you to know the names of your objects. If you don't know the names, you can find out by using the [nodemap](./nodemap) or the [scenegraph](./scenegraph).
+
 ## Hierarchy
 
 When showing or hiding an object, all child objects will be shown or hidden as well. If you'd hide one of the two root nodes, with the `instanceID` 0 or 2, all other objects would be hidden too.
