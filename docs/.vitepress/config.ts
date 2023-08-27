@@ -20,6 +20,7 @@ export default defineConfig({
     },
     nav: [
       { text: 'Guide', link: '/guide/model-loading/getting-started' },
+      { text: 'Projects', link: '/projects/' },
       { text: 'About', link: '/about/' },
     ],
 
@@ -58,12 +59,17 @@ export default defineConfig({
           items: [
             { text: 'Camera basics', link: '/guide/camera/' },
             { text: 'Camera Constraints', link: '/guide/camera/camera-constraints' },
+            { text: 'Rendering', link: '/guide/camera/rendering' },
           ]
         },
         {
           text: 'Studio',
           items: [
-            { text: 'Studio', link: '/guide/studio/' },
+            { text: 'Overview', link: '/guide/studio/' },
+            { text: 'Background', link: '/guide/studio/background' },
+            { text: 'Lights', link: '/guide/studio/lighting' },
+            { text: 'Environment', link: '/guide/studio/environment' },
+            { text: 'Postprocessing', link: '/guide/studio/postprocessing' },
           ]
         },
         {
@@ -72,6 +78,14 @@ export default defineConfig({
             { text: 'Annotations', link: '/guide/annotations/' },
           ]
         },
+      ],
+      '/projects/': [
+        {
+          text: 'Projects',
+          items: [
+            { text: 'Introduction', link: '/projects/' },
+          ]
+        }
       ],
       '/about/': [
         {

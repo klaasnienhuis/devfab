@@ -13,6 +13,9 @@ hero:
     - theme: alt
       text: About
       link: /about/
+    - theme: alt
+      text: Projects
+      link: /projects/
 
 features:
   - title: Embedding
