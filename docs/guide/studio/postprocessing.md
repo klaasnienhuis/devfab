@@ -44,3 +44,7 @@ api.setPostProcessing(
 <CodePenEmbed id="JjwGqea/46d7bcdfdac05d1792a2c757cfe5fcb5" tab="result" />
 
 In this example I first enable the bloom and vignette effects when the scene has loaded. Then the user can drag the sliders to change the intensity of these two effects.
+
+::: info Documentation
+Postprocessing API [documentation](https://sketchfab.com/developers/viewer/functions#api-section-postprocessing)
+:::
