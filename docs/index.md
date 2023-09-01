@@ -37,7 +37,7 @@ features:
     icon:
       light: /icons/newsletter-black.png
       dark: /icons/newsletter-white.png
-    details: Get the latest tutorials whenever devfab.io is updated.
+    details: Sign up to the newsletter.
     link: https://subscribepage.io/Rcju8g
     linkText: Subscribe to updates
 ---

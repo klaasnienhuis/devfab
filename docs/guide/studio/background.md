@@ -30,7 +30,7 @@ api.setBackground({uid: '51af6a870cce449eb75b0345feebaebb'}, function() {
 });
 ```
 
-This background image is identified by a uid `51af6a870cce449eb75b0345feebaebb`, other images will have a different uid. You can find the uids of all the available backgrounds in the developer log of the sketchfab editor. If you have uploaded your own backgrounds, you'll find them there too.
+This background image is identified by a uid `51af6a870cce449eb75b0345feebaebb`, other images will have a different uid. You can find the uids of all the available backgrounds in the developer log of the sketchfab editor. If you have uploaded your own backgrounds, you'll find them there too. You can only use images that you have previously uploaded in the editor. You can't add backgroudn images with the API.
 
 ![background list](./studio-background-list.jpg)
 

@@ -23,7 +23,9 @@ export default defineConfig({
       { text: 'Projects', link: '/projects/' },
       { text: 'About', link: '/about/' },
     ],
-
+    outline: {
+      level: [2, 3],
+    },
     sidebar: {
       '/guide/': [
         {
