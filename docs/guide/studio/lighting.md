@@ -20,11 +20,11 @@ api.getLight(0, function(err, state) {
 
 <CodePenEmbed id="XWoKBqY/3085e42855a2d9bbb54fdcd4e971d81b" tab="result" />
 
-This example scene contains three different lights. One thing that stands out when you get the properties of each of these ligths, is that they all return the same number of properties. This list of properties does not match the properties that are available in the editor. You get some extra properties for certain lights and other properties are not available in the API. We have to make do :raised_eyebrow:
+This example scene contains three different lights: a spotlight, a directional light and a point light. One thing that stands out when you get the properties of each of these ligths, is that they all return the same number of properties (with different values). This list of properties does not match the properties that are available in the editor. You get some extra properties for certain lights and other properties are not available in the API. We have to make do :raised_eyebrow:
 
 ### Spot light
 
-This is the data of the spotlight. I've removed the matrix data for now.
+This is the data of the spotlight. I've removed the matrix data for now. All of these properties are used by the spotlight. We're missing the `Shadows bias` and `Softness` properties.
 
 ```js
 {
@@ -33,11 +33,7 @@ This is the data of the spotlight. I've removed the matrix data for now.
   "matrix": {...},
   "enabled": true,
   "shadowEnabled": true,
-  "color": {
-    "0": 0.42,
-    "1": 0.6,
-    "2": 0.49
-  },
+  "color": [0.42,  0.6, 0.49],
   "intensity": 0.87,
   "angle": 19.2,
   "falloff": 0.00007782915127005909
@@ -50,20 +46,16 @@ And these are the settings from the editor:
 
 ### Directional light
 
-This is the data of the directional light. I've removed the matrix data for now.
+This is the data of the directional light. I've removed the matrix data for now. Only the highlighted lines are used by the directional light. We're missing the `Shadows bias` property.
 
-```js
+```js{2-8}
 {
   "type": "DIRECTION",
   "attached": true,
   "matrix": {...},
   "enabled": true,
   "shadowEnabled": false,
-  "color": {
-    "0": 1,
-    "1": 0.74,
-    "2": 0.36
-  },
+  "color": [0, 0.76, 0.35],
   "intensity": 0.44,
   "angle": 45,
   "falloff": 0.00008901450994447913
@@ -76,20 +68,16 @@ And these are the settings from the editor:
 
 ### Point light
 
-Finally, the data of the point light
+Finally, the data of the point light. Th epoint light uses the least of these properties. We're not missing any properties.
 
-```js
+```js{2,4,5,7,8,10}
 {
   "type": "POINT",
   "attached": false,
   "matrix": {...},
   "enabled": true,
   "shadowEnabled": false,
-  "color": {
-    "0": 0.99,
-    "1": 0,
-    "2": 0.43
-  },
+  "color": [0.99, 0, 0.43],
   "intensity": 1.9,
   "angle": 45,
   "falloff": 0.003413014998977679
@@ -120,7 +108,7 @@ The next example shows how to manipulate some of the settings of the spotlight. 
 
 ### Directional light
 
-This example sets the `shadowEnabled` and `attached` of light `0`. You'll notice that setting the `attached` does not work even though it's available in the API. The `shadowEnabled` property does work.
+This example sets the `shadowEnabled` and `attached` of light `0`. You'll notice that setting the `attached` does not work even though it's available in the API. This setting seems to be broken. The `shadowEnabled` property does work.
 
 <CodePenEmbed id="GRPqwNV/4df48cea2699e94df0674557bce0fb9c" tab="result" />
 
