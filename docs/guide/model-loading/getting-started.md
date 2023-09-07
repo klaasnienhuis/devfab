@@ -1,3 +1,9 @@
+---
+title: Getting started with Sketchfab
+description: Create your first webpage with a Sketchfab model
+tag: [sketchfab, api, model-loading]
+---
+
 <script setup>
 import CodePenEmbed from '../../components/CodePenEmbed.vue'
 </script>

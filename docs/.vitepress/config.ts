@@ -1,8 +1,19 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig, HeadConfig  } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  head: [],
+  transformHead: ({ pageData }) => {
+    const head: HeadConfig[] = [['meta', {property: 'og:author', content: 'Klaas Nienhuis'}]]
+
+    head.push(['meta', { property: 'og:title', content: pageData.frontmatter.title }])
+    head.push(['meta', { property: 'og:description', content: pageData.frontmatter.description }])
+    head.push(['meta', { property: 'og:tag', content: pageData.frontmatter.tag }])
+    
+    return head
+  },
+  // head: [
+  //   ['meta', {name: 'og:author', content: 'Klaas Nienhuis'}],
+  // ],
   vite: {
     ssr: {
       noExternal: [ /\.css$/, /^vuetify/ ],
