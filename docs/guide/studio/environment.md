@@ -62,7 +62,7 @@ Pine Tree Arch: e2aa1ab3582c4feab7371baf1e4cd734
 Studio 2: efd4ef0fc18a4ec0a1313d782fade965
 ```
 
-## Changing the environment
+## Changing environment settings
 
 You can change the environment with the `setEnvironment` method. It takes an object with settings, including the uid of the environment. You don't have to provide all settings, only the ones you want to change. 
 
@@ -83,4 +83,30 @@ api.setEnvironment({
 
 This example shows how you can manipulate the settings of the existing environment. Take care when dealing with rotations. The value is in radians, not degrees. Rotating the environment by 90 degrees would be `Math.PI / 2`.
 
-// TODO: add example with setting the environment uid. Deal with the default settings that you might want to overwrite.
+Please note the `blur` setting that sets the blur of the background and doesn't affect the environment. This is a bit confusing.
+
+## Changing the environment map
+
+You can use the `setEnvironment` method to swap out the environment map. Use the `uid` property.
+
+```js
+api.setEnvironment({ uid: 'e73867d210de4bc2b5eb261738cf3e79' });
+```
+
+<CodePenEmbed id="xxmgWxE/58d72b75ed177e4ab5b144d448b9b617" tab="result" />
+
+In this example, you'll notice something weird. The top button applies an environment with low exposure. The lighting should be very dark, but when you press the button, it's quite bright. Only until you press the button a second time, the dark lighting is applied. This is very probably due to default settings that ship with every environment map. You can see this effect in the Sketchfab editor as well. When you switch between environment maps, the lighting values change too even though you didn't touch them.
+
+To avoid this, we need to call `setEnvironment` twice. Once to change the environment map and once to apply our own settings instead of the default ones. We'll use the callback of `setEnvironment` to make sure the second call is only executed after the first one is done.
+
+```js
+api.setEnvironment({ uid: uid }, function () {
+  api.setEnvironment(settings);
+});
+```
+
+The first API call only applies the uid of the environment map. The second call applies the settings. This way, we can make sure the settings are applied after the environment map is loaded and we override the defaults.
+
+<CodePenEmbed id="GRPrxNB/6110888b69ae520e2ad33e07fbdfb352" tab="result" />
+
+This example uses the exact same ligthing settings as teh previous example. But here we split the `setEnvironment` call in two. You'll see that here, one buttonpress suffices to get the environment we want. In the previous example it took two buttonpresses.
