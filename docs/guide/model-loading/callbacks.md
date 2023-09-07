@@ -1,3 +1,9 @@
+---
+title: Callbacks after loading a model
+description: Get a callback after loading a Sketchfab model to start working with it
+tag: [sketchfab, api, callback]
+---
+
 <script setup>
 import CodePenEmbed from '../../components/CodePenEmbed.vue'
 </script>

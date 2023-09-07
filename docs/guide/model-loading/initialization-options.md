@@ -1,3 +1,9 @@
+---
+title: Sketchfab Initialization options
+description: Load your Sketchfab model with the right bhaavior and appearance
+tag: [sketchfab, api, initialization-options]
+---
+
 <script setup>
 import ModelLoading from '../../components/ModelLoading.vue'
 import CodePenEmbed from '../../components/CodePenEmbed.vue'

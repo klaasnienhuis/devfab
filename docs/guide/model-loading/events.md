@@ -1,3 +1,9 @@
+---
+title: Event listeners for the Sketchfab model
+description: Find out when stuff is happening with the Sketchfab model with events
+tag: [sketchfab, api, events]
+---
+
 <script setup>
 import CodePenEmbed from '../../components/CodePenEmbed.vue'
 </script>
