@@ -1,5 +1,5 @@
 ---
-title: Getting started with Sketchfab
+title: Getting started with the Sketchfab API
 description: Create your first webpage with a Sketchfab model
 tag: [sketchfab, api, model-loading]
 ---
