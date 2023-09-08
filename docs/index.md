@@ -1,4 +1,8 @@
 ---
+title: Learn the Sketchfab API
+description: Create your own interactive 3D experiences with Sketchfab
+tag: [sketchfab, api, tutorials]
+
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
 
