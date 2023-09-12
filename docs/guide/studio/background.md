@@ -52,7 +52,7 @@ api.setBackground({enable: 'environment'}, function() {
 
 *We can only turn the environment on, but some of the other settings are unavailable to the API*
 
-The Blur of the environment background can be controlled by adjusting the environment settings, not the background settings. It seems we only have the blur levels, but not the "Ambient environment" which is super blurry. The Brightness of the background is tied to teh exposure of the environment. Read more about this in the [environment](/guide/studio/environment#changing-environment-settings) tutorial.
+The Blur of the environment background can be controlled by adjusting the environment settings, not the background settings. It seems we only have the blur levels, but not the "Ambient environment" which is super blurry. The Brightness of the background is tied to the exposure of the environment. Read more about this in the [environment](/guide/studio/environment#changing-environment-settings) tutorial.
 
 <CodePenEmbed id="VwqagPx/5e3de4b40293988c9a6f6fe9840355d2" tab="result" />
 

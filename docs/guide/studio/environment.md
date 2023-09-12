@@ -109,4 +109,4 @@ The first API call only applies the uid of the environment map. The second call 
 
 <CodePenEmbed id="GRPrxNB/6110888b69ae520e2ad33e07fbdfb352" tab="result" />
 
-This example uses the exact same ligthing settings as teh previous example. But here we split the `setEnvironment` call in two. You'll see that here, one buttonpress suffices to get the environment we want. In the previous example it took two buttonpresses.
+This example uses the exact same ligthing settings as the previous example. But here we split the `setEnvironment` call in two. You'll see that here, one buttonpress suffices to get the environment we want. In the previous example it took two buttonpresses.
