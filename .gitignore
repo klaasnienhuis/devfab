@@ -2,3 +2,5 @@
 /sketchfab-model-loading-getting-started
 /sketchfab-model-loading-getting-started.zip
 docs/.vitepress/dist/
+
+docs/.vitepress/cache/deps/
