@@ -1,4 +1,7 @@
-import { defineConfig, HeadConfig  } from 'vitepress'
+import { createContentLoader, defineConfig, HeadConfig  } from 'vitepress'
+import { SitemapStream } from 'sitemap'
+import { createWriteStream } from 'node:fs'
+import { resolve } from 'node:path'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -11,6 +14,24 @@ export default defineConfig({
     
     return head
   },
+  lastUpdated: true,
+  buildEnd: async ({ outDir }) => {
+    const sitemap = new SitemapStream({ hostname: 'https://devfab.io/' })
+    const pages = await createContentLoader('**/*.md').load()
+    const writeStream = createWriteStream(resolve(outDir, 'sitemap.xml'))
+
+    sitemap.pipe(writeStream)
+    pages.forEach((page) => sitemap.write(
+      page.url
+        // Strip `index.html` from URL
+        .replace(/index.html$/g, '')
+        // Optional: if Markdown files are located in a subfolder
+        .replace(/^\/guide/, '')
+      ))
+    sitemap.end()
+
+    await new Promise((r) => writeStream.on('finish', r))
+  },  
   // head: [
   //   ['meta', {name: 'og:author', content: 'Klaas Nienhuis'}],
   // ],
