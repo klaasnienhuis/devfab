@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue'
 import { useData } from 'vitepress'
 const { isDark } = useData()
 
 const playersettings = {
   autostart: 1,
+  transparent: 1,
   scrollwheel: 0,
   ui_controls: 0,
   ui_infos: 0,
@@ -27,6 +28,10 @@ const constraints = {
   usePanConstraints: true,
   target: [0, 0, 0.08]
 };
+const backgrounds = {
+  light: [255,255,255],
+  dark: [97,97,100]
+}
 
 const scenenodes = {
   rootMatrixNode: null,
@@ -120,16 +125,7 @@ const applyColors = async (colorname) => {
       scenematerials[key].channels.AlbedoPBR.color = maincolor;
   });
 
-  // // set the colors on the relevant materials
-  // scenematerials["aluminium-color"].channels.AlbedoPBR.color = maincolor;
-  // scenematerials["logo"].channels.AlbedoPBR.color = maincolor;
-  // scenematerials["screen"].channels.AlbedoPBR.texture = maincolor;
-  // scenematerials["glass-clear-color"].channels.AlbedoPBR.color = maincolor;
-  // scenematerials["glass-clear-color"].channels.AlbedoPBR.color = maincolor;
-  // scenematerials["body-back"].channels.AlbedoPBR.color = maincolor;
-  // scenematerials["metal-screws"].channels.AlbedoPBR.color = maincolor;
-  // scenematerials["plastic-color"].channels.AlbedoPBR.color = plasticcolor;
-  // scenematerials["plastic-color-edges"].channels.AlbedoPBR.color = plasticcolor;
+  // set the colors on the relevant materials
   scenematerials["screen"].channels.EmitColor.texture = { uid };
 
   // apply the adjusted materials to the scene
@@ -172,6 +168,16 @@ const findNode = (nodemap, name) => {
   });
 };
 
+const setBackground = () => {
+  const color = gammaCorrectRgb(backgrounds[isDark.value ? 'dark' : 'light'])
+  const backgroundSetting = { color}
+  if (api.value)
+    api.value.setBackground(backgroundSetting, function (err) {});
+}
+
+watch(isDark, () => {
+  setBackground()
+})
 onMounted(() => {
   import('@sketchfab/viewer-api').then((module) => {
     const client = new module.default('1.12.1', viewerIframeRef.value);
@@ -201,6 +207,10 @@ onMounted(() => {
           _api.setEnableCameraConstraints(true, {});
           _api.setCameraLookAt([0, 0.5, 0.08], [0, 0, 0.08], 1, function (err) {});
         });
+        setBackground()
+//         _api.setBackground({transparent: true}, function() {
+//     window.console.log('Background changed');
+// });
       });
       api.value = _api
     },
@@ -215,17 +225,22 @@ onMounted(() => {
 
 <template>
   <v-responsive :aspect-ratio="4 / 3" class="w-100">
-    <div v-if="viewerready" class="scenegraph" :class="{isDark: isDark}">
-    </div>
-    <iframe style="border: 0" id="api-iframe" ref="viewerIframeRef" class="w-100 h-100"></iframe>
+    <!-- <div class="w-100 h-100 absolute top-0" :class="[isDark ? 'bg-purple-600' : 'bg-lime-300']"></div> -->
+    <iframe style="border: 0" id="api-iframe" ref="viewerIframeRef" class="w-100 h-100 absolute"></iframe>
     <div class="w-full h-16 absolute bottom-0 flex justify-center content-center space-x-3">
       <RadioGroup v-model="selectedColor">
-        <div class="h-14 flex items-center space-x-3 bg-gray-100 rounded-full p-4 ring-1 ring-black/10">
+        <div 
+          class="h-14 flex items-center space-x-3 rounded-full p-4 ring-1"
+          :class="[
+            isDark ? 'bg-gray-800 ring-white/10' : 'bg-gray-100 ring-black/10',
+          ]"
+        >
           <RadioGroupOption as="template" v-for="color in colors" :key="color.name" :value="color" v-slot="{ active, checked }"  @click="applyColors(color.name)">
             <div :class="[
               active && checked ? 'ring ring-offset-1' : '',
               !active && checked ? 'ring-2' : '',
-              'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-900 shadow-inner '
+              isDark ? 'ring-gray-100' : 'ring-gray-900',
+              'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none shadow-inner '
             ]">
               <span aria-hidden="true" :class="[color.bgColor, 'h-6 w-6 rounded-full border border-black border-opacity-10']" />
             </div>
@@ -233,7 +248,12 @@ onMounted(() => {
         </div>
       </RadioGroup>
       <RadioGroup v-model="selectedSize">
-        <div class="h-14 flex items-center bg-gray-100 rounded-full p-1 ring-1 ring-black/10">
+        <div 
+          class="h-14 flex items-center bg-gray-100 rounded-full p-1 ring-1"
+          :class="[
+            isDark ? 'bg-gray-800 ring-white/10' : 'bg-gray-100 ring-black/10',
+          ]"
+        >
           <RadioGroupOption as="template" v-for="size in sizes" :key="size.name" :value="size" v-slot="{ active, checked }"  @click="showSize(size.name)">
             <div :class="[
               'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none '
@@ -241,7 +261,8 @@ onMounted(() => {
               <RadioGroupLabel as="span" class="sr-only">{{ size.title }}</RadioGroupLabel>
               <span aria-hidden="true" :class="[
                 'content-center flex items-center justify-center font-semibold',
-                checked ? 'bg-gray-800 text-white' : '',
+                checked && !isDark ? 'bg-gray-800 text-white' : '',
+                checked && isDark ? 'bg-gray-100 text-black' : '',
                 'h-12 w-12 rounded-full']"
               >{{ size.title }}</span>
             </div>

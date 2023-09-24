@@ -13,9 +13,9 @@ import CodePenEmbed from '../components/CodePenEmbed.vue'
 
 <PhoneExperience />
 
-Let's create a product showcase for a phone. A 3D product showcase should show the product in a compelling way. Because we're using 3D models, we can add interactivity. But let's not overdo it. We want to show the product, not the interactivity. The interactivity should be subtle and enhance the experience. 
+Let's create a product showcase for a phone. A 3D product showcase should show the product in a compelling way. Because we're using 3D models, we can add interactivity. But let's not overdo it. We want to show the product, not show off 3D tech. The interactivity should be subtle and enhance the experience. 
 
-I will point to the relevant sections in the guide to explain the principles behing the code.
+I will point to the relevant sections in the guide to explain the principles behing the code. If this is your first time working with the Sketchfab API, I recommend you start with the [Getting started](../guide/model-loading/getting-started.html) tutorial.
 
 ## Features
 
@@ -34,7 +34,7 @@ The 3D model is based on a model from the Sketchfab store. It's been modified to
 
 The model contains two phones. A 6.1" model and a 6.7" model. We can switch between them by hiding and showing the right parts of the model. 
 
-Check out the [Showing and hiding](../guide/objects/object-visibiliy.html) tutorial for the basiscs of this technique.
+Check out the [Showing and hiding](../guide/objects/object-visibility) tutorial for the basiscs of this technique.
 
 This part of the code searches the nodemap for the two objects I want to target: `iPhone_15_Plus_v1_002` and `iPhone_15_v1_002`. I store the instanceID's in an object called `scenenodes`. Once I have the instanceID's, I can use them to `show` and `hide` the objects.
 
@@ -61,7 +61,7 @@ api.hide(scenenodes["iPhone_15_Plus_v1_002"]);
 
 <CodePenEmbed id="eYbVQGg/af4e7ca6fad2dd77b909c101e8ed5177" tab="result" />
 
-Let's add some movement to the phones. When toggling between the phone sizes, we should put the active phone in the center of the screen. We can do this by moving the model. We haven't covered moving teh model yet. The process is quite straightforward. First we need to find the instanceID of the object we want to move, then we can move it. In our example, we want to move the root of the scene.
+Let's add some movement to the phones. When toggling between the phone sizes, we should put the active phone in the center of the screen. We can do this by moving the model. We haven't covered moving models yet in teh guide. The process is quite straightforward. First we need to find the instanceID of the object we want to move, then we can move it. In our example, we want to move the root of the scene.
   
 Look at [Get the rootnode](../guide/objects/rootnode.html) to learn how to get the instanceID of the root node. Read the Sketchfab docs about [translating](https://sketchfab.com/developers/viewer/functions#api-translate) to learn how to move the model.
 
@@ -82,7 +82,7 @@ api.addEventListener("viewerready", () => {
 
 ### Camera constraints
 
-To get an easy-to-understand experience, we should remove some freedom to navigate the scene. Only orbit the camera, don't allow zooming or panning. That helps to focus on the product. It also makes it easy to embed the product showcase on a website. The user can't get lost in the scene.
+To get an easy-to-understand experience, we should reduce the freedom users have navigating the scene. Only orbit the camera, don't allow zooming or panning. That helps to focus on the product. It also makes it easy to embed the product showcase on a website. The user can't get lost in the scene.
 
 Here we disable panning, and set the camera target to the center of the phone. We also se the initial camera position to look at the center of the phone from the front. Read about camera constraints here: [Camera constraints](../guide/camera/camera-constraints.html)
 
@@ -99,7 +99,6 @@ api.setCameraConstraints(constraints, function (err) {
 
 We can block the scrollwheel, and effectively disable zooming, with the init parameter `scrollwheel: 0`. Read more about init parameters here: [Initialization options](../guide/model-loading/initialization-options.html#behavior-and-appearance)
 
-```js
 
 ## Colors
 
@@ -132,7 +131,7 @@ api.getMaterialList(function (err, materials) {
 Now that we have the materials, we can change the colors. In most of the materials, we can change the `AlbedoPBR` color. On the screen we want to exchange the texture. I use several topics from the guide to make this happen:
 
 - [Change material color](../guide/materials/colors.html). Also takes care of the gamma correction
-- [Change material texture](../guide/materials/textures.html#reusing-textures)
+- [Change material texture](../guide/materials/textures.html#reusing-textures). Also tackles reusing a texture.
 
 To easily manage the colors, I've created an object containing the color values and texture URL's
 
@@ -218,7 +217,7 @@ Object.keys(scenematerials).forEach((key) => {
 
 ## Assembling the code
 
-Now that we have all the elements, we can assemble it into a working example. The example at the top of the page contains nice styling with CSS. In teh following CodePen example, I've left out the fancy CSS. This helps to focus on the code, and makes it a bit easier to reuse.
+Now that we have all the elements, we can assemble it into a working example. The example at the top of the page contains nice styling with CSS. In the following CodePen example, I've left out the fancy CSS. This helps to focus on the code, and makes it a bit easier to reuse.
 
 
 <CodePenEmbed id="ZEVrdRL/b7f7824da4001dbc1fe46ee3aab63503" tab="result" />
