@@ -227,10 +227,10 @@ onMounted(() => {
   <v-responsive :aspect-ratio="4 / 3" class="w-100">
     <!-- <div class="w-100 h-100 absolute top-0" :class="[isDark ? 'bg-purple-600' : 'bg-lime-300']"></div> -->
     <iframe style="border: 0" id="api-iframe" ref="viewerIframeRef" class="w-100 h-100 absolute"></iframe>
-    <div class="w-full h-16 absolute bottom-0 flex justify-center content-center space-x-3">
+    <div class="w-full h-10 md:h-16 absolute bottom-0 flex justify-center content-center space-x-3">
       <RadioGroup v-model="selectedColor">
         <div 
-          class="h-14 flex items-center space-x-3 rounded-full p-4 ring-1"
+          class="h-8 md:h-14 flex items-center space-x-3 rounded-full p-4 ring-1"
           :class="[
             isDark ? 'bg-gray-800 ring-white/10' : 'bg-gray-100 ring-black/10',
           ]"
@@ -242,14 +242,14 @@ onMounted(() => {
               isDark ? 'ring-gray-100' : 'ring-gray-900',
               'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none shadow-inner '
             ]">
-              <span aria-hidden="true" :class="[color.bgColor, 'h-6 w-6 rounded-full border border-black border-opacity-10']" />
+              <span aria-hidden="true" :class="[color.bgColor, 'h-4 w-4 md:h-6 md:w-6 rounded-full border border-black border-opacity-10']" />
             </div>
           </RadioGroupOption>
         </div>
       </RadioGroup>
       <RadioGroup v-model="selectedSize">
         <div 
-          class="h-14 flex items-center bg-gray-100 rounded-full p-1 ring-1"
+          class="h-8 md:h-14 flex items-center bg-gray-100 rounded-full md:p-1 ring-1"
           :class="[
             isDark ? 'bg-gray-800 ring-white/10' : 'bg-gray-100 ring-black/10',
           ]"
@@ -260,10 +260,10 @@ onMounted(() => {
             ]">
               <RadioGroupLabel as="span" class="sr-only">{{ size.title }}</RadioGroupLabel>
               <span aria-hidden="true" :class="[
-                'content-center flex items-center justify-center font-semibold',
+                'content-center flex items-center justify-center font-semibold text-sm md:text-xl',
                 checked && !isDark ? 'bg-gray-800 text-white' : '',
                 checked && isDark ? 'bg-gray-100 text-black' : '',
-                'h-12 w-12 rounded-full']"
+                'h-8 w-8 md:h-12 md:w-12 rounded-full']"
               >{{ size.title }}</span>
             </div>
           </RadioGroupOption>
