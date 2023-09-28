@@ -6,7 +6,12 @@ import { resolve } from 'node:path'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   transformHead: ({ pageData }) => {
-    const head: HeadConfig[] = [['meta', {property: 'og:author', content: 'Klaas Nienhuis'}]]
+    const head: HeadConfig[] = [
+      ['meta', {property: 'og:author', content: 'Klaas Nienhuis'}],
+      ['meta', {property: 'og:title', content: 'Learn the Sketchfab API'}],
+      ['meta', {property: 'og:description', content: 'Create your own interactive 3D experiences with Sketchfab'}],
+      ['meta', {property: 'og:tag', content: '[sketchfab, api, tutorials]'}],
+    ]
 
     head.push(['meta', { property: 'og:title', content: pageData.frontmatter.title }])
     head.push(['meta', { property: 'og:description', content: pageData.frontmatter.description }])

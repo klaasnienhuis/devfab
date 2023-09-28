@@ -1,3 +1,9 @@
+---
+title: Edit the environment in your 3D model with the Sketchfab API
+description: Pick an environment for your 3D model and change its settings with the Sketchfab API
+tag: [sketchfab, api, environment]
+---
+
 <script setup>
 import CodePenEmbed from '../../components/CodePenEmbed.vue'
 </script>

@@ -27,16 +27,22 @@ features:
       light: /icons/embed-black.png
       dark: /icons/embed-white.png
     details: Use 3D models in your website and customize the experience by changing appearance and behavior of the model.
+    link: /guide/model-loading/getting-started
+    linkText: Getting started
   - title: Objects
     icon:
       light: /icons/objects-black.png
       dark: /icons/objects-white.png
     details: Understand the structure of your models and how to manipulate objects with the API.
+    link: /guide/objects/nodemap
+    linkText: Objects
   - title: Materials
     icon:
       light: /icons/materials-black.png
       dark: /icons/materials-white.png
     details: Change the appearance of your models by changing materials and textures.
+    link: /guide/materials/
+    linkText: Materials
   - title: Updates
     icon:
       light: /icons/newsletter-black.png
