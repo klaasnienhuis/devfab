@@ -5,19 +5,70 @@ import { resolve } from 'node:path'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  transformHead: ({ pageData }) => {
-    const head: HeadConfig[] = [
-      ['meta', {property: 'og:author', content: 'Klaas Nienhuis'}],
-      ['meta', {property: 'og:title', content: 'Learn the Sketchfab API'}],
-      ['meta', {property: 'og:description', content: 'Create your own interactive 3D experiences with Sketchfab'}],
-      ['meta', {property: 'og:tag', content: '[sketchfab, api, tutorials]'}],
-    ]
-
-    head.push(['meta', { property: 'og:title', content: pageData.frontmatter.title }])
-    head.push(['meta', { property: 'og:description', content: pageData.frontmatter.description }])
-    head.push(['meta', { property: 'og:tag', content: pageData.frontmatter.tag }])
+  // transformHead: ({ pageData }) => {
+  //   const head: HeadConfig[] = [
+  //     ['meta', {name: 'og:author', content: 'Klaas Nienhuis'}],
+  //     // ['meta', {property: 'og:title', content: 'Learn the Sketchfab API'}],
+  //     ['meta', {property: 'og:description', content: 'Create your own interactive 3D experiences with Sketchfab'}],
+  //     ['meta', {property: 'og:tag', content: '[sketchfab, api, tutorials]'}],
+  //   ]
     
-    return head
+  //   head.push(['meta', { 
+  //     name: 'og:title',
+  //     content: 
+  //       pageData.frontmatter.title ? pageData.frontmatter.title : 'Learn the Sketchfab API'
+  //   }])
+  //   head.push(['meta', { property: 'og:description', content: pageData.frontmatter.description }])
+  //   head.push(['meta', { property: 'og:tag', content: pageData.frontmatter.tag }])
+    
+  //   return head
+  // },
+  transformPageData(pageData) {
+    pageData.frontmatter.head ??= []
+    pageData.frontmatter.head.push([
+      'meta',
+      {
+        name: 'og:author',
+        content: 'Klaas Nienhuis'
+      }
+    ])
+    pageData.frontmatter.head.push([
+      'meta',
+      {
+        name: 'og:type',
+        content: 'article'
+      }
+    ])
+    pageData.frontmatter.head.push([
+      'meta',
+      {
+        name: 'og:title',
+        content:
+          pageData.frontmatter.title
+            ? pageData.frontmatter.title
+            : 'Learn the Sketchfab API'
+      }
+    ])
+    pageData.frontmatter.head.push([
+      'meta',
+      {
+        property: 'og:description',
+        content:
+          pageData.frontmatter.description
+            ? pageData.frontmatter.description
+            : 'Create your own interactive 3D experiences with Sketchfab'
+      }
+    ])
+    pageData.frontmatter.head.push([
+      'meta',
+      {
+        property: 'og:image',
+        content:
+          pageData.frontmatter.image
+            ? pageData.frontmatter.image
+            : '/images/og-devfab.jpg'
+      }
+    ])
   },
   lastUpdated: true,
   buildEnd: async ({ outDir }) => {
