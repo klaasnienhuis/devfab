@@ -165,7 +165,9 @@ export default defineConfig({
         {
           text: 'Annotations',
           items: [
-            { text: 'Annotations', link: '/guide/annotations/' },
+            { text: 'Overview', link: '/guide/annotations/' },
+            { text: 'Menu and embedding', link: '/guide/annotations/menu' },
+            { text: 'Navigation', link: '/guide/annotations/navigation' },
           ]
         },
       ],
