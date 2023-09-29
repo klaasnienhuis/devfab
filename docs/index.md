@@ -22,11 +22,18 @@ hero:
       link: /projects/
 
 features:
+  - title: Newsletter
+    icon:
+      light: /icons/newsletter-black.png
+      dark: /icons/newsletter-white.png
+    details: Sign up to the newsletter.
+    link: https://subscribepage.io/Rcju8g
+    linkText: Subscribe to updates
   - title: Embedding
     icon:
       light: /icons/embed-black.png
       dark: /icons/embed-white.png
-    details: Use 3D models in your website and customize the experience by changing appearance and behavior of the model.
+    details: Use 3D models in your website and change appearance and behavior of the model.
     link: /guide/model-loading/getting-started
     linkText: Getting started
   - title: Objects
@@ -43,11 +50,25 @@ features:
     details: Change the appearance of your models by changing materials and textures.
     link: /guide/materials/
     linkText: Materials
-  - title: Updates
+  - title: Camera
     icon:
-      light: /icons/newsletter-black.png
-      dark: /icons/newsletter-white.png
-    details: Sign up to the newsletter.
-    link: https://subscribepage.io/Rcju8g
-    linkText: Subscribe to updates
+      light: /icons/camera-black.png
+      dark: /icons/camera-white.png
+    details: Control the camera to get the best user experience possible.
+    link: /guide/camera/
+    linkText: Camera
+  - title: Studio
+    icon:
+      light: /icons/studio-black.png
+      dark: /icons/studio-white.png
+    details: Determine the looks with the background, lighting, environment and postprocessing.
+    link: /guide/studio/
+    linkText: Studio
+  - title: Annotations
+    icon:
+      light: /icons/annotation-black.png
+      dark: /icons/annotation-white.png
+    details: Guide users through your 3D model with annotations.
+    link: /guide/annotations/
+    linkText: Annotations
 ---
