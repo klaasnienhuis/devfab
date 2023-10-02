@@ -45,22 +45,27 @@ There are situations where you want to limit the pan, but still make it possible
 
 <CodePenEmbed id="NWeGBJL/4a4a610cccfdbfeb5eb747745a1fb659" tab="result" />
 
-The camera movement in this example is rather complex. We want to move the camera, but also have constraints. But if we move the camera with the API and it hits one of the constraints (for example a zoom constraint) the camera stops moving. To work around this we will do the following when we want to move the camera:
+The camera movement in this example is rather complex. We want to move the camera, but also have constraints. But if we move the camera with the API and it hits one of the constraints (for example a zoom constraint) the camera stops moving. And whilte this is all happening, I want to disable mouse interaction. To work around this we will do the following when we want to move the camera:
 
 1. Disable the constraints
-2. Move the camera
-3. Wait until the camera has stopped moving
-4. Update the constraint settings
-5. Enable the constraints
+2. Disable camera interaction
+3. Move the camera
+4. Wait until the camera has stopped moving
+5. Enable camera interaction
+6. Update the constraint settings
+7. Enable the constraints
 
 Because Sketchfab works with callbacks, we can't just write this in a linear way. We need to nest the callbacks. This is called a callback hell. It's not pretty.
 
 ```js
-api.setEnableCameraConstraints(false, {}, function (err) {
-  api.setCameraLookAt(position, target, 2, function (err) {
-    api.setCameraLookAtEndAnimationCallback(function (err) {
-      api.setCameraConstraints(constraints, function (err) {
-        api.setEnableCameraConstraints(true, {});
+api.setEnableCameraConstraints(false, {}, () => {
+  api.setUserInteraction(false, () => {
+    api.setCameraLookAt(position, target, 2, () => {
+      api.setCameraLookAtEndAnimationCallback(() => {
+        api.setUserInteraction(true);
+        api.setCameraConstraints(settings, () => {
+          api.setEnableCameraConstraints(true, {});
+        });
       });
     });
   });
