@@ -9,6 +9,8 @@ Annotations are a great way to add interactivity to your 3D models. They can be 
 
 ![annotation overview](./annotation-overview.jpg)
 
+*The Woodland Pumpkin Encounter by [VanillaBurp](https://sketchfab.com/Vanillaburp)*
+
 ## Anatomy of annotations
 
 The annotation system consists of three parts:
