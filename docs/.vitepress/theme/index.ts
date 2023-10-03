@@ -2,6 +2,7 @@
 import { h } from 'vue'
 import Theme from 'vitepress/theme'
 import './style.css'
+import '../../../src/index.css'
 import "vuetify/styles";
 import { createVuetify } from "vuetify";
 import * as components from 'vuetify/components'

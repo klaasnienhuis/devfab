@@ -177,6 +177,7 @@ export default defineConfig({
           text: 'Projects',
           items: [
             { text: 'Introduction', link: '/projects/' },
+            { text: 'Phone Showcase', link: '/projects/phone' },
           ]
         }
       ],
