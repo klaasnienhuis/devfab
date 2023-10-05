@@ -2,6 +2,7 @@
 title: Product showcase with the Sketchfab API
 description: Create a 3D product showcase with the Sketchfab API
 tags: [sketchfab, api, product-showcase]
+image: /images/og-product-showcase.jpg
 ---
 
 <script setup>
