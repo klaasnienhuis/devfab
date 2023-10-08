@@ -13,14 +13,60 @@ const playersettings = {
   ui_stop: 0,
 };
 
+const colors = {
+  silver: { rgb: [157, 157, 157], hex: "#c4c4c4" },
+  sunrise: { rgb: [214, 164, 67], hex: "#d6a443" },
+  lagoon: { rgb: [53, 113, 137], hex: "#357189" },
+};
 const state = reactive({
   steps: {
-    0: { name: "Step 1", status: "upcoming", align: "left" },
-    1: { name: "Step 2", status: "upcoming", align: "left" },
-    2: { name: "Step 3", status: "upcoming", align: "left" },
-    3: { name: "Step 4", status: "upcoming", align: "right" },
-    4: { name: "Step 5", status: "upcoming", align: "right" },
-    5: { name: "Step 5", status: "upcoming", align: "right" },
+    0: {
+      title: "4040X General Examination Table",
+      status: "upcoming",
+      align: "right",
+      text: "A new, versatile general examination table. The all-new 4040X general examination table is suitable for general examinations in different healthcare facilities",
+    },
+    1: {
+      title: "Side rails",
+      status: "upcoming",
+      align: "left",
+      text: "",
+      src: "./side-rails.jpg",
+      toggle: "handle",
+    },
+    2: {
+      title: "Foot control",
+      status: "upcoming",
+      align: "left",
+      text: "A two-piece hands-free height adjustment bar is available as an option, enabling the table height and back section to be adjusted from both sides of the table by foot.",
+    },
+    3: {
+      title: "Central locking castors",
+      status: "upcoming",
+      align: "left",
+      text: "Central locking conductive twin castors Ø125 mm or Ø 150 mm",
+    },
+    4: {
+      title: "Trendelenburg adjustment",
+      status: "upcoming",
+      align: "right",
+      text: "Manual Trendelenburg adjustment (max. 12°) with lever at foot end",
+      src: "./trendelenburg.jpg",
+    },
+    5: {
+      title: "Paper roll stand",
+      status: "upcoming",
+      align: "right",
+      text: "Paper roll stand and cutter",
+      toggle: "paper",
+    },
+    6: {
+      title: "Upholstery",
+      status: "upcoming",
+      align: "right",
+      text: "Featuring a slightly pearlescent finish, the stylish Future is an environmentally friendly and fire safety tested upholstery material in the Lojer upholstery range. Its antibacterial, antimicrobial and mold-proofing.",
+      colors: true,
+    },
   },
 });
 
@@ -28,14 +74,23 @@ const viewerIframeRef = ref(null);
 const viewerready = ref(false);
 const api = ref(null);
 const annotationTitle = ref("");
+const annotationText = ref("");
+const annotationSrc = ref(null);
+const annotationToggle = ref(null);
+const annotationColors = ref(null);
 const currentId = ref(0);
 const maxId = ref(0);
+const skaiMaterial = ref(null);
 
 const currentAlignment = computed(() => state.steps[currentId.value].align);
 const showAnnotationDetails = (api, id) => {
   state.steps[id].status = "current";
   api.getAnnotation(id, (err, info) => {
-    annotationTitle.value = info.name;
+    annotationTitle.value = state.steps[id].title;
+    annotationText.value = state.steps[id].text;
+    annotationSrc.value = state.steps[id].src;
+    annotationToggle.value = state.steps[id].toggle;
+    annotationColors.value = state.steps[id].colors;
     // elData.innerHTML = info.content.raw;
     // elImage.src = info.preview;
   });
@@ -59,6 +114,20 @@ const previousAnnotation = () => {
   gotoAnnotation(api.value, currentId.value);
 };
 
+function gammaCorrectRgb(rgb) {
+  return rgb.map((v) => Math.pow(v / 255, 2.2));
+}
+
+const applyColors = async (colorname) => {
+  // gamma correct colors and load texture
+  const maincolor = gammaCorrectRgb(colors[colorname].rgb);
+  console.log("maincolor", maincolor);
+  skaiMaterial.value.channels.AlbedoPBR.color = maincolor;
+  console.log("skaiMaterial.value", skaiMaterial.value);
+  // apply the adjusted materials to the scene
+  api.value.setMaterial(JSON.parse(JSON.stringify(skaiMaterial.value)));
+};
+
 onMounted(() => {
   import("@sketchfab/viewer-api").then((module) => {
     const client = new module.default("1.12.1", viewerIframeRef.value);
@@ -68,6 +137,13 @@ onMounted(() => {
           _api.getAnnotationList((err, annotations) => {
             maxId.value = annotations.length - 1;
             gotoAnnotation(_api, 0);
+          });
+          _api.getSceneGraph((err, nodemap) => {
+            console.log("nodemap", nodemap);
+          });
+          _api.getMaterialList((err, materials) => {
+            skaiMaterial.value = materials.find((m) => m.name === "Skai");
+            applyColors("silver");
           });
           viewerready.value = true;
         });
@@ -100,22 +176,37 @@ onMounted(() => {
       <div class="h-full w-full pa-4">
         <v-scale-transition>
           <div
-            class="bg-white border border-gray-200 h-full w-56 rounded-2xl shadow-lg pointer-events-auto mr-auto"
-            v-if="currentAlignment === 'left'"
+            class="bg-white border border-gray-200 h-full w-56 rounded-2xl shadow-lg pointer-events-auto"
+            :class="currentAlignment === 'left' ? 'mr-auto' : 'ml-auto'"
           >
-            <h3 class="mt-0 p-4">
+            <h3 class="my-0 p-4">
               {{ annotationTitle }}
             </h3>
-          </div>
-        </v-scale-transition>
-        <v-scale-transition>
-          <div
-            class="bg-white border border-gray-200 h-full w-56 rounded-2xl shadow-lg pointer-events-auto ml-auto"
-            v-if="currentAlignment === 'right'"
-          >
-            <h3 class="mt-0 p-4">
-              {{ annotationTitle }}
-            </h3>
+            <p class="px-4 my-0 text-sm">
+              {{ annotationText }}
+            </p>
+            <v-img
+              v-if="annotationSrc"
+              :src="annotationSrc"
+              class="h-64 w-full"
+            ></v-img>
+            <v-switch
+              v-if="annotationToggle"
+              class="px-4"
+              label="Toggle"
+            ></v-switch>
+            <div v-if="annotationColors" class="flex justify-evenly">
+              <v-btn
+                v-for="(color, index) in colors"
+                :key="index"
+                :color="color.hex"
+                variant="flat"
+                width="64"
+                height="64"
+                @click="applyColors(index)"
+              >
+              </v-btn>
+            </div>
           </div>
         </v-scale-transition>
       </div>
