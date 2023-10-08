@@ -45,7 +45,7 @@ On line 5 we have an empty iframe. This is where the 3D model ends up in. You ca
 On line 6 we load the sketchfab api. The URL changes from time to time because of version changes. Make sure to check the docs now and again for updates.
 
 ```html
-<script src='https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js'></script>
+<script src="https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js"></script>
 ```
 
 On line 8 and 9 we create a new sketchfab viewer instance that is bound to the empty iframe on this page.
@@ -70,7 +70,5 @@ The sketchfab iframe is now populated with the 3D model and ready to go.
 ::: info Links
 Read the Sketchfab [docs](https://sketchfab.com/developers/viewer)
 :::
-
-
 
 [def]: https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js

@@ -14,12 +14,10 @@ In this example, the top node has the type `Group` instead of the expected `Matr
 If you want to show or hide the model, you need to get the rootnode with an undocumented method:
 
 ```js
-api.getRootMatrixNode((err, instanceID) => {
-});
+api.getRootMatrixNode((err, instanceID) => {});
 ```
 
 This function gets `instanceID` of the rootnode in the scene. You can then use this `instanceID` to show or hide the model.
-
 
 <CodePenEmbed id="qBQvBjO/41b0dfa61d9be0a8a3e73e834b857a4b" />
 

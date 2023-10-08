@@ -9,7 +9,7 @@ Annotations are a great way to add interactivity to your 3D models. They can be 
 
 ![annotation overview](./annotation-overview.jpg)
 
-*The Woodland Pumpkin Encounter by [VanillaBurp](https://sketchfab.com/Vanillaburp)*
+_The Woodland Pumpkin Encounter by [VanillaBurp](https://sketchfab.com/Vanillaburp)_
 
 ## Anatomy of annotations
 
@@ -21,10 +21,10 @@ The annotation system consists of three parts:
 
 ![annotation menu](./annotation-menu.jpg)
 
-*This is the annotation menu*
+_This is the annotation menu_
 
 ![annotation hotspot note](./annotation-hotspot-note.jpg)
 
-*This is a hotspot with its expanded annotation*
+_This is a hotspot with its expanded annotation_
 
 We can use the API to edit the appearance and behavior of each of the three parts of the annotation system. We can also use the API to create new annotations from scratch and edit the contents of existing annotations.

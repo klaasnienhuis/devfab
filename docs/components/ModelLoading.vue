@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import VueJsonPretty from 'vue-json-pretty';
-import 'vue-json-pretty/lib/styles.css';
-import { computed, onMounted, ref } from 'vue'
-import { useData } from 'vitepress'
-const { isDark } = useData()
+import VueJsonPretty from "vue-json-pretty";
+import "vue-json-pretty/lib/styles.css";
+import { computed, onMounted, ref } from "vue";
+import { useData } from "vitepress";
+const { isDark } = useData();
 
 const props = defineProps({
   id: {
@@ -13,26 +13,26 @@ const props = defineProps({
   playersettings: {
     type: Object,
     required: false,
-    default: {}
+    default: {},
   },
   showGraph: {
     type: Boolean,
     required: false,
-    default: false
+    default: false,
   },
   showMaterials: {
     type: Boolean,
     required: false,
-    default: false
+    default: false,
   },
-})
-const viewerIframeRef = ref(null)
+});
+const viewerIframeRef = ref(null);
 const tree = ref("");
 const materialTree = ref({});
-const viewerready = ref(false)
+const viewerready = ref(false);
 const showSidebar = computed(() => {
-  return props.showGraph || props.showMaterials
-})
+  return props.showGraph || props.showMaterials;
+});
 const recursePrint = (node) => {
   const name = `${node.instanceID}: ${node.name} (${node.type})`;
   const symbol = node.children?.length
@@ -59,61 +59,72 @@ const createNodeHierarchy = (api) => {
 
 const replacer = (key, value) => {
   const classicChannelNames = [
-    'DiffuseColor',
-    'DiffuseIntensity',
-    'SpecularHardness',
-    'SpecularColor'
-  ]
+    "DiffuseColor",
+    "DiffuseIntensity",
+    "SpecularHardness",
+    "SpecularColor",
+  ];
   if (classicChannelNames.includes(key)) {
     return undefined;
   } else if (value.enable === false) {
     return undefined;
-  } else if (key === 'Matcap') {
+  } else if (key === "Matcap") {
     return undefined;
   }
-  return value
-
-}
+  return value;
+};
 
 const createMaterialTree = (api) => {
   api.getMaterialList(function (err, materials) {
     materialTree.value = materials;
-    materials.forEach(material => {
+    materials.forEach((material) => {
       console.log("material", material);
       if (material.channels.ClearCoat.enable === false) {
-        delete material.channels.ClearCoatNormalMap
-        delete material.channels.ClearCoatRoughness
+        delete material.channels.ClearCoatNormalMap;
+        delete material.channels.ClearCoatRoughness;
       }
-      console.log(material.name, JSON.stringify(material.channels, replacer, '  '));
+      console.log(
+        material.name,
+        JSON.stringify(material.channels, replacer, "  "),
+      );
     });
   });
 };
 
 onMounted(() => {
-  import('@sketchfab/viewer-api').then((module) => {
-    const client = new module.default('1.12.1', viewerIframeRef.value);
+  import("@sketchfab/viewer-api").then((module) => {
+    const client = new module.default("1.12.1", viewerIframeRef.value);
     client.init(props.id, {
-    success: (api) => {
-      api.addEventListener("viewerready", () => {
-        createNodeHierarchy(api);
-        createMaterialTree(api);
-        viewerready.value = true;
-      });
-    },
+      success: (api) => {
+        api.addEventListener("viewerready", () => {
+          createNodeHierarchy(api);
+          createMaterialTree(api);
+          viewerready.value = true;
+        });
+      },
       error: () => console.error("Sketchfab API error"),
-      ...props.playersettings
+      ...props.playersettings,
     });
-  })
-})
+  });
+});
 </script>
 
 <template>
   <v-responsive :aspect-ratio="16 / 9" class="w-100">
-    <div v-if="viewerready && showSidebar" class="scenegraph" :class="{isDark: isDark}">
+    <div
+      v-if="viewerready && showSidebar"
+      class="scenegraph"
+      :class="{ isDark: isDark }"
+    >
       <pre v-if="showGraph">{{ tree }}</pre>
       <VueJsonPretty v-if="showMaterials" :data="materialTree" :deep="2" />
     </div>
-    <iframe style="border: 0" id="api-iframe" ref="viewerIframeRef" class="w-100 h-100"></iframe>
+    <iframe
+      style="border: 0"
+      id="api-iframe"
+      ref="viewerIframeRef"
+      class="w-100 h-100"
+    ></iframe>
   </v-responsive>
 </template>
 

@@ -9,7 +9,7 @@ import CodePenEmbed from '../../components/CodePenEmbed.vue'
 
 # Navigation
 
-We can navigate the annotations with the API. Instead of using the built-in annotation menu, we can create our own UI. 
+We can navigate the annotations with the API. Instead of using the built-in annotation menu, we can create our own UI.
 
 ## Back Next
 
@@ -41,12 +41,10 @@ Get the next index `currentId = currentId === maxId ? 0 : currentId + 1;`
 When we have the index, we can go to the annotation with `gotoAnnotation`.
 
 ```js
-api.gotoAnnotation(annotationIndex, {}, (err, id) => {
-});
+api.gotoAnnotation(annotationIndex, {}, (err, id) => {});
 ```
 
 Finally, we get the contents of the annotation with `getAnnotation` and show some of it in the sidebar. An annotation actually has a lot of data in it, but we're only showing the index, title, description and the image that Sketchfab generates in the editor.
-
 
 ## Annotation event
 

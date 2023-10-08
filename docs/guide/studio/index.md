@@ -16,7 +16,7 @@ The background color goes from white to dark grey. As with many other colors in 
 
 ```js
 api.setBackground({
-  color: [1 - value * 0.8, 1 - value * 0.8, 1 - value * 0.8]
+  color: [1 - value * 0.8, 1 - value * 0.8, 1 - value * 0.8],
 });
 ```
 
@@ -27,7 +27,7 @@ Lights are rather complex. In this example I keep it simple by increasing the in
 ```js
 api.setLight(0, {
   intensity: value * 2.5,
-  color: [1, 1 - value * 0.7, 1 - value * 0.7]
+  color: [1, 1 - value * 0.7, 1 - value * 0.7],
 });
 ```
 
@@ -37,7 +37,7 @@ The brightness of the environment decreases from 2 to 0.15.
 
 ```js
 api.setEnvironment({
-  exposure: 2 - 1.85 * value
+  exposure: 2 - 1.85 * value,
 });
 ```
 
@@ -54,6 +54,6 @@ api.setPostProcessing({
   toneMappingContrast: value * 0.02,
   colorBalanceHigh: [0, 0, value * -0.65],
   colorBalanceMid: [0, 0, value * -0.85],
-  colorBalanceLow: [0, 0, value * -0.25]
+  colorBalanceLow: [0, 0, value * -0.25],
 });
 ```

@@ -15,20 +15,20 @@ In this example, the "Pan limit" has been activated. This means the target of th
 
 ## Setting constraints with the API
 
-Let's try set similar constraints with the API. We start with an unconstrainted scene. 
+Let's try set similar constraints with the API. We start with an unconstrainted scene.
 
 We'll use this to set up the constraints to limit pan.:
 
 ```js
 const settings = {
   usePanConstraints: true,
-  target: [92, 13, 10]
+  target: [92, 13, 10],
 };
-api.setCameraConstraints(settings)
+api.setCameraConstraints(settings);
 ```
 
 To keep things consistent, we use the `setEnableCameraConstraints` method to enable or disable the constraints. Combine them like this:
-  
+
 ```js
 api.setCameraConstraints(settings, function (err) {
   api.setEnableCameraConstraints(true, {});

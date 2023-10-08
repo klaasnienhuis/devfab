@@ -116,12 +116,12 @@ In the previous example, we load a new texture every time you press one of the b
 
 In this example there's a large image of a market. It's about 4MB. You'll notice that the first time you load the market image, it takes a while to load. But if you press the button again, it loads instantly. This is because the texture is already loaded and cached. The second time we are just reusing the texture uid.
 
-Here's the interesting bit of code: 
+Here's the interesting bit of code:
 
 ```js
 const marketSrc = {
   url: "https://assets.codepen.io/2407400/market-large.jpg",
-  uid: undefined
+  uid: undefined,
 };
 
 const loadTexture = (api, textureData) => {
@@ -146,7 +146,7 @@ Some materials offer the choice of either using a color or a texture. In the Ske
 
 ![Texture-or-color](./materials-texture-color.jpg)
 
-*Toggle between color and texture*
+_Toggle between color and texture_
 
 With the API, if you want to use a color, you should remove the `texture` from the materialchannel. If you want to use a texture, you can actually keep the color; it's ignored. But I feel it's cleaner to remove the `color` from the materialchannel.
 
