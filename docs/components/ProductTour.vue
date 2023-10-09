@@ -18,6 +18,7 @@ const colors = {
   sunrise: { rgb: [214, 164, 67], hex: "#d6a443" },
   lagoon: { rgb: [53, 113, 137], hex: "#357189" },
 };
+
 const state = reactive({
   steps: {
     0: {
@@ -32,7 +33,12 @@ const state = reactive({
       align: "left",
       text: "",
       src: "./side-rails.jpg",
-      toggle: "handle",
+      toggle: {
+        objects: ["handle"],
+        title: "Side rails",
+        state: true,
+        ids: [],
+      },
     },
     2: {
       title: "Foot control",
@@ -58,7 +64,12 @@ const state = reactive({
       status: "upcoming",
       align: "right",
       text: "Paper roll stand and cutter",
-      toggle: "paper",
+      toggle: {
+        objects: ["paper"],
+        title: "Paper roll",
+        state: true,
+        ids: [],
+      },
     },
     6: {
       title: "Upholstery",
@@ -91,8 +102,6 @@ const showAnnotationDetails = (api, id) => {
     annotationSrc.value = state.steps[id].src;
     annotationToggle.value = state.steps[id].toggle;
     annotationColors.value = state.steps[id].colors;
-    // elData.innerHTML = info.content.raw;
-    // elImage.src = info.preview;
   });
 };
 
@@ -114,6 +123,16 @@ const previousAnnotation = () => {
   gotoAnnotation(api.value, currentId.value);
 };
 
+const setAnnotationsTexture = () => {
+  const settings = {
+    url: `${location.origin}/projects/hotspot-blue.png`,
+    colNumber: 0,
+    padding: 0,
+    iconSize: 46,
+  };
+  api.value.setAnnotationsTexture(settings);
+};
+
 function gammaCorrectRgb(rgb) {
   return rgb.map((v) => Math.pow(v / 255, 2.2));
 }
@@ -121,11 +140,29 @@ function gammaCorrectRgb(rgb) {
 const applyColors = async (colorname) => {
   // gamma correct colors and load texture
   const maincolor = gammaCorrectRgb(colors[colorname].rgb);
-  console.log("maincolor", maincolor);
   skaiMaterial.value.channels.AlbedoPBR.color = maincolor;
-  console.log("skaiMaterial.value", skaiMaterial.value);
   // apply the adjusted materials to the scene
   api.value.setMaterial(JSON.parse(JSON.stringify(skaiMaterial.value)));
+};
+
+const filterNodes = (nodemap, name) => {
+  return Object.values(nodemap).filter((node) => {
+    return node.name === name && node.type === "MatrixTransform";
+  });
+};
+
+const toggleStep = () => {
+  if (state.steps[currentId.value].toggle.state) {
+    state.steps[currentId.value].toggle.ids.forEach((id) => {
+      api.value.hide(id);
+    });
+  } else {
+    state.steps[currentId.value].toggle.ids.forEach((id) => {
+      api.value.show(id);
+    });
+  }
+  state.steps[currentId.value].toggle.state =
+    !state.steps[currentId.value].toggle.state;
 };
 
 onMounted(() => {
@@ -133,18 +170,32 @@ onMounted(() => {
     const client = new module.default("1.12.1", viewerIframeRef.value);
     client.init("e6266e421d354273b46452a189ed66b3", {
       success: (_api) => {
+        api.value = _api;
         _api.addEventListener("viewerready", () => {
           _api.getAnnotationList((err, annotations) => {
             maxId.value = annotations.length - 1;
             gotoAnnotation(_api, 0);
           });
-          _api.getSceneGraph((err, nodemap) => {
-            console.log("nodemap", nodemap);
-          });
           _api.getMaterialList((err, materials) => {
             skaiMaterial.value = materials.find((m) => m.name === "Skai");
             applyColors("silver");
           });
+
+          _api.getNodeMap(function (err, nodeMap) {
+            Object.keys(state.steps).forEach((key) => {
+              if (state.steps[key].toggle) {
+                state.steps[key].toggle.objects.forEach((object) => {
+                  const nodes = filterNodes(nodeMap, object);
+                  if (nodes) {
+                    nodes.forEach((node) => {
+                      state.steps[key].toggle.ids.push(node.instanceID);
+                    });
+                  }
+                });
+              }
+            });
+          });
+          setAnnotationsTexture();
           viewerready.value = true;
         });
 
@@ -155,7 +206,6 @@ onMounted(() => {
             showAnnotationDetails(_api, index);
           }
         });
-        api.value = _api;
       },
       error: () => console.error("Sketchfab API error"),
       ...playersettings,
@@ -188,12 +238,17 @@ onMounted(() => {
             <v-img
               v-if="annotationSrc"
               :src="annotationSrc"
-              class="h-64 w-full"
+              class="w-full"
             ></v-img>
             <v-switch
               v-if="annotationToggle"
-              class="px-4"
-              label="Toggle"
+              v-model="annotationToggle.state"
+              class="m-4"
+              color="indigo"
+              hide-details
+              inset
+              @click="toggleStep(annotationToggle)"
+              :label="annotationToggle.title"
             ></v-switch>
             <div v-if="annotationColors" class="flex justify-evenly">
               <v-btn
