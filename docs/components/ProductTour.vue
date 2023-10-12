@@ -98,13 +98,11 @@ const currentAlignment = computed(() => state.steps[currentId.value].align);
 
 const showAnnotationDetails = (api, id) => {
   state.steps[id].status = "current";
-  api.getAnnotation(id, (err, info) => {
-    annotationTitle.value = state.steps[id].title;
-    annotationText.value = state.steps[id].text;
-    annotationSrc.value = state.steps[id].src;
-    annotationToggle.value = state.steps[id].toggle;
-    annotationColors.value = state.steps[id].colors;
-  });
+  annotationTitle.value = state.steps[id].title;
+  annotationText.value = state.steps[id].text;
+  annotationSrc.value = state.steps[id].src;
+  annotationToggle.value = state.steps[id].toggle;
+  annotationColors.value = state.steps[id].colors;
 };
 
 const gotoAnnotation = (api, annotationIndex) => {

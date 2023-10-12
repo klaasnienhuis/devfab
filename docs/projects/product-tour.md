@@ -14,7 +14,7 @@ import CodePenEmbed from '../components/CodePenEmbed.vue'
 
 <ProductTour />
 
-A product tour is a great way to show off a product. It's a series of steps that guide the user through the highlights of the product. The user can interact with the product, get more information and even configure the product. The product tour makes efficient use of space on a webpage. The goal is to grab the user's attention and keep it.
+A product tour is a great way to show off a product or object. It's a series of steps that guides the user through the highlights of a product. The user can interact with the product, get more information and even configure the product. The product tour makes efficient use of space on a webpage. The goal is to grab the user's attention and keep it.
 
 In this tutorial I will point to the relevant sections in the guide to explain the principles behind the code. If this is your first time working with the Sketchfab API, I recommend you start with the [Getting started](../guide/model-loading/getting-started.html) tutorial.
 
@@ -36,7 +36,7 @@ The 3D model contains annotations, but all the contents will live in the web-app
 
 We want the model to show the hotspots, but not the annotation menu nor the annotation popups. We'll be making those ourselves shortly.
 
-We're using the following settings:
+We're using the following init settings:
 
 ```js
 autostart: 1,
@@ -48,7 +48,11 @@ ui_watermark: 0,
 ui_stop: 0,
 ```
 
-`annotation_tooltip_visible: 0` makes sure the annotation popup doesn't show up. `ui_controls: 0` hides all menus, including the annotation menu. Finally, `scrollwheel: 0` disables zooming with the mouse wheel. That is practical to keep the model in view and makes sure the user doesn't wander off. You'll notice that the annotations in Sketchfab are laid out with a sidebar in mind. Of course it's up to you how you want to arrange the annotations in your web-app.
+- `annotation_tooltip_visible: 0` makes sure the annotation popup doesn't show up when the user clicks a hotspot.
+- `ui_controls: 0` hides all menus, including the annotation menu.
+- `scrollwheel: 0` disables zooming with the mouse wheel. That is practical to keep the model in view and makes sure the user doesn't wander off.
+
+You'll notice that the I've laid out the annotations with a sidebar in mind. Of course it's up to you how you want to arrange the annotations in your web-app.
 
 Take a look at the [Menu and embedding](../guide/annotations/menu) for these settings and more.
 
@@ -60,11 +64,13 @@ I want to step through these annotations with a back/next button. Those buttons 
 
 Most of this section comes from the [Navigation example](../guide/annotations/navigation.html) in the guide.
 
-When you first load the scene, get the annotations and keep track of how many there are. That will help you calculate the next or previous annotation id.
+When you first load the scene, get the annotations from the scene and keep track of how many there are. That will help you calculate the next or previous annotation id.
 
 ```js
-currentId = currentId === 0 ? maxId : currentId - 1; // Get the previous annotation id
-currentId = currentId === maxId ? 0 : currentId + 1; // Get the next annotation id
+// Get the previous annotation id
+currentId = currentId === 0 ? maxId : currentId - 1;
+// Get the next annotation id
+currentId = currentId === maxId ? 0 : currentId + 1;
 ```
 
 I have created an object with titles for each annotation and an alignment option. Moving the contents of the annotations into the web-app is practical. You don't have to go into the Sketchfab editor to make copy changes. We'll add more data to this object later.
@@ -112,7 +118,7 @@ Let's add some text for the annotations and some images. I'm adding to the `anno
 
 ## Configuration: Visibility
 
-While this should not be a full configurator, we can add a few options to the sidebar. I want to toggle visibility on some objects and change the upholstery. We're adding the configuration controls to the annotation sidebar.
+While this product tour should not be a full configurator, we can add a few options to the sidebar. I want to toggle visibility on some objects and change the upholstery. We're adding the configuration controls to the annotation sidebar.
 
 We're adding even more data to the `annotations` object. Here's a sample that shows how to keep track of visibility. `objects: ["handle"]` is an array of objectnames in the Sketchfab scene. We'll store the `instanceID` of all the objects with these names in the `ids` array. The `state` property is a boolean that keeps track of the visibility state.
 
@@ -208,3 +214,13 @@ api.getMaterialList((err, materials) => {
 Read more about changing materials here [Change materials](../guide/materials/colors).
 
 Read more about the material list here [Material list](../guide/materials/materiallist).
+
+## Camera constraints
+
+Now that all teh interactivity is in place, we can add some econstraints to the camera. A product tour is like a guided tour in a museum. You dln't want people to wander off or look in the wrong places. We want to keep eyes on the product at all times. Camera constraints will do that for us.
+
+Sketchfab does not allow combining annotations and camara constraints by default. But with the API we can. Setting up these constraints porperly is actually a quite involved process. I walk you through the steps in the [Annotations and constraints](../guide/annotations/annotation-constraints.html) tutorial.
+
+Basically, we take care of moving the camera ourselves, instead of letting the annotation do that for us. This gives us the most control.
+
+<CodePenEmbed id="VwqNKRo/31938353a58984f9ed52aea19f3306a3" tab="result" />

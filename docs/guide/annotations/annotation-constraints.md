@@ -99,3 +99,7 @@ api.setAnnotationCameraTransition(true, true);
 The result is this final codepen example that has camera constraints at all times.
 
 <CodePenEmbed id="RwEOGpm/7f2332359fdc5ecb2f28c99cd92baa30" tab="result" />
+
+::: info
+Crucial to making the first camera movement constrained is the `camera: 0` init parameter.
+:::
