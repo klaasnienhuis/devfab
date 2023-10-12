@@ -11,6 +11,7 @@ const playersettings = {
   ui_infos: 0,
   ui_watermark: 0,
   ui_stop: 0,
+  camera: 0,
 };
 
 const colors = {
@@ -82,18 +83,19 @@ const state = reactive({
 });
 
 const viewerIframeRef = ref(null);
-const viewerready = ref(false);
 const api = ref(null);
 const annotationTitle = ref("");
 const annotationText = ref("");
 const annotationSrc = ref(null);
 const annotationToggle = ref(null);
 const annotationColors = ref(null);
+const annotationList = ref([]);
 const currentId = ref(0);
 const maxId = ref(0);
 const skaiMaterial = ref(null);
 
 const currentAlignment = computed(() => state.steps[currentId.value].align);
+
 const showAnnotationDetails = (api, id) => {
   state.steps[id].status = "current";
   api.getAnnotation(id, (err, info) => {
@@ -106,8 +108,26 @@ const showAnnotationDetails = (api, id) => {
 };
 
 const gotoAnnotation = (api, annotationIndex) => {
-  api.gotoAnnotation(annotationIndex, {}, (err, id) => {
-    showAnnotationDetails(api, id);
+  const settings = {
+    usePanConstraints: true,
+    target: JSON.parse(
+      JSON.stringify(annotationList.value[annotationIndex].target),
+    ),
+  };
+  showAnnotationDetails(api, annotationIndex);
+  api.setEnableCameraConstraints(false, {}, () => {
+    api.setCameraLookAt(
+      JSON.parse(JSON.stringify(annotationList.value[annotationIndex].eye)),
+      JSON.parse(JSON.stringify(annotationList.value[annotationIndex].target)),
+      1,
+      (err, id) => {
+        api.setCameraLookAtEndAnimationCallback(() => {
+          api.setCameraConstraints(settings, () => {
+            api.setEnableCameraConstraints(true, {});
+          });
+        });
+      },
+    );
   });
 };
 
@@ -128,7 +148,7 @@ const setAnnotationsTexture = () => {
     url: `${location.origin}/projects/hotspot-blue.png`,
     colNumber: 0,
     padding: 0,
-    iconSize: 46,
+    iconSize: 126,
   };
   api.value.setAnnotationsTexture(settings);
 };
@@ -173,9 +193,11 @@ onMounted(() => {
         api.value = _api;
         _api.addEventListener("viewerready", () => {
           _api.getAnnotationList((err, annotations) => {
+            annotationList.value = annotations;
             maxId.value = annotations.length - 1;
             gotoAnnotation(_api, 0);
           });
+
           _api.getMaterialList((err, materials) => {
             skaiMaterial.value = materials.find((m) => m.name === "Skai");
             applyColors("silver");
@@ -195,15 +217,16 @@ onMounted(() => {
               }
             });
           });
-          setAnnotationsTexture();
-          viewerready.value = true;
-        });
 
+          setAnnotationsTexture();
+
+          _api.setAnnotationCameraTransition(false, true);
+        });
         _api.addEventListener("annotationSelect", (index) => {
           if (index >= 0) {
             state.steps[currentId.value].status = "complete";
             currentId.value = index;
-            showAnnotationDetails(_api, index);
+            gotoAnnotation(_api, currentId.value);
           }
         });
       },

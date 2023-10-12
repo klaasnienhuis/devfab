@@ -16,7 +16,7 @@ import CodePenEmbed from '../components/CodePenEmbed.vue'
 
 Let's create a product showcase for a phone. A 3D product showcase should show the product in a compelling way. Because we're using 3D models, we can add interactivity. But let's not overdo it. We want to show the product, not show off 3D tech. The interactivity should be subtle and enhance the experience.
 
-I will point to the relevant sections in the guide to explain the principles behing the code. If this is your first time working with the Sketchfab API, I recommend you start with the [Getting started](../guide/model-loading/getting-started.html) tutorial.
+I will point to the relevant sections in the guide to explain the principles behind the code. If this is your first time working with the Sketchfab API, I recommend you start with the [Getting started](../guide/model-loading/getting-started.html) tutorial.
 
 ## Features
 
@@ -62,7 +62,7 @@ api.hide(scenenodes["iPhone_15_Plus_v1_002"]);
 
 <CodePenEmbed id="eYbVQGg/af4e7ca6fad2dd77b909c101e8ed5177" tab="result" />
 
-Let's add some movement to the phones. When toggling between the phone sizes, we should put the active phone in the center of the screen. We can do this by moving the model. We haven't covered moving models yet in teh guide. The process is quite straightforward. First we need to find the instanceID of the object we want to move, then we can move it. In our example, we want to move the root of the scene.
+Let's add some movement to the phones. When toggling between the phone sizes, we should put the active phone in the center of the screen. We can do this by moving the model. We haven't covered moving models yet in the guide. The process is quite straightforward. First we need to find the instanceID of the object we want to move, then we can move it. In our example, we want to move the root of the scene.
 
 Look at [Get the rootnode](../guide/objects/rootnode.html) to learn how to get the instanceID of the root node. Read the Sketchfab docs about [translating](https://sketchfab.com/developers/viewer/functions#api-translate) to learn how to move the model.
 

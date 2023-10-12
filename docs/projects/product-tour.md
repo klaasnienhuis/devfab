@@ -23,6 +23,7 @@ In this tutorial I will point to the relevant sections in the guide to explain t
 This product tour has the following features:
 
 - A 3D model of an examination table with annotations
+- Very tight camera behavior
 - A series of steps
 - A sidebar with information
 - Configuration options
