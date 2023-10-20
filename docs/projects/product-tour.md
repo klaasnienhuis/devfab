@@ -28,7 +28,7 @@ This product tour has the following features:
 - A sidebar with information
 - Configuration options
 
-The 3D model contains annotations, but all the contents will live in the web-app.
+The 3D model contains annotations, but all the contents is contained in the web-app.
 
 ## The model
 
@@ -52,21 +52,27 @@ ui_stop: 0,
 - `ui_controls: 0` hides all menus, including the annotation menu.
 - `scrollwheel: 0` disables zooming with the mouse wheel. That is practical to keep the model in view and makes sure the user doesn't wander off.
 
-You'll notice that the I've laid out the annotations with a sidebar in mind. Of course it's up to you how you want to arrange the annotations in your web-app.
+You'll notice that the I've laid out the annotations with a sidebar in mind. Some annotations are located in the left half, others in the right half of the screen. Of course it's up to you how you want to arrange the annotations in your web-app. You want to create a little journey through the model and a bit of variation in the layout helps.
 
-Take a look at the [Menu and embedding](../guide/annotations/menu) for these settings and more.
+Take a look at the [Menu and embedding](../guide/annotations/menu) for further explanation of settings.
 
 ## Step through annotations
 
 <CodePenEmbed id="ExGrNKa/fb3fd39a0dcea8d04571a8413e17dd57" tab="result" />
 
-I want to step through these annotations with a back/next button. Those buttons make the annotations easy to digest, one at a time. My model has only 7 annotations, but imagine you have 20 or 50. A simple back/next navigation will avoid your users feeling overwhelmed. I'm going to show a custom title in the sidebar and I'm moving the sidebar to the left or right depending on the position of the annotation.
+I want users to step through these annotations with a back/next button. Those buttons make the annotations easy to digest, one at a time. A simple back/next navigation will avoid your users feeling overwhelmed. I'm going to show a custom title in the sidebar and I'm moving the sidebar to the left or right depending on the position of the annotation.
 
 Most of this section comes from the [Navigation example](../guide/annotations/navigation.html) in the guide.
 
 When you first load the scene, get the annotations from the scene and keep track of how many there are. That will help you calculate the next or previous annotation id.
 
 ```js
+let maxId = 0;
+let currentId = 0;
+// Get the total number of annotations
+api.getAnnotationList((err, annotations) => {
+  maxId = annotations.length - 1;
+});
 // Get the previous annotation id
 currentId = currentId === 0 ? maxId : currentId - 1;
 // Get the next annotation id
@@ -87,7 +93,7 @@ const annotations = {
 };
 ```
 
-When an annotation is activated, I show the title in the sidebar and move the sidebar to the left or right depending on the alignment option. This is a rudimentary way to edit the CSS of the sidebar. You could also use a class and toggle that. Using a framework like react or vue would make this easier.
+When an annotation is activated, I show the title in the sidebar and move the sidebar to the left or right depending on the alignment option. This is a rudimentary way to edit the CSS of the sidebar. You could also use a CSS class and toggle that. Using a framework like react or vue would make this easier.
 
 ```js
 const alignSidebar = (align) => {
@@ -103,7 +109,7 @@ const alignSidebar = (align) => {
 
 ### More content
 
-Let's add some text for the annotations and some images. I'm adding to the `annotations` object. Here's an example of one of the annotations:
+Let's add body text for the annotations and images. I'm adding to the `annotations` object. Here's an example of one of the annotations:
 
 ```js
 4: {
@@ -118,7 +124,7 @@ Let's add some text for the annotations and some images. I'm adding to the `anno
 
 ## Configuration: Visibility
 
-While this product tour should not be a full configurator, we can add a few options to the sidebar. I want to toggle visibility on some objects and change the upholstery. We're adding the configuration controls to the annotation sidebar.
+While this product tour should not be a full configurator, we can add a few options to the sidebar to make the tour more engaging. I want to toggle visibility on some objects and change the upholstery color. We're adding the configuration controls to the annotation sidebar.
 
 We're adding even more data to the `annotations` object. Here's a sample that shows how to keep track of visibility. `objects: ["handle"]` is an array of objectnames in the Sketchfab scene. We'll store the `instanceID` of all the objects with these names in the `ids` array. The `state` property is a boolean that keeps track of the visibility state.
 
@@ -132,7 +138,7 @@ toggle: {
 
 <CodePenEmbed id="QWzYdNw/a19c9c48a517197b4e520f7f72f9fbc9" tab="result" />
 
-When the scene loads, we should find the instanceID's of the objects we want to toggle. We can use the `getNodeMap` function to get the instanceID's. We'll store them in the `ids` array of each annotation. The following code gets the nodemap and then loops over all my annotations and finds the instanceID's of the objects that are in the `toggle` object. I'm using a helper function to filter the nodemap. I'm using `Array.filter` instead of `Array.find` because there can be multiple objects with the same name.
+When the scene loads, we should find the `instanceID's` of the objects we want to toggle. We can use the `getNodeMap` function to get the `instanceID's`. We'll store them in the `ids` array of each annotation. The following code gets the nodemap and then loops over all my annotations and finds the `instanceID's` of the objects that are in the `toggle` object. I'm using a helper function to filter the nodemap. I'm using `Array.filter` instead of `Array.find` because there can be multiple objects with the same name.
 
 ```js
 const filterNodes = (nodemap, name) => {
@@ -202,7 +208,7 @@ const applyColors = async (api, colorname) => {
 };
 ```
 
-Before we can edit the material, we must first get it from the mateiral list. This is done in the `viewerready` event. We're looking for a material iwth the name `Skai`. Once we have the material, we can call the `applyColors` function to change the color.
+Before we can edit the material, we must first get it from the material list. This is done in the `viewerready` event. We're looking for a material with the name `Skai`. Once we have the material, we can call the `applyColors` function to change the color.
 
 ```js
 api.getMaterialList((err, materials) => {
@@ -217,9 +223,9 @@ Read more about the material list here [Material list](../guide/materials/materi
 
 ## Camera constraints
 
-Now that all teh interactivity is in place, we can add some econstraints to the camera. A product tour is like a guided tour in a museum. You dln't want people to wander off or look in the wrong places. We want to keep eyes on the product at all times. Camera constraints will do that for us.
+Now that all the interactivity is in place, we can add some constraints to the camera. A product tour is like a guided tour in a museum. You don't want people to wander off or look in the wrong places. We want to keep eyes on the product at all times. Camera constraints will do that for us.
 
-Sketchfab does not allow combining annotations and camara constraints by default. But with the API we can. Setting up these constraints porperly is actually a quite involved process. I walk you through the steps in the [Annotations and constraints](../guide/annotations/annotation-constraints.html) tutorial.
+Sketchfab does not allow combining annotations and camara constraints by default. But with the API we can. Setting up these constraints properly is actually a quite involved process. I walk you through the steps in the [Annotations and constraints](../guide/annotations/annotation-constraints.html) tutorial.
 
 Basically, we take care of moving the camera ourselves, instead of letting the annotation do that for us. This gives us the most control.
 
