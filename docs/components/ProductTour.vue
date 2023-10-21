@@ -1,8 +1,71 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from "vue";
+import { computed, onMounted, reactive, ref, watch } from "vue";
 import { useData } from "vitepress";
 const { isDark } = useData();
 
+interface Annotation {
+  eye: number[];
+  target: number[];
+}
+
+interface Material {
+  name: string;
+  channels: {
+    AlbedoPBR: {
+      color: number[];
+    };
+  };
+}
+
+interface API {
+  init: (token: string, options: any) => void;
+  addEventListener: (event: string, callback: any) => void;
+  setAnnotationCameraTransition: (arg0: boolean, arg1: boolean) => void;
+  setAnnotationsTexture: (settings: any) => void;
+  getAnnotationList: (callback: any) => void;
+  getMaterialList: (callback: any) => void;
+  getNodeMap: (callback: any) => void;
+  setMaterial: (material: Material) => void;
+  setEnableCameraConstraints: (arg0: boolean, arg1: any) => void;
+  setCameraLookAt: (
+    eye: number[],
+    target: number[],
+    duration: number,
+    callback: any,
+  ) => void;
+  setCameraLookAtEndAnimationCallback: (callback: any) => void;
+  setCameraConstraints: (settings: any, callback: any) => void;
+  show: (id: number) => void;
+  hide: (id: number) => void;
+  setBackground: (settings: any, callback: any) => void;
+}
+
+interface Node {
+  name: string;
+  type: string;
+  instanceID: number;
+}
+interface Toggle {
+  objects: string[];
+  title: string;
+  state: boolean;
+  ids: number[];
+}
+interface Step {
+  title: string;
+  status: string;
+  align: string;
+  text: string;
+  src?: string;
+  toggle?: Toggle;
+  colors?: boolean;
+}
+
+interface State {
+  steps: {
+    [key: number]: Step;
+  };
+}
 const playersettings = {
   autostart: 1,
   annotation_tooltip_visible: 0,
@@ -20,7 +83,12 @@ const colors = {
   lagoon: { rgb: [53, 113, 137], hex: "#357189" },
 };
 
-const state = reactive({
+const backgrounds = {
+  light: [255, 255, 255],
+  dark: [97, 97, 100],
+};
+
+const state: State = reactive({
   steps: {
     0: {
       title: "4040X General Examination Table",
@@ -83,16 +151,16 @@ const state = reactive({
 });
 
 const viewerIframeRef = ref(null);
-const api = ref(null);
+const api = ref<API | undefined>();
 const annotationTitle = ref("");
 const annotationText = ref("");
-const annotationSrc = ref(null);
-const annotationToggle = ref(null);
-const annotationColors = ref(null);
-const annotationList = ref([]);
+const annotationSrc = ref<string | undefined>();
+const annotationToggle = ref<Toggle | undefined>();
+const annotationColors = ref<boolean | undefined>();
+const annotationList = ref<Annotation[]>([]);
 const currentId = ref(0);
 const maxId = ref(0);
-const skaiMaterial = ref(null);
+const skaiMaterial = ref<Material | undefined>();
 
 const currentAlignment = computed(() => state.steps[currentId.value].align);
 
@@ -148,7 +216,7 @@ const setAnnotationsTexture = () => {
     padding: 0,
     iconSize: 126,
   };
-  api.value.setAnnotationsTexture(settings);
+  api.value?.setAnnotationsTexture(settings);
 };
 
 function gammaCorrectRgb(rgb) {
@@ -158,30 +226,42 @@ function gammaCorrectRgb(rgb) {
 const applyColors = async (colorname) => {
   // gamma correct colors and load texture
   const maincolor = gammaCorrectRgb(colors[colorname].rgb);
-  skaiMaterial.value.channels.AlbedoPBR.color = maincolor;
+  if (skaiMaterial.value)
+    skaiMaterial.value.channels.AlbedoPBR.color = maincolor;
   // apply the adjusted materials to the scene
-  api.value.setMaterial(JSON.parse(JSON.stringify(skaiMaterial.value)));
+  api.value?.setMaterial(JSON.parse(JSON.stringify(skaiMaterial.value)));
 };
 
-const filterNodes = (nodemap, name) => {
+const filterNodes = (nodemap: Node[], name) => {
   return Object.values(nodemap).filter((node) => {
     return node.name === name && node.type === "MatrixTransform";
   });
 };
 
+const setBackground = () => {
+  const color = gammaCorrectRgb(backgrounds[isDark.value ? "dark" : "light"]);
+  const backgroundSetting = { color };
+  api.value?.setBackground(backgroundSetting, function (err) {});
+};
+
 const toggleStep = () => {
-  if (state.steps[currentId.value].toggle.state) {
-    state.steps[currentId.value].toggle.ids.forEach((id) => {
-      api.value.hide(id);
+  const toggle = state.steps[currentId.value].toggle;
+  if (!toggle) return;
+  if (toggle.state) {
+    toggle.ids.forEach((id) => {
+      api.value?.hide(id);
     });
   } else {
-    state.steps[currentId.value].toggle.ids.forEach((id) => {
-      api.value.show(id);
+    toggle.ids.forEach((id) => {
+      api.value?.show(id);
     });
   }
-  state.steps[currentId.value].toggle.state =
-    !state.steps[currentId.value].toggle.state;
+  toggle.state = !toggle.state;
 };
+
+watch(isDark, () => {
+  setBackground();
+});
 
 onMounted(() => {
   import("@sketchfab/viewer-api").then((module) => {
@@ -201,7 +281,7 @@ onMounted(() => {
             applyColors("silver");
           });
 
-          _api.getNodeMap(function (err, nodeMap) {
+          _api.getNodeMap(function (err, nodeMap: Node[]) {
             Object.keys(state.steps).forEach((key) => {
               if (state.steps[key].toggle) {
                 state.steps[key].toggle.objects.forEach((object) => {
@@ -219,6 +299,8 @@ onMounted(() => {
           setAnnotationsTexture();
 
           _api.setAnnotationCameraTransition(false, true);
+
+          setBackground();
         });
         _api.addEventListener("annotationSelect", (index) => {
           if (index >= 0) {
@@ -247,8 +329,13 @@ onMounted(() => {
       <div class="h-full w-full pa-4">
         <v-scale-transition>
           <div
-            class="bg-white border border-gray-200 h-full w-56 rounded-2xl shadow-lg pointer-events-auto"
-            :class="currentAlignment === 'left' ? 'mr-auto' : 'ml-auto'"
+            class="border border-gray-200 h-full w-56 rounded-2xl shadow-lg pointer-events-auto"
+            :class="[
+              isDark
+                ? 'bg-gray-800 ring-white/10'
+                : 'bg-gray-100 ring-black/10',
+              currentAlignment === 'left' ? 'mr-auto' : 'ml-auto',
+            ]"
           >
             <h3 class="my-0 p-4">
               {{ annotationTitle }}
@@ -268,7 +355,7 @@ onMounted(() => {
               color="indigo"
               hide-details
               inset
-              @click="toggleStep(annotationToggle)"
+              @click="toggleStep()"
               :label="annotationToggle.title"
             ></v-switch>
             <div v-if="annotationColors" class="flex justify-evenly">
@@ -288,23 +375,24 @@ onMounted(() => {
       </div>
 
       <nav
-        class="h-16 mt-auto pointer-events-auto flex items-center border-t border-gray-200 bg-white px-2"
+        class="h-16 mt-auto pointer-events-auto flex items-center border-t border-gray-200 px-2"
+        :class="[
+          isDark ? 'bg-gray-800 ring-white/10' : 'bg-gray-100 ring-black/10',
+        ]"
         aria-label="Pagination"
       >
         <div
           role="list"
           class="ml-8 w-full flex items-center justify-center space-x-5"
         >
-          <div v-for="step in state.steps" :key="step.name">
+          <div v-for="step in state.steps" :key="step.title">
             <a
               v-if="step.status === 'complete'"
-              :href="step.href"
               class="block h-2.5 w-2.5 rounded-full bg-indigo-600 hover:bg-indigo-900"
             >
             </a>
             <a
               v-else-if="step.status === 'current'"
-              :href="step.href"
               class="relative flex items-center justify-center"
               aria-current="step"
             >
@@ -318,7 +406,6 @@ onMounted(() => {
             </a>
             <a
               v-else
-              :href="step.href"
               class="block h-2.5 w-2.5 rounded-full bg-gray-200 hover:bg-gray-400"
             >
             </a>

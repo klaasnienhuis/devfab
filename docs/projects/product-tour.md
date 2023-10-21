@@ -52,9 +52,9 @@ ui_stop: 0,
 - `ui_controls: 0` hides all menus, including the annotation menu.
 - `scrollwheel: 0` disables zooming with the mouse wheel. That is practical to keep the model in view and makes sure the user doesn't wander off.
 
-You'll notice that the I've laid out the annotations with a sidebar in mind. Some annotations are located in the left half, others in the right half of the screen. Of course it's up to you how you want to arrange the annotations in your web-app. You want to create a little journey through the model and a bit of variation in the layout helps.
+You'll notice that the I've laid out the annotations with a sidebar in mind. Some annotations are located in the left half, others in the right half of the screen. Of course it's up to you how you want to arrange the annotations in your web-app. I want to create a little journey through the model and a bit of variation in the layout helps.
 
-Take a look at the [Menu and embedding](../guide/annotations/menu) for further explanation of settings.
+Take a look at the [Menu and embedding](../guide/annotations/menu) tutorial for further explanation of settings.
 
 ## Step through annotations
 
@@ -62,9 +62,9 @@ Take a look at the [Menu and embedding](../guide/annotations/menu) for further e
 
 I want users to step through these annotations with a back/next button. Those buttons make the annotations easy to digest, one at a time. A simple back/next navigation will avoid your users feeling overwhelmed. I'm going to show a custom title in the sidebar and I'm moving the sidebar to the left or right depending on the position of the annotation.
 
-Most of this section comes from the [Navigation example](../guide/annotations/navigation.html) in the guide.
+Most of this section comes from the [Navigation example](../guide/annotations/navigation.html) tutorial in the guide.
 
-When you first load the scene, get the annotations from the scene and keep track of how many there are. That will help you calculate the next or previous annotation id.
+When you first load the scene, get the list of annotations from the scene and keep track of how many there are. That will help you calculate the next or previous annotation id.
 
 ```js
 let maxId = 0;
@@ -79,7 +79,7 @@ currentId = currentId === 0 ? maxId : currentId - 1;
 currentId = currentId === maxId ? 0 : currentId + 1;
 ```
 
-I have created an object with titles for each annotation and an alignment option. Moving the contents of the annotations into the web-app is practical. You don't have to go into the Sketchfab editor to make copy changes. We'll add more data to this object later.
+I'm not intending to use the title and description from the annotations that are stored in Sketchfab for this project. Instead, I have created an object with titles for each annotation and an alignment option. Moving the contents of the annotations into the web-app is practical. You don't have to go into the Sketchfab editor to make copy changes. We'll add more data to this object later.
 
 ```js
 const annotations = {
@@ -93,7 +93,7 @@ const annotations = {
 };
 ```
 
-When an annotation is activated, I show the title in the sidebar and move the sidebar to the left or right depending on the alignment option. This is a rudimentary way to edit the CSS of the sidebar. You could also use a CSS class and toggle that. Using a framework like react or vue would make this easier.
+When an annotation is activated, I show the title in the sidebar and move the sidebar to the left or right depending on the _alignment_ option. This is a rudimentary way to edit the CSS of the sidebar. You could also use a CSS class and toggle that. Using a framework like react or vue would make this easier.
 
 ```js
 const alignSidebar = (align) => {
@@ -109,7 +109,7 @@ const alignSidebar = (align) => {
 
 ### More content
 
-Let's add body text for the annotations and images. I'm adding to the `annotations` object. Here's an example of one of the annotations:
+Let's add body text and images for the annotations too. I'm expanding the `annotations` object. Here's an example of one of the annotations:
 
 ```js
 4: {
@@ -223,7 +223,7 @@ Read more about the material list here [Material list](../guide/materials/materi
 
 ## Camera constraints
 
-Now that all the interactivity is in place, we can add some constraints to the camera. A product tour is like a guided tour in a museum. You don't want people to wander off or look in the wrong places. We want to keep eyes on the product at all times. Camera constraints will do that for us.
+Now that all the interactivity is in place, we should add some constraints to the camera. A product tour is like a guided tour in a museum. You don't want people to wander off or look in the wrong places. We want to keep eyes on the product at all times. Camera constraints will do that for us.
 
 Sketchfab does not allow combining annotations and camara constraints by default. But with the API we can. Setting up these constraints properly is actually a quite involved process. I walk you through the steps in the [Annotations and constraints](../guide/annotations/annotation-constraints.html) tutorial.
 

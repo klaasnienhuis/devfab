@@ -9,7 +9,7 @@ import CodePenEmbed from '../../components/CodePenEmbed.vue'
 
 # Menu and embedding
 
-By using the init parameters, you can influence looks and behavior of the annotations. This is a low-effort methods of creating guided tours or product showcases. Here are some examples.
+By using the initializing options, you can influence the looks and behavior of the annotations. This is a low-effort method to create guided tours or product showcases. Here are some examples.
 
 Read up on how to use the [Initialization options](/guide/model-loading/initialization-options)
 
@@ -32,7 +32,7 @@ ui_stop: 0
 
 ## Autoplay with annotations
 
-Hide the annotation menu and loop through the available annotations automatically. When you navigate the model, the autoplay stops temporarily. Ideally you'd use the API to stop the autoplay when someone interacts with the model, but that's not possible out-of-the-box. Use the following init parameters:
+Hide the annotation menu and loop through the available annotations automatically. When you navigate the model, the autoplay stops temporarily. Ideally you'd use the API to stop the autoplay entirely when someone interacts with the model, but that's not possible out-of-the-box. Use the following init parameters:
 
 ```js{3-4}
 autostart: 1,
@@ -65,9 +65,9 @@ ui_stop: 0
 
 <CodePenEmbed id="gOZKEpR/332b3a6c586f9a17845b783e981d74a4" tab="result" />
 
-`annotations_visible: 0` hides the annotations altogether.
+`annotations_visible: 0` hides the annotations altogether. Now you can focus on the 3D model and the annotations won't distract you.
 
-To disable navigation, I've added the following to the `success` callback. `setUserInteraction` can disable or enable all interaction with the model.
+To disable navigation, I've added the following to the `success` callback: `setUserInteraction` can disable or enable all interaction with the model.
 
 ```js
 api.addEventListener("viewerready", () => {
