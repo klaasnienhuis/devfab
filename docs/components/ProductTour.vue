@@ -211,7 +211,7 @@ const previousAnnotation = () => {
 
 const setAnnotationsTexture = () => {
   const settings = {
-    url: `${location.origin}/projects/hotspot-blue.png`,
+    url: `${location.origin}/images/hotspot-blue.png`,
     colNumber: 0,
     padding: 0,
     iconSize: 126,
