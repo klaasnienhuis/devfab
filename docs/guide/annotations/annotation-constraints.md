@@ -17,7 +17,7 @@ Let's figure out how to have annotations and constrain the camera at the same ti
 
 <CodePenEmbed id="BavMeBw/f238a7f77053cafbb27e2c2ae8d5a32f" tab="result" />
 
-This example has annotations and pan constraints. You can only combine those with the API, not with the Sketchfab editor. First we enable the pan constraints and then we enable the camera constraints feature. Read more about camera constraints here: [Camera constraints](../guide/camera/camera-constraints.html)
+This example has annotations and pan constraints. You can only combine those with the API, not with the Sketchfab editor. First we enable the pan constraints and then we enable the camera constraints feature. Read more about camera constraints here: [Camera constraints](/guide/camera/camera-constraints.html)
 
 ```js
 api.setCameraConstraints({ usePanConstraints: true }, () => {
@@ -71,7 +71,7 @@ We've expanded the `setCameraConstraints` function to include the `setCameraLook
 - When the camera movement is over, set the camera constraints
 - Enable the camera constraints
 
-This is very much alike the [Camera Conflicts](guide/camera/camera-constraints.html#camera-conflicts) example in the guide.
+This is very much alike the [Camera Conflicts](/guide/camera/camera-constraints.html#camera-conflicts) example in the guide.
 
 ```js
 const setCameraConstraints = (api, annotation) => {
@@ -96,7 +96,7 @@ Because the scene has annotations stored in them, I can't get the initial camera
 It's very possible I'm wrong about this. If you know how to enforce custom constraints when the model loads, please let me know!
 :::
 
-A solution to this final issue is to take over the camera movement of the annotation altogether. We can keep the annotations themselves and still detect when one is clicked. But instead of letting the annotation do the work of moving the camera, we can move the camera ourselves. We use the `setCameraLookAt` method for that. This is very similar to the [Camera constraints](../guide/camera/camera-constraints.html) topic.
+A solution to this final issue is to take over the camera movement of the annotation altogether. We can keep the annotations themselves and still detect when one is clicked. But instead of letting the annotation do the work of moving the camera, we can move the camera ourselves. We use the `setCameraLookAt` method for that. This is very similar to the [Camera constraints](/guide/camera/camera-constraints.html) topic.
 
 To disable the camera movement that's triggered by the annotation, we use the following function:
 
