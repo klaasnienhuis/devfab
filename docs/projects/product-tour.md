@@ -2,7 +2,7 @@
 title: Product tour with the Sketchfab API
 description: Create a 3D product tour with the Sketchfab API
 tags: [sketchfab, api, product-tour]
-image: /images/og-product-showcase.jpg
+image: /images/og-product-tour.jpg
 ---
 
 <script setup>
