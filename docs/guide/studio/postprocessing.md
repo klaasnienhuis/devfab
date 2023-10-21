@@ -33,11 +33,11 @@ api.setPostProcessing(
     bloomEnable: true,
     bloomFactor: 1,
     bloomThreshold: 0.2,
-    bloomRadius: 0.5
+    bloomRadius: 0.5,
   },
   function () {
     window.console.log("Post-processing filters set");
-  }
+  },
 );
 ```
 

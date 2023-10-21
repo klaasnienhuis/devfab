@@ -9,7 +9,7 @@ import CodePenEmbed from '../../components/CodePenEmbed.vue'
 
 # Navigation
 
-We can navigate the annotations with the API. Instead of using the built-in annotation menu, we can create our own UI. 
+We can navigate the annotations with the API. Instead of using the built-in annotation menu, let's create our own UI.
 
 ## Back Next
 
@@ -34,23 +34,24 @@ api.getAnnotationList((err, annotations) => {
 
 When pressing the back- or next-button we need to calculate the previous or next index. We can do that by keeping track of the current index and adding to or subtracting from. The index needs to loop around, meaning that if we're at the last annotation and we press next, we need to go to the first annotation. And vice versa.
 
-Get the previous index `currentId = currentId === 0 ? maxId : currentId - 1;`
-
-Get the next index `currentId = currentId === maxId ? 0 : currentId + 1;`
+```js
+// Get the previous index
+currentId = currentId === 0 ? maxId : currentId - 1;
+// Get the next index
+currentId = currentId === maxId ? 0 : currentId + 1;
+```
 
 When we have the index, we can go to the annotation with `gotoAnnotation`.
 
 ```js
-api.gotoAnnotation(annotationIndex, {}, (err, id) => {
-});
+api.gotoAnnotation(annotationIndex, {}, (err, id) => {});
 ```
 
-Finally, we get the contents of the annotation with `getAnnotation` and show some of it in the sidebar. An annotation actually has a lot of data in it, but we're only showing the index, title, description and the image that Sketchfab generates in the editor.
-
+Finally, we get the contents of the annotation with `getAnnotation` and show some of it in the sidebar. An annotation actually has a lot of data in it, but we're only showing the index, title, description and the thumbnail that Sketchfab generates in the editor.
 
 ## Annotation event
 
-I also want to detect when the user clicks a hotspot. We can then display the contents of the annotation in the sidebar. And we can also use this event to update the current index. This way we can keep track of the current annotation, even when the user clicks a hotspot.
+I also want to detect when the user clicks a hotspot. We then display the contents of the clicked annotation in the sidebar. And we can use this event to update the current index. This means the user can navigate the annotations with the back- and next-buttons, and by clicking the hotspots.
 
 ```js
 api.addEventListener("annotationSelect", (index) => {

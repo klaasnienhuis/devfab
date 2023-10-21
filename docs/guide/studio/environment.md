@@ -10,17 +10,17 @@ import CodePenEmbed from '../../components/CodePenEmbed.vue'
 
 # Environment
 
-The environment adds light and reflections to your scene. Optionally it can add shadows. The API enables you to change the environment and most of its settings. 
+The environment adds light and reflections to your scene. Optionally it can add shadows. The API enables you to change the environment and most of its settings.
 
 ![environment settings](./studio-environment.jpg)
 
 ## Getting the environment
 
-You can get the environment settings with the `getEnvironment` method. It returns an object with the current settings. 
+You can get the environment settings with the `getEnvironment` method. It returns an object with the current settings.
 
 ```js
-api.getEnvironment(function(err, envInfo) {
-  window.console.log('Current environment:', envInfo);
+api.getEnvironment(function (err, envInfo) {
+  window.console.log("Current environment:", envInfo);
 });
 ```
 
@@ -70,19 +70,22 @@ Studio 2: efd4ef0fc18a4ec0a1313d782fade965
 
 ## Changing environment settings
 
-You can change the environment with the `setEnvironment` method. It takes an object with settings, including the uid of the environment. You don't have to provide all settings, only the ones you want to change. 
+You can change the environment with the `setEnvironment` method. It takes an object with settings, including the uid of the environment. You don't have to provide all settings, only the ones you want to change.
 
 ```js
-api.setEnvironment({
-  uid: '3a68a92a99d849b19829e315b93e6d55',
-  exposure: 0.2,
-  lightIntensity: 1.0,
-  rotation: 0.75,
-  blur: 0.1,
-  shadowEnabled: true
-}, function() {
-  window.console.log('Environment changed');
-});
+api.setEnvironment(
+  {
+    uid: "3a68a92a99d849b19829e315b93e6d55",
+    exposure: 0.2,
+    lightIntensity: 1.0,
+    rotation: 0.75,
+    blur: 0.1,
+    shadowEnabled: true,
+  },
+  function () {
+    window.console.log("Environment changed");
+  },
+);
 ```
 
 <CodePenEmbed id="QWzGMwd/582f810ff6a4f6f908f2328722de1238" tab="result" />
@@ -96,7 +99,7 @@ Please note the `blur` setting that sets the blur of the background and doesn't 
 You can use the `setEnvironment` method to swap out the environment map. Use the `uid` property.
 
 ```js
-api.setEnvironment({ uid: 'e73867d210de4bc2b5eb261738cf3e79' });
+api.setEnvironment({ uid: "e73867d210de4bc2b5eb261738cf3e79" });
 ```
 
 <CodePenEmbed id="xxmgWxE/58d72b75ed177e4ab5b144d448b9b617" tab="result" />

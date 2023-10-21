@@ -10,11 +10,11 @@ Any scene can have up to three lights. The API enables you to manipulate these l
 
 The first step is to get the lights from the viewer. This is done with the `getLight` method. It returns the settings of a single light. We can also use the `isLightFeatureEnabled` to find out if the lights feature is enabled in the scene.
 
-The `getLight` method takes an id as the first argument. There's one id for each light in the scene: 0, 1 or 2. 
+The `getLight` method takes an id as the first argument. There's one id for each light in the scene: 0, 1 or 2.
 
 ```js
-api.getLight(0, function(err, state) {
-    window.console.log(state);
+api.getLight(0, function (err, state) {
+  window.console.log(state);
 });
 ```
 
@@ -93,8 +93,8 @@ And the settings from the editor:
 Let's try to manipulate the lights. We can use the `setLight` method to change the properties of a light. It takes three arguments: the id of the light, the properties to change and a callback function.
 
 ```js
-api.setLight(2, {color: [1, 0, 0]}, function(err) {
-  window.console.log('Set light');
+api.setLight(2, { color: [1, 0, 0] }, function (err) {
+  window.console.log("Set light");
 });
 ```
 
@@ -120,10 +120,10 @@ This final example adjusts the `color`, `falloff` and `type` of the light. The t
 
 ## Toggle all lights
 
-Each individual light has an `enabled` property. You can toggle all lights at once with the `setLightFeatureEnabled` method. 
+Each individual light has an `enabled` property. You can toggle all lights at once with the `setLightFeatureEnabled` method.
 
 ```js
-api.setLightFeatureEnabled(true, function(err) {
+api.setLightFeatureEnabled(true, function (err) {
   window.console.log("Lights ready to be used");
 });
 ```

@@ -12,7 +12,7 @@ Each node has a unique ID that's assigned by Sketchfab: the `instanceID`. This I
 
 ```js
 api.getNodeMap(function (err, nodeMap) {
-  console.log(nodeMap)
+  console.log(nodeMap);
 });
 ```
 

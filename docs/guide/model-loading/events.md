@@ -24,7 +24,6 @@ client.init("dGUrytaktlDeNudCEGKk31oTJY", {
 
 In this example `autostart: 1` starts playing the 3D model. The `viewerready` event tells us when the model is ready. From this moment on, we can "talk" to the model through the `api` object.
 
-
 <CodePenEmbed id="mdQqVoV/e15ad74980cad88070b0ac4c2989c370" tab="js" />
 
 ## Entrypoint

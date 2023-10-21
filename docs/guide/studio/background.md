@@ -4,15 +4,15 @@ import CodePenEmbed from '../../components/CodePenEmbed.vue'
 
 # Background
 
-You can adjust the background of the viewer with the API, just like you can do with the editor. There are four flavors: environment, image, color and transparent. The environment is an image that is projected on a sphere around the scene. The image is a flat image that is projected on a plane behind the scene. The color is a solid color. Transparent is, well, transparent. 
+You can adjust the background of the viewer with the API, just like you can do with the editor. There are four flavors: environment, image, color and transparent. The environment is an image that is projected on a sphere around the scene. The image is a flat image that is projected on a plane behind the scene. The color is a solid color. Transparent is, well, transparent.
 
 ## Color
 
 Setting the background color looks like this:
 
 ```js
-api.setBackground({color: [0, 0, 0]}, function() {
-  window.console.log('Background changed');
+api.setBackground({ color: [0, 0, 0] }, function () {
+  window.console.log("Background changed");
 });
 ```
 
@@ -25,8 +25,8 @@ The color is normalized in the 0-1 range. Take a look [here](../materials/colors
 Setting the background image looks like this:
 
 ```js
-api.setBackground({uid: '51af6a870cce449eb75b0345feebaebb'}, function() {
-  window.console.log('Background changed');
+api.setBackground({ uid: "51af6a870cce449eb75b0345feebaebb" }, function () {
+  window.console.log("Background changed");
 });
 ```
 
@@ -43,14 +43,14 @@ In this example you can toggle between two backgrounds and a color. If you set b
 The Sketchfab documentation does not give a lot of information on how to use the environment as a background. There's only the option to turn it on or off, but not to control the blur and brightness.
 
 ```js
-api.setBackground({enable: 'environment'}, function() {
-  window.console.log('Background changed');
+api.setBackground({ enable: "environment" }, function () {
+  window.console.log("Background changed");
 });
 ```
 
 ![background environment](./studio-background-environment.jpg)
 
-*We can only turn the environment on, but some of the other settings are unavailable to the API*
+_We can only turn the environment on, but some of the other settings are unavailable to the API_
 
 The Blur of the environment background can be controlled by adjusting the environment settings, not the background settings. It seems we only have the blur levels, but not the "Ambient environment" which is super blurry. The Brightness of the background is tied to the exposure of the environment. Read more about this in the [environment](/guide/studio/environment#changing-environment-settings) tutorial.
 
@@ -63,8 +63,8 @@ This example shows you how to switch between a color and the environment.
 All the backgrounds we've seen so far are opaque. That means that the backgrounds are part of the Sketchfab scene. You can also set the background to transparent. This is useful if you want to overlay the viewer on top of other content outside of Sketchfab.
 
 ```js
-api.setBackground({transparent: true}, function() {
-    window.console.log('Background changed');
+api.setBackground({ transparent: true }, function () {
+  window.console.log("Background changed");
 });
 ```
 

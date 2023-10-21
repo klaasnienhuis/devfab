@@ -14,13 +14,13 @@ You can get the scenegraph and print it to the console like so:
 
 ```js
 api.getSceneGraph(function (err, sceneGraph) {
-  console.log(sceneGraph)
+  console.log(sceneGraph);
 });
 ```
 
 <CodePenEmbed id="rNQQbxz/690d3035ff08a5410d62135261672c7f" />
 
-This is the scenegraph of the scene with the teapot and disc. The original 3D model (created in 3dsMax) contains two objects, called `Teapot001` and `Cylinder001`. These are the hightlighted objects with the ID 3 and 22. 
+This is the scenegraph of the scene with the teapot and disc. The original 3D model (created in 3dsMax) contains two objects, called `Teapot001` and `Cylinder001`. These are the hightlighted objects with the ID 3 and 22.
 
 ```txt{3,6}
 0: 34632ee1cb8f4ded8e8a1759bae0e2a3.fbx (MatrixTransform)
@@ -45,11 +45,10 @@ The fbx exporter splits each object into two nodes: a `MatrixTransform` and a `G
 
 A `Group` node is inserted between the `MatrixTransform` and the `Geometry` node. This is a node that can contain multiple nodes. In this case, the `Group` node contains a single node, the `Geometry` node. It's a result of the way the fbx exporter works. If an object has a single material, the `Group` node contains a single `Geometry` node. If an object has multiple materials, the `Group` node contains multiple `Geometry` nodes, one for each material.
 
-Here's an example of a scene with a single object that has multiple materials. 
+Here's an example of a scene with a single object that has multiple materials.
 
 <CodePenEmbed id="PoxxvOj/fff744947a56c685fbe1908e9a037181" />
 
 ::: warning
 This model structure differs per 3d software and exported file format. But the general idea should be the same for other formats.
 :::
-

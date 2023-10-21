@@ -25,11 +25,11 @@ The viewer can be customized. You can change both the behavior of the viewer and
 client.init("dGUrytaktlDeNudCEGKk31oTJY", {
   autostart: 1,
   autospin: 0.2,
-  scrollwheel: 0
+  scrollwheel: 0,
 });
 ```
 
-- `autostart: 1` immediately starts the viewer. It's similar to an embedded video, that automatically starts playing. 
+- `autostart: 1` immediately starts the viewer. It's similar to an embedded video, that automatically starts playing.
 
 - `autospin: 0.2` spins the model slowly
 
@@ -63,7 +63,7 @@ You can set the camera constraints with the init parameters. For these settings 
 
 ## Cleaned up viewer
 
-Sketchfab adds many tools and information to the viewer window. When integrating a 3d model in a website, you might want to remove some or all of these items. Here are the init parameters to clean up the viewer. You'll need at least a Premium Sketchfab account to use these. 
+Sketchfab adds many tools and information to the viewer window. When integrating a 3d model in a website, you might want to remove some or all of these items. Here are the init parameters to clean up the viewer. You'll need at least a Premium Sketchfab account to use these.
 
 ```js
 {

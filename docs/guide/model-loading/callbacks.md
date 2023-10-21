@@ -16,7 +16,7 @@ We've seen how we can modify the behavior and appearance of an embedded sketchfa
 client.init("dGUrytaktlDeNudCEGKk31oTJY", {
   autostart: 1,
   autospin: 0.2,
-  scrollwheel: 0
+  scrollwheel: 0,
 });
 ```
 
@@ -28,7 +28,7 @@ In this example, we log a message to the console when the model has been loaded 
 client.init("dGUrytaktlDeNudCEGKk31oTJY", {
   autostart: 1,
   success: (api) => console.log("Sketchfab API success"),
-  error: () => console.error("Sketchfab API error")
+  error: () => console.error("Sketchfab API error"),
 });
 ```
 

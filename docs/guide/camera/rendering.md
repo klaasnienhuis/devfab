@@ -13,7 +13,7 @@ import CodePenEmbed from '../../components/CodePenEmbed.vue'
 You can use Sketchfab to render images of your 3D model. Sketchfab calls this a screenshot. But it's a bit more than that. You can render at a different resolution than the viewport, up to 4k. You can also render PNG's with transparent backgrounds. Here's the `getScreenshot` method in action:
 
 ```js
-api.getScreenShot(function(err, result) {
+api.getScreenShot(function (err, result) {
   window.console.log(result);
 });
 ```
@@ -24,7 +24,7 @@ The result is a base64 encoded image. You can decide what to do with that. You c
 
 <CodePenEmbed id="XWoRvJK/67695ee85af0550ed79d436305686b0a" tab="result" />
 
-This example renders and image and directly displays it in an image element on the page. You see that we can use the base64 image data directly as the `src` attribute of the image element. Here we provide the  `getScreenshot` method with additional arguments for the width and height.
+This example renders and image and directly displays it in an image element on the page. You see that we can use the base64 image data directly as the `src` attribute of the image element. Here we provide the `getScreenshot` method with additional arguments for the width and height.
 
 ```js
 api.getScreenShot(1024, 1024, function (err, base64) {
@@ -65,6 +65,7 @@ api.setCameraLookAt(settings.position, settings.target, 1, function (err) {
 ```
 
 Here's what's happening:
+
 1. move the camera to a new position and target
 2. set a callback that fires when the camera is done moving
 3. render the image

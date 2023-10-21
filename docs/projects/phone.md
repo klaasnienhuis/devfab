@@ -14,9 +14,9 @@ import CodePenEmbed from '../components/CodePenEmbed.vue'
 
 <PhoneExperience />
 
-Let's create a product showcase for a phone. A 3D product showcase should show the product in a compelling way. Because we're using 3D models, we can add interactivity. But let's not overdo it. We want to show the product, not show off 3D tech. The interactivity should be subtle and enhance the experience. 
+Let's create a product showcase for a phone. A 3D product showcase should show the product in a compelling way. Because we're using 3D models, we can add interactivity. But let's not overdo it. We want to show the product, not show off 3D tech. The interactivity should be subtle and enhance the experience.
 
-I will point to the relevant sections in the guide to explain the principles behing the code. If this is your first time working with the Sketchfab API, I recommend you start with the [Getting started](../guide/model-loading/getting-started.html) tutorial.
+I will point to the relevant sections in the guide to explain the principles behind the code. If this is your first time working with the Sketchfab API, I recommend you start with the [Getting started](../guide/model-loading/getting-started.html) tutorial.
 
 ## Features
 
@@ -33,7 +33,7 @@ The 3D model is based on a model from the Sketchfab store. It's been modified to
 
 <CodePenEmbed id="abPqQjE/0fd7257fe79db7dbcd1be7d07464c698" tab="result" />
 
-The model contains two phones. A 6.1" model and a 6.7" model. We can switch between them by hiding and showing the right parts of the model. 
+The model contains two phones. A 6.1" model and a 6.7" model. We can switch between them by hiding and showing the right parts of the model.
 
 Check out the [Showing and hiding](../guide/objects/object-visibility) tutorial for the basiscs of this technique.
 
@@ -42,7 +42,7 @@ This part of the code searches the nodemap for the two objects I want to target:
 ```js
 const scenenodes = {
   iPhone_15_Plus_v1_002: null,
-  iPhone_15_v1_002: null
+  iPhone_15_v1_002: null,
 };
 
 api.addEventListener("viewerready", () => {
@@ -62,8 +62,8 @@ api.hide(scenenodes["iPhone_15_Plus_v1_002"]);
 
 <CodePenEmbed id="eYbVQGg/af4e7ca6fad2dd77b909c101e8ed5177" tab="result" />
 
-Let's add some movement to the phones. When toggling between the phone sizes, we should put the active phone in the center of the screen. We can do this by moving the model. We haven't covered moving models yet in teh guide. The process is quite straightforward. First we need to find the instanceID of the object we want to move, then we can move it. In our example, we want to move the root of the scene.
-  
+Let's add some movement to the phones. When toggling between the phone sizes, we should put the active phone in the center of the screen. We can do this by moving the model. We haven't covered moving models yet in the guide. The process is quite straightforward. First we need to find the instanceID of the object we want to move, then we can move it. In our example, we want to move the root of the scene.
+
 Look at [Get the rootnode](../guide/objects/rootnode.html) to learn how to get the instanceID of the root node. Read the Sketchfab docs about [translating](https://sketchfab.com/developers/viewer/functions#api-translate) to learn how to move the model.
 
 ```js
@@ -74,7 +74,7 @@ api.addEventListener("viewerready", () => {
   });
   api.translate(rootID, [0.08, 0, 0], {
     duration: 1.0,
-    easing: "easeInOutQuad"
+    easing: "easeInOutQuad",
   });
 });
 ```
@@ -90,7 +90,7 @@ Here we disable panning, and set the camera target to the center of the phone. W
 ```js
 const constraints = {
   usePanConstraints: true,
-  target: [0, 0, 0.08]
+  target: [0, 0, 0.08],
 };
 api.setCameraConstraints(constraints, function (err) {
   api.setEnableCameraConstraints(true, {});
@@ -99,7 +99,6 @@ api.setCameraConstraints(constraints, function (err) {
 ```
 
 We can block the scrollwheel, and effectively disable zooming, with the init parameter `scrollwheel: 0`. Read more about init parameters here: [Initialization options](../guide/model-loading/initialization-options.html#behavior-and-appearance)
-
 
 ## Colors
 
@@ -119,12 +118,11 @@ const scenematerials = {
   "metal-screws": null,
   "plastic-color": null,
   "plastic-color-edges": null,
-  "body-back": null
+  "body-back": null,
 };
 api.getMaterialList(function (err, materials) {
   materials.forEach((item) => {
-    if (scenematerials[item.name] === null)
-      scenematerials[item.name] = item;
+    if (scenematerials[item.name] === null) scenematerials[item.name] = item;
   });
 });
 ```
@@ -141,33 +139,33 @@ const materialsettings = {
   pink: {
     main: [227, 200, 202],
     screen: {
-      url: "https://assets.codepen.io/2407400/screen-pink.png"
-    }
+      url: "https://assets.codepen.io/2407400/screen-pink.png",
+    },
   },
   yellow: {
     main: [229, 224, 193],
     screen: {
-      url: "https://assets.codepen.io/2407400/screen-yellow.png"
-    }
+      url: "https://assets.codepen.io/2407400/screen-yellow.png",
+    },
   },
   green: {
     main: [202, 212, 197],
     screen: {
-      url: "https://assets.codepen.io/2407400/screen-green.png"
-    }
+      url: "https://assets.codepen.io/2407400/screen-green.png",
+    },
   },
   blue: {
     main: [206, 213, 217],
     screen: {
-      url: "https://assets.codepen.io/2407400/screen-blue.png"
-    }
+      url: "https://assets.codepen.io/2407400/screen-blue.png",
+    },
   },
   black: {
     main: [53, 57, 59],
     screen: {
-      url: "https://assets.codepen.io/2407400/screen-black.png"
-    }
-  }
+      url: "https://assets.codepen.io/2407400/screen-black.png",
+    },
+  },
 };
 ```
 
@@ -219,7 +217,6 @@ Object.keys(scenematerials).forEach((key) => {
 ## Assembling the code
 
 Now that we have all the elements, we can assemble it into a working example. The example at the top of the page contains nice styling with CSS. In the following CodePen example, I've left out the fancy CSS. This helps to focus on the code, and makes it a bit easier to reuse.
-
 
 <CodePenEmbed id="ZEVrdRL/b7f7824da4001dbc1fe46ee3aab63503" tab="result" />
 

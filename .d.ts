@@ -1,1 +1,1 @@
-declare module '@sketchfab/viewer-api';
+declare module "@sketchfab/viewer-api";

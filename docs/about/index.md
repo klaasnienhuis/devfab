@@ -12,4 +12,4 @@ These tutorials are written for anyone who wants to create interactive experienc
 
 ## Why Sketchfab?
 
-Sketchfab offers a great balance in power and convenience. It's easy to make a model look good in Sketchfab, Sketchfab will host the models for you. The API has plenty of features without overwhelming you with capabilities that you won't need. 
+Sketchfab offers a great balance in power and convenience. It's easy to make a model look good in Sketchfab, Sketchfab will host the models for you. The API has plenty of features without overwhelming you with capabilities that you won't need.

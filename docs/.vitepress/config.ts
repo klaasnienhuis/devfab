@@ -191,6 +191,10 @@ export default defineConfig({
             { text: "Overview", link: "/guide/annotations/" },
             { text: "Menu and embedding", link: "/guide/annotations/menu" },
             { text: "Navigation", link: "/guide/annotations/navigation" },
+            {
+              text: "Annotations and constraints",
+              link: "/guide/annotations/annotation-constraints",
+            },
             { text: "Editing annotations", link: "/guide/annotations/editing" },
           ],
         },
@@ -201,6 +205,7 @@ export default defineConfig({
           items: [
             { text: "Introduction", link: "/projects/" },
             { text: "Phone Showcase", link: "/projects/phone" },
+            { text: "Product tour", link: "/projects/product-tour" },
           ],
         },
       ],

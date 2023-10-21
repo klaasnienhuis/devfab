@@ -15,11 +15,11 @@ Sketchfab uses two renderers: PBR and Matcap. The PBR renderer is used for most 
 
 ![Renderer](./materials-renderer-editor.jpg)
 
-*You can toggle between PBR and Matcap in the Sketchfab editor.*
+_You can toggle between PBR and Matcap in the Sketchfab editor._
 
 ![Shader](./materials-shaders.jpg)
 
-*You can switch between Metalness and Specular in the Sketchfab editor.*
+_You can switch between Metalness and Specular in the Sketchfab editor._
 
 All channels for both renderers and both workflows are listed in the [Sketchfab docs](https://sketchfab.com/developers/viewer/functions#api-materialChannels). Before going deeper into the channels, please note the following:
 
@@ -69,7 +69,7 @@ Once you know your way around the channels, changing them is quite easy. Let's l
 
 <CodePenEmbed id="XWyLmGy/d5d6db0b05e32e9092388195d53c174d" />
 
-The first step is to get the list of materials, and finding one material in particular by its name: 
+The first step is to get the list of materials, and finding one material in particular by its name:
 
 ```js
 api.getMaterialList(function (err, materials) {
@@ -86,8 +86,7 @@ theMaterial.channels.AlbedoPBR.color = [0.17, 0.35, 1];
 Finally, we send the full material back to Sketchfab:
 
 ```js
-api.setMaterial(theMaterial, function (err) {
-});
+api.setMaterial(theMaterial, function (err) {});
 ```
 
 ## Replacing channels
@@ -100,7 +99,7 @@ Only the second step is different:
 
 ```js
 theMaterial.channels = {
-  AlbedoPBR: { color: [1, 0, 0.3] }
+  AlbedoPBR: { color: [1, 0, 0.3] },
 };
 ```
 
@@ -122,4 +121,3 @@ Of the entire list of channels, the following are specific to the specular PBR w
 - SpecularPBR
 
 <ModelLoading id="b10ecfe761fe425ba40b01f7096a43ff" :showMaterials="true" :playersettings="{autostart:0}" />
-

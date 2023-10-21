@@ -46,6 +46,6 @@ Working with objects like this, requires you to know the names of your objects. 
 
 When showing or hiding an object, all child objects will be shown or hidden as well. If you'd hide one of the two root nodes, with the `instanceID` 0 or 2, all other objects would be hidden too.
 
-Here is an example that toggles the visibility of the teapot, the disc and the rootnode. 
+Here is an example that toggles the visibility of the teapot, the disc and the rootnode.
 
 <CodePenEmbed id="KKryzLY/7c78e4bec3a7146058e6aa5c1d2ae3d0" />
