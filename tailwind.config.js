@@ -6,4 +6,5 @@ module.exports = {
     // Add this line to include VitePress files in TWCSS
     "./docs/**/*.{md,html,js,vue}",
   ],
+  plugins: [require("@tailwindcss/forms")],
 };
