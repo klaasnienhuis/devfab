@@ -1,50 +1,9 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref, watch } from "vue";
 import { useData } from "vitepress";
+import { API, Annotation, Material, Node } from "./types";
 const { isDark } = useData();
 
-interface Annotation {
-  eye: number[];
-  target: number[];
-}
-
-interface Material {
-  name: string;
-  channels: {
-    AlbedoPBR: {
-      color: number[];
-    };
-  };
-}
-
-interface API {
-  init: (token: string, options: any) => void;
-  addEventListener: (event: string, callback: any) => void;
-  setAnnotationCameraTransition: (arg0: boolean, arg1: boolean) => void;
-  setAnnotationsTexture: (settings: any) => void;
-  getAnnotationList: (callback: any) => void;
-  getMaterialList: (callback: any) => void;
-  getNodeMap: (callback: any) => void;
-  setMaterial: (material: Material) => void;
-  setEnableCameraConstraints: (arg0: boolean, arg1: any) => void;
-  setCameraLookAt: (
-    eye: number[],
-    target: number[],
-    duration: number,
-    callback: any,
-  ) => void;
-  setCameraLookAtEndAnimationCallback: (callback: any) => void;
-  setCameraConstraints: (settings: any, callback: any) => void;
-  show: (id: number) => void;
-  hide: (id: number) => void;
-  setBackground: (settings: any, callback: any) => void;
-}
-
-interface Node {
-  name: string;
-  type: string;
-  instanceID: number;
-}
 interface Toggle {
   objects: string[];
   title: string;
@@ -161,8 +120,10 @@ const annotationList = ref<Annotation[]>([]);
 const currentId = ref(0);
 const maxId = ref(0);
 const skaiMaterial = ref<Material | undefined>();
+const productTour = ref<HTMLElement>();
 
 const currentAlignment = computed(() => state.steps[currentId.value].align);
+const clientWidth = computed(() => productTour.value?.clientWidth);
 
 const showAnnotationDetails = (api, id) => {
   state.steps[id].status = "current";
@@ -325,16 +286,23 @@ onMounted(() => {
       ref="viewerIframeRef"
       class="w-100 h-100 absolute"
     ></iframe>
-    <div class="absolute h-100 w-100 pointer-events-none flex flex-col">
-      <div class="h-full w-full pa-4">
+    <div
+      class="absolute h-100 w-100 pointer-events-none flex flex-col"
+      ref="productTour"
+    >
+      <div
+        class="h-full w-full pa-4 flex"
+        :class="[{ 'items-center': clientWidth > 900 }]"
+      >
         <v-scale-transition>
           <div
-            class="border border-gray-200 h-full w-56 rounded-2xl shadow-lg pointer-events-auto"
+            class="border border-gray-200 rounded-2xl shadow-lg pointer-events-auto"
             :class="[
               isDark
                 ? 'bg-gray-800 ring-white/10'
                 : 'bg-gray-100 ring-black/10',
               currentAlignment === 'left' ? 'mr-auto' : 'ml-auto',
+              clientWidth < 900 ? 'w-56 h-full' : 'w-96 h-96 mx-12',
             ]"
           >
             <h3 class="my-0 p-4">

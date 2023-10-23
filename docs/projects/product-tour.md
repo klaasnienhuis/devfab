@@ -18,6 +18,8 @@ A product tour is a great way to show off a product or object. It's a series of 
 
 In this tutorial I will point to the relevant sections in the guide to explain the principles behind the code. If this is your first time working with the Sketchfab API, I recommend you start with the [Getting started](../guide/model-loading/getting-started.html) tutorial.
 
+View a larger version of the product tour [here](./product-tour-large.md)
+
 ## Features
 
 This product tour has the following features:
