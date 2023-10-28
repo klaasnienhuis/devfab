@@ -10,7 +10,7 @@ interface State {
 }
 const playersettings = {
   autostart: 1,
-  annotation_tooltip_visible: 0,
+  annotations_visible: 0,
   scrollwheel: 0,
   ui_controls: 0,
   ui_infos: 0,
@@ -28,30 +28,30 @@ const state = reactive({
       current: true,
       steps: [
         {
-          name: "Laptop",
+          name: "MacBook Pro",
           annotation: {
             name: "laptop",
           },
-          body: "asdfasdf",
-          img: "trendelenburg.jpg",
-          href: "https://archyi-inspiration.com/en/collections/angolo",
+          body: "The new M2 chip makes the 13-inch MacBook Pro more capable than ever.",
+          img: "macbook.jpg",
+          href: "https://www.apple.com/macbook-pro-13/",
         },
         {
           name: "Space Divider",
           annotation: {
             name: "space divider",
           },
-          body: "asdfasdf",
-          img: "trendelenburg.jpg",
-          href: "https://archyi-inspiration.com/en/collections/angolo",
+          body: "Sculpo Free Standing divides spaces while improving modern visual layout and sound comfort.",
+          img: "space-divider.jpg",
+          href: "https://archyi-inspiration.com/en/products/acoustic-solutions/free-standing-sculpo",
         },
         {
-          name: "Flipchart Easel",
+          name: "Tripod Easel",
           annotation: {
             name: "flipchart easel",
           },
-          body: "asdfasdf",
-          img: "trendelenburg.jpg",
+          body: "Tripod Easel Angolo is a smart, practical and playful presentation tool inspired in the classic artistic painting easel stand.",
+          img: "flipchart-easel.png",
           href: "https://archyi-inspiration.com/en/collections/angolo",
         },
       ],
@@ -65,27 +65,27 @@ const state = reactive({
           annotation: {
             name: "plants",
           },
-          body: "asdfasdf",
-          img: "trendelenburg.jpg",
-          href: "https://archyi-inspiration.com/en/collections/angolo",
+          body: "Research has shown that plants increase wellbeing, creativity and productivity in the workplace.",
+          img: "plants.png",
+          href: "https://www.ikea.com/gb/en/ideas/office-plant-ideas-for-a-greener-workspace-pub1eb570e1",
         },
         {
           name: "Copier",
           annotation: {
             name: "copier",
           },
-          body: "asdfasdf",
-          img: "trendelenburg.jpg",
-          href: "https://archyi-inspiration.com/en/collections/angolo",
+          body: "Xerox® ConnectKey® technology enabled Workplace Assistant that can do it all.",
+          img: "copier.png",
+          href: "https://www.xerox.co.uk/en-gb/office/multifunction-printers/versalink-c7120-c7125-c7130",
         },
         {
           name: "Desk Divider",
           annotation: {
             name: "desk divider",
           },
-          body: "asdfasdf",
-          img: "trendelenburg.jpg",
-          href: "https://archyi-inspiration.com/en/collections/angolo",
+          body: "Desk Sculpo is an ideal solution to divide work spaces creating a visual barrier and acoustic comfort.",
+          img: "desk-divider.png",
+          href: "https://archyi-inspiration.com/en/products/acoustic-solutions/desk-sculpo",
         },
       ],
     },
@@ -94,31 +94,31 @@ const state = reactive({
       current: false,
       steps: [
         {
-          name: "Conference Table",
+          name: "Meeting Table",
           annotation: {
             name: "conference table",
           },
-          body: "asdfasdf",
-          img: "trendelenburg.jpg",
-          href: "https://archyi-inspiration.com/en/collections/angolo",
+          body: "The Ark white conference table is crafted from a 5 mm solid laminate top on a powder-coated steel base.",
+          img: "conference-table.jpg",
+          href: "https://www.spaceist.co.uk/ark-meeting-table-new-detail/",
         },
         {
-          name: "Beamer Screen",
+          name: "Projection Screen",
           annotation: {
             name: "beamer screen",
           },
-          body: "asdfasdf",
-          img: "trendelenburg.jpg",
-          href: "https://archyi-inspiration.com/en/collections/angolo",
+          body: "Acumen® V, an attractive below-the-ceiling projection screen, blends seamlessly in today's elegant interiors.",
+          img: "screen.jpg",
+          href: "https://www.draperinc.com/projectionscreens/productdetail/1054/acumen-v",
         },
         {
-          name: "Neat Chair",
+          name: "Desk Chair",
           annotation: {
             name: "neat chair",
           },
-          body: "asdfasdf",
-          img: "trendelenburg.jpg",
-          href: "https://archyi-inspiration.com/en/collections/angolo",
+          body: "The Ester leather desk chair is an elegant choice for modern offices providing quintessential style along with comfort.",
+          img: "chair.jpg",
+          href: "https://www.spaceist.co.uk/ester-desk-chair-detail/",
         },
       ],
     },
@@ -131,18 +131,18 @@ const state = reactive({
           annotation: {
             name: "bar",
           },
-          body: "asdfasdf",
-          img: "trendelenburg.jpg",
-          href: "https://archyi-inspiration.com/en/collections/angolo",
+          body: "Commercial modern canteen table suitable for office break rooms and staff kitchens.",
+          img: "bar.jpg",
+          href: "https://www.spaceist.co.uk/camp-canteen-high-table-with-wood-top/",
         },
         {
           name: "Stool",
           annotation: {
             name: "stool",
           },
-          body: "asdfasdf",
-          img: "trendelenburg.jpg",
-          href: "https://archyi-inspiration.com/en/collections/angolo",
+          body: "5-year warranty, Steel powder coated frame, Matching chair + bench, Modern cafe stool design",
+          img: "stool.jpg",
+          href: "https://www.spaceist.co.uk/tea-office-stool/",
         },
         {
           name: "Sofa",
@@ -150,9 +150,9 @@ const state = reactive({
           annotation: {
             name: "sofa",
           },
-          body: "asdfasdf",
-          img: "trendelenburg.jpg",
-          href: "https://archyi-inspiration.com/en/collections/angolo",
+          body: "This designer 2 seater office sofa is part of the popular Buddy wholesale range.",
+          img: "sofa.jpg",
+          href: "https://www.spaceist.co.uk/buddy-2-seater-sofa/",
         },
       ],
     },
@@ -166,6 +166,7 @@ const currentstepindex = ref(0);
 const currenttabindex = ref(0);
 const isStartposition = ref(true);
 const isEndposition = ref(false);
+const viewerready = ref(false);
 
 const currenttab = computed(() => {
   return state.tabs[currenttabindex.value];
@@ -281,6 +282,7 @@ onMounted(() => {
         _api.addEventListener("viewerready", () => {
           parseAnnotations(_api).then(() => {
             gotoAnnotation(api.value, state.startannotation);
+            viewerready.value = true;
           });
         });
       },
@@ -292,19 +294,38 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
-    <div class="border-b border-gray-200">
-      <nav class="-mb-px h-14" aria-label="Tabs">
-        <v-fade-transition>
-          <div v-if="!isStartposition && !isEndposition" class="flex">
+  <v-responsive aspect-ratio="1.2" class="w-100">
+    <iframe
+      style="border: 0"
+      id="api-iframe"
+      ref="viewerIframeRef"
+      class="w-100 h-100 absolute"
+    ></iframe>
+    <v-fade-transition>
+      <div
+        v-if="!isStartposition && !isEndposition"
+        class="absolute w-100 border-b border-gray-200"
+        :class="[isDark ? 'bg-neutral-900' : 'bg-neutral-50']"
+      >
+        <nav class="-mb-px h-12" aria-label="Tabs">
+          <div class="flex">
+            <v-icon
+              color="grey-darken-2"
+              class="w-12 mt-3 mx-3"
+              @click="restartExperience"
+              >mdi-home</v-icon
+            >
             <div
               v-for="tab in state.tabs"
               :key="tab.name"
               :class="[
                 tab.name === currenttab.name
-                  ? 'border-pink-700 text-pink-700'
+                  ? isDark
+                    ? 'border-sky-400 text-sky-400'
+                    : 'border-sky-700 text-sky-700'
                   : 'border-transparent text-gray-600 hover:border-gray-300 hover:text-gray-700',
-                'w-1/4 border-b-4 py-4 px-1 text-center text-sm font-medium cursor-pointer',
+
+                'w-1/4 border-b-4 py-2.5 px-1 text-center text-md font-normal cursor-pointer',
               ]"
               :aria-current="tab.name === currenttab.name ? 'page' : undefined"
               @click="setTab(tab.name)"
@@ -312,46 +333,47 @@ onMounted(() => {
               {{ tab.name }}
             </div>
           </div>
-        </v-fade-transition>
-      </nav>
-    </div>
-  </div>
-  <v-responsive :aspect-ratio="4 / 3" class="w-100">
-    <iframe
-      style="border: 0"
-      id="api-iframe"
-      ref="viewerIframeRef"
-      class="w-100 h-100 absolute"
-    ></iframe>
+        </nav>
+      </div>
+    </v-fade-transition>
     <v-scale-transition>
       <div
         v-if="isStartposition"
-        class="absolute left-0 bottom-0 w-[32rem] m-4"
+        class="absolute w-100 h-100 flex justify-center items-center bg-gradient-to-t from-black/50 to-neutral-500/50"
       >
-        <div
-          class="text-4xl font-extrabold drop-shadow-md bg-clip-text text-transparent bg-pink-500"
-        >
-          Welcome
-        </div>
-        <div class="flex align-end">
+        <div>
           <div
-            class="rounded-md shadow-lg h-32 w-[26rem] flex"
-            :class="[isDark ? 'bg-black' : 'bg-white']"
+            class="text-4xl font-extrabold drop-shadow-md bg-clip-text text-transparent bg-neutral-50"
           >
-            <div class="m-4">
-              Welcome to the workplace design showroom. Take a stroll through
-              four different workplace scenarios and discover the products that
-              make up each space.
-            </div>
+            Welcome
           </div>
-          <button
-            type="button"
-            class="ml-2 w-24 rounded-full bg-pink-600 pl-4 p-2 text-white shadow-sm hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            @click="startExperience"
-          >
-            Start
-            <v-icon>mdi-chevron-right</v-icon>
-          </button>
+          <div class="flex align-end">
+            <div
+              class="rounded-md shadow-lg h-32 w-[26rem] flex flex-col"
+              :class="[isDark ? 'bg-neutral-900' : 'bg-neutral-50']"
+            >
+              <div class="m-3">
+                Welcome to the workplace design showroom. Take a stroll through
+                four different workplace scenarios and discover the products
+                that make up each space.
+              </div>
+              <v-progress-linear
+                v-if="!viewerready"
+                indeterminate
+                height="8"
+                color="light-blue-lighten-1"
+              ></v-progress-linear>
+            </div>
+            <button
+              v-if="viewerready"
+              type="button"
+              class="ml-2 w-24 rounded-full bg-sky-500 pl-4 p-2 text-white shadow-sm hover:bg-sky-400"
+              @click="startExperience"
+            >
+              Start
+              <v-icon>mdi-chevron-right</v-icon>
+            </button>
+          </div>
         </div>
       </div>
       <div
@@ -361,14 +383,14 @@ onMounted(() => {
         <div class="flex align-end">
           <div
             class="rounded-md shadow-lg h-32 w-[26rem] flex"
-            :class="[isDark ? 'bg-black' : 'bg-white']"
+            :class="[isDark ? 'bg-neutral-900' : 'bg-white']"
           >
             <div class="m-4">
               You've now seen all the products in these four spaces. To learn
               more about creating these experiences, sign up for the devfab.io
               newsletter
               <a
-                class="underline decoration-4 decoration-solid decoration-pink-600"
+                class="underline decoration-4 decoration-solid decoration-sky-500"
                 href="https://subscribepage.io/Rcju8g"
                 >here</a
               >.
@@ -376,7 +398,7 @@ onMounted(() => {
           </div>
           <button
             type="button"
-            class="ml-2 w-36 rounded-full bg-pink-600 pl-4 p-2 text-white shadow-sm hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            class="ml-2 w-36 rounded-full bg-sky-500 pl-4 p-2 text-white shadow-sm hover:bg-sky-400"
             @click="restartExperience"
           >
             Start Over
@@ -384,25 +406,25 @@ onMounted(() => {
           </button>
         </div>
       </div>
-      <div v-else class="absolute left-0 bottom-0 w-[32rem] m-4">
-        <div
-          class="text-4xl font-extrabold drop-shadow-md bg-clip-text text-transparent bg-pink-500"
-        >
-          {{ currentstep.name }}
-        </div>
+      <div v-else class="absolute left-0 bottom-0 w-[33rem] m-4">
         <div class="flex align-end">
-          <div
-            class="rounded-md shadow-lg h-32 w-[26rem] flex"
-            :class="[isDark ? 'bg-black' : 'bg-white']"
-          >
-            <img :src="currentstep.img" class="object-contain h-32 w-32" />
-            <div class="m-2">
-              {{ currentstep.body }}
+          <div>
+            <div class="text-4xl font-extrabold drop-shadow text-sky-400">
+              {{ currentstep.name }}
+            </div>
+            <div
+              class="rounded-md shadow-lg h-32 w-[26rem] flex"
+              :class="[isDark ? 'bg-neutral-900' : 'bg-neutral-50']"
+            >
+              <img :src="currentstep.img" class="object-contain h-32 w-32" />
+              <div class="m-2">
+                {{ currentstep.body }}
+              </div>
             </div>
           </div>
           <button
             type="button"
-            class="ml-2 w-28 rounded-full bg-pink-600 pl-4 p-2 text-white shadow-sm hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            class="ml-2 w-32 rounded-full bg-sky-500 pl-4 p-2 text-white shadow-sm hover:bg-sky-400"
             @click="nextStep"
           >
             {{ currentstep.isFinal ? "Finish" : "Next" }}
