@@ -4,9 +4,26 @@ import { useData } from "vitepress";
 import { API, Annotation } from "./types";
 const { isDark } = useData();
 
+interface AnnotationWrapper {
+  name: string;
+  payload?: Annotation;
+}
+interface Tab {
+  name: string;
+  current: boolean;
+}
+interface Step {
+  name: string;
+  annotation: AnnotationWrapper;
+  body: string;
+  img: string;
+  href: string;
+  tab: string;
+}
 interface State {
-  tabs: any[];
-  annotationList: Annotation[];
+  bookendannotation: AnnotationWrapper;
+  tabs: Tab[];
+  steps: Step[];
 }
 const playersettings = {
   autostart: 1,
@@ -18,154 +35,162 @@ const playersettings = {
   ui_stop: 0,
   camera: 0,
 };
-const state = reactive({
-  startannotation: {
+
+const backgrounds = {
+  light: [255, 255, 255],
+  dark: [97, 97, 100],
+};
+const state: State = reactive({
+  bookendannotation: {
     name: "start",
   },
   tabs: [
     {
       name: "Project",
       current: true,
-      steps: [
-        {
-          name: "MacBook Pro",
-          annotation: {
-            name: "laptop",
-          },
-          body: "The new M2 chip makes the 13-inch MacBook Pro more capable than ever.",
-          img: "macbook.jpg",
-          href: "https://www.apple.com/macbook-pro-13/",
-        },
-        {
-          name: "Space Divider",
-          annotation: {
-            name: "space divider",
-          },
-          body: "Sculpo Free Standing divides spaces while improving modern visual layout and sound comfort.",
-          img: "space-divider.jpg",
-          href: "https://archyi-inspiration.com/en/products/acoustic-solutions/free-standing-sculpo",
-        },
-        {
-          name: "Tripod Easel",
-          annotation: {
-            name: "flipchart easel",
-          },
-          body: "Tripod Easel Angolo is a smart, practical and playful presentation tool inspired in the classic artistic painting easel stand.",
-          img: "flipchart-easel.png",
-          href: "https://archyi-inspiration.com/en/collections/angolo",
-        },
-      ],
     },
     {
       name: "Open Plan",
       current: false,
-      steps: [
-        {
-          name: "Plants",
-          annotation: {
-            name: "plants",
-          },
-          body: "Research has shown that plants increase wellbeing, creativity and productivity in the workplace.",
-          img: "plants.png",
-          href: "https://www.ikea.com/gb/en/ideas/office-plant-ideas-for-a-greener-workspace-pub1eb570e1",
-        },
-        {
-          name: "Copier",
-          annotation: {
-            name: "copier",
-          },
-          body: "Xerox® ConnectKey® technology enabled Workplace Assistant that can do it all.",
-          img: "copier.png",
-          href: "https://www.xerox.co.uk/en-gb/office/multifunction-printers/versalink-c7120-c7125-c7130",
-        },
-        {
-          name: "Desk Divider",
-          annotation: {
-            name: "desk divider",
-          },
-          body: "Desk Sculpo is an ideal solution to divide work spaces creating a visual barrier and acoustic comfort.",
-          img: "desk-divider.png",
-          href: "https://archyi-inspiration.com/en/products/acoustic-solutions/desk-sculpo",
-        },
-      ],
     },
     {
       name: "Conference",
       current: false,
-      steps: [
-        {
-          name: "Meeting Table",
-          annotation: {
-            name: "conference table",
-          },
-          body: "The Ark white conference table is crafted from a 5 mm solid laminate top on a powder-coated steel base.",
-          img: "conference-table.jpg",
-          href: "https://www.spaceist.co.uk/ark-meeting-table-new-detail/",
-        },
-        {
-          name: "Projection Screen",
-          annotation: {
-            name: "beamer screen",
-          },
-          body: "Acumen® V, an attractive below-the-ceiling projection screen, blends seamlessly in today's elegant interiors.",
-          img: "screen.jpg",
-          href: "https://www.draperinc.com/projectionscreens/productdetail/1054/acumen-v",
-        },
-        {
-          name: "Desk Chair",
-          annotation: {
-            name: "neat chair",
-          },
-          body: "The Ester leather desk chair is an elegant choice for modern offices providing quintessential style along with comfort.",
-          img: "chair.jpg",
-          href: "https://www.spaceist.co.uk/ester-desk-chair-detail/",
-        },
-      ],
     },
     {
       name: "Casual",
       current: false,
-      steps: [
-        {
-          name: "Bar",
-          annotation: {
-            name: "bar",
-          },
-          body: "Commercial modern canteen table suitable for office break rooms and staff kitchens.",
-          img: "bar.jpg",
-          href: "https://www.spaceist.co.uk/camp-canteen-high-table-with-wood-top/",
-        },
-        {
-          name: "Stool",
-          annotation: {
-            name: "stool",
-          },
-          body: "5-year warranty, Steel powder coated frame, Matching chair + bench, Modern cafe stool design",
-          img: "stool.jpg",
-          href: "https://www.spaceist.co.uk/tea-office-stool/",
-        },
-        {
-          name: "Sofa",
-          isFinal: true,
-          annotation: {
-            name: "sofa",
-          },
-          body: "This designer 2 seater office sofa is part of the popular Buddy wholesale range.",
-          img: "sofa.jpg",
-          href: "https://www.spaceist.co.uk/buddy-2-seater-sofa/",
-        },
-      ],
     },
   ],
-  annotationList: [],
+  steps: [
+    {
+      name: "MacBook Pro",
+      annotation: {
+        name: "laptop",
+      },
+      body: "The new M2 chip makes the 13-inch MacBook Pro more capable than ever.",
+      img: "macbook.jpg",
+      href: "https://www.apple.com/macbook-pro-13/",
+      tab: "Project",
+    },
+    {
+      name: "Space Divider",
+      annotation: {
+        name: "space divider",
+      },
+      body: "Sculpo Free Standing divides spaces while improving modern visual layout and sound comfort.",
+      img: "space-divider.jpg",
+      href: "https://archyi-inspiration.com/en/products/acoustic-solutions/free-standing-sculpo",
+      tab: "Project",
+    },
+    {
+      name: "Tripod Easel",
+      annotation: {
+        name: "flipchart easel",
+      },
+      body: "Tripod Easel Angolo is a smart, practical and playful presentation tool inspired in the classic artistic painting easel stand.",
+      img: "flipchart-easel.png",
+      href: "https://archyi-inspiration.com/en/collections/angolo",
+      tab: "Project",
+    },
+    {
+      name: "Plants",
+      annotation: {
+        name: "plants",
+      },
+      body: "Research has shown that plants increase wellbeing, creativity and productivity in the workplace.",
+      img: "plants.png",
+      href: "https://www.ikea.com/gb/en/ideas/office-plant-ideas-for-a-greener-workspace-pub1eb570e1",
+      tab: "Open Plan",
+    },
+    {
+      name: "Copier",
+      annotation: {
+        name: "copier",
+      },
+      body: "Xerox® ConnectKey® technology enabled Workplace Assistant that can do it all.",
+      img: "copier.png",
+      href: "https://www.xerox.co.uk/en-gb/office/multifunction-printers/versalink-c7120-c7125-c7130",
+      tab: "Open Plan",
+    },
+    {
+      name: "Desk Divider",
+      annotation: {
+        name: "desk divider",
+      },
+      body: "Desk Sculpo is an ideal solution to divide work spaces creating a visual barrier and acoustic comfort.",
+      img: "desk-divider.png",
+      href: "https://archyi-inspiration.com/en/products/acoustic-solutions/desk-sculpo",
+      tab: "Open Plan",
+    },
+    {
+      name: "Meeting Table",
+      annotation: {
+        name: "conference table",
+      },
+      body: "The Ark white conference table is crafted from a 5 mm solid laminate top on a powder-coated steel base.",
+      img: "conference-table.jpg",
+      href: "https://www.spaceist.co.uk/ark-meeting-table-new-detail/",
+      tab: "Conference",
+    },
+    {
+      name: "Projection Screen",
+      annotation: {
+        name: "beamer screen",
+      },
+      body: "Acumen® V, an attractive below-the-ceiling projection screen, blends seamlessly in today's elegant interiors.",
+      img: "screen.jpg",
+      href: "https://www.draperinc.com/projectionscreens/productdetail/1054/acumen-v",
+      tab: "Conference",
+    },
+    {
+      name: "Desk Chair",
+      annotation: {
+        name: "neat chair",
+      },
+      body: "The Ester leather desk chair is an elegant choice for modern offices providing quintessential style along with comfort.",
+      img: "chair.jpg",
+      href: "https://www.spaceist.co.uk/ester-desk-chair-detail/",
+      tab: "Conference",
+    },
+    {
+      name: "Bar",
+      annotation: {
+        name: "bar",
+      },
+      body: "Commercial modern canteen table suitable for office break rooms and staff kitchens.",
+      img: "bar.jpg",
+      href: "https://www.spaceist.co.uk/camp-canteen-high-table-with-wood-top/",
+      tab: "Casual",
+    },
+    {
+      name: "Stool",
+      annotation: {
+        name: "stool",
+      },
+      body: "5-year warranty, Steel powder coated frame, Matching chair + bench, Modern cafe stool design",
+      img: "stool.jpg",
+      href: "https://www.spaceist.co.uk/tea-office-stool/",
+      tab: "Casual",
+    },
+    {
+      name: "Sofa",
+      annotation: {
+        name: "sofa",
+      },
+      body: "This designer 2 seater office sofa is part of the popular Buddy wholesale range.",
+      img: "sofa.jpg",
+      href: "https://www.spaceist.co.uk/buddy-2-seater-sofa/",
+      tab: "Casual",
+    },
+  ],
 });
 
 const viewerIframeRef = ref(null);
 const api = ref<API | undefined>();
 const currentstepindex = ref(0);
 const currenttabindex = ref(0);
-const isStartposition = ref(true);
-const isEndposition = ref(false);
+const stepType = ref("start");
 const viewerready = ref(false);
 
 const currenttab = computed(() => {
@@ -173,65 +198,79 @@ const currenttab = computed(() => {
 });
 
 const currentstep = computed(() => {
-  return currenttab.value.steps[currentstepindex.value];
+  return state.steps[currentstepindex.value];
+});
+
+const ctaButtonText = computed(() => {
+  return stepType.value === "start"
+    ? "Start"
+    : stepType.value === "end"
+    ? "Again"
+    : currentstepindex.value === state.steps.length - 1
+    ? "Finish"
+    : "Next";
 });
 
 const setTab = (tabName: string) => {
-  const index = state.tabs.findIndex((tab) => tab.name === tabName);
-  currenttabindex.value = index;
-  currentstepindex.value = 0;
-  gotoAnnotation(
-    api.value,
-    state.tabs[currenttabindex.value].steps[currentstepindex.value].annotation,
+  currenttabindex.value = state.tabs.findIndex((tab) => tab.name === tabName);
+  currentstepindex.value = state.steps.findIndex(
+    (step) => step.tab === tabName,
+  );
+  gotoAnnotation(api.value, state.steps[currentstepindex.value].annotation);
+};
+
+const incrementStepIndex = () => {
+  currentstepindex.value++;
+  currenttabindex.value = state.tabs.findIndex(
+    (tab) => tab.name === currentstep.value.tab,
   );
 };
 
-const nextStep = () => {
-  if (currentstep.value.isFinal) {
-    wrapupExperience();
-  } else {
-    currentstepindex.value++;
-    if (currentstepindex.value >= currenttab.value.steps.length) {
-      currenttabindex.value++;
-      currentstepindex.value = 0;
-    }
-    if (currenttabindex.value >= state.tabs.length) {
-      currenttabindex.value = 0;
-    }
-    gotoAnnotation(
-      api.value,
-      state.tabs[currenttabindex.value].steps[currentstepindex.value]
-        .annotation,
-    );
-  }
+const setStep = (doRestart: boolean) => {
+  // Manage the step index and state
+  if (stepType.value === "start") {
+    currenttabindex.value = 0;
+    currentstepindex.value = 0;
+    stepType.value = "step";
+  } else if (stepType.value === "end" || doRestart === true)
+    stepType.value = "start";
+  else if (currentstepindex.value === state.steps.length - 1)
+    stepType.value = "end";
+  else incrementStepIndex();
+
+  // Set the annotation
+  const annotation =
+    stepType.value === "step"
+      ? state.steps[currentstepindex.value].annotation
+      : state.bookendannotation;
+  gotoAnnotation(api.value, annotation);
 };
+
 const parseAnnotations = (api: API): Promise<void> => {
   return new Promise((resolve) => {
     api.getAnnotationList((err, annotations) => {
-      state.tabs.forEach((tab) => {
-        tab.steps.forEach((step) => {
-          const annotation = annotations.find(
-            (annotation) => annotation.name === step.annotation.name,
-          );
-          if (annotation) {
-            step.annotation.payload = annotation;
-          }
-        });
+      state.steps.forEach((step) => {
+        const annotation = annotations.find(
+          (annotation) => annotation.name === step.annotation.name,
+        );
+        if (annotation) {
+          step.annotation.payload = annotation;
+        }
       });
-      state.startannotation.payload = annotations.find(
-        (annotation) => annotation.name === state.startannotation.name,
+
+      state.bookendannotation.payload = annotations.find(
+        (annotation) => annotation.name === state.bookendannotation.name,
       );
       resolve();
     });
   });
 };
+
 const gotoAnnotation = (api, annotation) => {
-  console.log("annotation", annotation);
   const settings = {
     usePanConstraints: true,
     target: JSON.parse(JSON.stringify(annotation.payload.target)),
   };
-  // showAnnotationDetails(api, annotationIndex);
   api.setEnableCameraConstraints(false, {}, () => {
     api.setCameraLookAt(
       JSON.parse(JSON.stringify(annotation.payload.eye)),
@@ -247,32 +286,17 @@ const gotoAnnotation = (api, annotation) => {
     );
   });
 };
-
-const startExperience = () => {
-  isStartposition.value = false;
-  isEndposition.value = false;
-  gotoAnnotation(
-    api.value,
-    state.tabs[currenttabindex.value].steps[currentstepindex.value].annotation,
-  );
+function gammaCorrectRgb(rgb) {
+  return rgb.map((v) => Math.pow(v / 255, 2.2));
+}
+const setBackground = () => {
+  const color = gammaCorrectRgb(backgrounds[isDark.value ? "dark" : "light"]);
+  const backgroundSetting = { color };
+  if (api.value) api.value.setBackground(backgroundSetting, function (err) {});
 };
-
-const restartExperience = () => {
-  isEndposition.value = false;
-  isStartposition.value = true;
-  currenttabindex.value = 0;
-  currentstepindex.value = 0;
-  gotoAnnotation(api.value, state.startannotation);
-};
-
-const wrapupExperience = () => {
-  isStartposition.value = false;
-  isEndposition.value = true;
-  currenttabindex.value = 0;
-  currentstepindex.value = 0;
-  gotoAnnotation(api.value, state.startannotation);
-};
-
+watch(isDark, () => {
+  setBackground();
+});
 onMounted(() => {
   import("@sketchfab/viewer-api").then((module) => {
     const client = new module.default("1.12.1", viewerIframeRef.value);
@@ -281,9 +305,10 @@ onMounted(() => {
         api.value = _api;
         _api.addEventListener("viewerready", () => {
           parseAnnotations(_api).then(() => {
-            gotoAnnotation(api.value, state.startannotation);
+            gotoAnnotation(api.value, state.bookendannotation);
             viewerready.value = true;
           });
+          setBackground();
         });
       },
       error: () => console.error("Sketchfab API error"),
@@ -303,7 +328,7 @@ onMounted(() => {
     ></iframe>
     <v-fade-transition>
       <div
-        v-if="!isStartposition && !isEndposition"
+        v-if="stepType === 'step'"
         class="absolute w-100 border-b border-gray-200"
         :class="[isDark ? 'bg-neutral-900' : 'bg-neutral-50']"
       >
@@ -312,7 +337,7 @@ onMounted(() => {
             <v-icon
               color="grey-darken-2"
               class="w-12 mt-3 mx-3"
-              @click="restartExperience"
+              @click="setStep(true)"
               >mdi-home</v-icon
             >
             <div
@@ -338,96 +363,55 @@ onMounted(() => {
     </v-fade-transition>
     <v-scale-transition>
       <div
-        v-if="isStartposition"
-        class="absolute w-100 h-100 flex justify-center items-center bg-gradient-to-t from-black/50 to-neutral-500/50"
+        class="absolute left-0 bottom-0 w-[33rem]"
+        :class="[
+          stepType === 'start'
+            ? 'w-100 h-100  flex justify-center items-center bg-gradient-to-t from-black/60 to-neutral-600/40'
+            : 'm-4',
+        ]"
       >
-        <div>
-          <div
-            class="text-4xl font-extrabold drop-shadow-md bg-clip-text text-transparent bg-neutral-50"
-          >
-            Welcome
-          </div>
-          <div class="flex align-end">
+        <div class="flex align-end">
+          <div>
             <div
-              class="rounded-md shadow-lg h-32 w-[26rem] flex flex-col"
+              v-if="stepType !== 'end'"
+              class="text-4xl font-extrabold drop-shadow text-sky-400"
+            >
+              {{ stepType === "start" ? "Welcome" : currentstep.name }}
+            </div>
+            <div
+              class="rounded-md shadow-lg h-32 w-[26rem]"
               :class="[isDark ? 'bg-neutral-900' : 'bg-neutral-50']"
             >
-              <div class="m-3">
+              <div v-if="stepType === 'start'" class="p-3">
                 Welcome to the workplace design showroom. Take a stroll through
                 four different workplace scenarios and discover the products
                 that make up each space.
               </div>
-              <v-progress-linear
-                v-if="!viewerready"
-                indeterminate
-                height="8"
-                color="light-blue-lighten-1"
-              ></v-progress-linear>
-            </div>
-            <button
-              v-if="viewerready"
-              type="button"
-              class="ml-2 w-24 rounded-full bg-sky-500 pl-4 p-2 text-white shadow-sm hover:bg-sky-400"
-              @click="startExperience"
-            >
-              Start
-              <v-icon>mdi-chevron-right</v-icon>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        v-else-if="isEndposition"
-        class="absolute left-0 bottom-0 w-[32rem] m-4"
-      >
-        <div class="flex align-end">
-          <div
-            class="rounded-md shadow-lg h-32 w-[26rem] flex"
-            :class="[isDark ? 'bg-neutral-900' : 'bg-white']"
-          >
-            <div class="m-4">
-              You've now seen all the products in these four spaces. To learn
-              more about creating these experiences, sign up for the devfab.io
-              newsletter
-              <a
-                class="underline decoration-4 decoration-solid decoration-sky-500"
-                href="https://subscribepage.io/Rcju8g"
-                >here</a
-              >.
-            </div>
-          </div>
-          <button
-            type="button"
-            class="ml-2 w-36 rounded-full bg-sky-500 pl-4 p-2 text-white shadow-sm hover:bg-sky-400"
-            @click="restartExperience"
-          >
-            Start Over
-            <v-icon>mdi-chevron-right</v-icon>
-          </button>
-        </div>
-      </div>
-      <div v-else class="absolute left-0 bottom-0 w-[33rem] m-4">
-        <div class="flex align-end">
-          <div>
-            <div class="text-4xl font-extrabold drop-shadow text-sky-400">
-              {{ currentstep.name }}
-            </div>
-            <div
-              class="rounded-md shadow-lg h-32 w-[26rem] flex"
-              :class="[isDark ? 'bg-neutral-900' : 'bg-neutral-50']"
-            >
-              <img :src="currentstep.img" class="object-contain h-32 w-32" />
-              <div class="m-2">
-                {{ currentstep.body }}
+              <div v-else-if="stepType === 'end'" class="p-3">
+                You've now seen all the products in these four spaces. To learn
+                more about creating these experiences, sign up for the devfab.io
+                newsletter
+                <a
+                  class="underline decoration-4 decoration-solid decoration-sky-500"
+                  href="https://subscribepage.io/Rcju8g"
+                  >here</a
+                >.
+              </div>
+              <div v-else class="flex">
+                <img :src="currentstep.img" class="object-contain h-32 w-32" />
+                <div class="m-2">
+                  {{ currentstep.body }}
+                </div>
               </div>
             </div>
           </div>
           <button
+            v-if="viewerready"
             type="button"
-            class="ml-2 w-32 rounded-full bg-sky-500 pl-4 p-2 text-white shadow-sm hover:bg-sky-400"
-            @click="nextStep"
+            class="ml-2 rounded-full bg-sky-500 pl-4 p-2 text-white shadow-sm hover:bg-sky-400"
+            @click="setStep(false)"
           >
-            {{ currentstep.isFinal ? "Finish" : "Next" }}
+            {{ ctaButtonText }}
             <v-icon>mdi-chevron-right</v-icon>
           </button>
         </div>
