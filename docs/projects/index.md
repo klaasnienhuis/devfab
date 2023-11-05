@@ -18,6 +18,14 @@ Learn how to create a product showcase for a phone. It shows how to switch betwe
 
 [Get started...](./phone.html)
 
+## Product Tour
+
+![Product tour](./product-tour.jpg)
+
+Learn how to create a product tour. You can enhance the experience with texts, images and even configuration options. A great way to show off a product or a piece of art.
+
+[Get started...](./product-tour.html)
+
 ## Virtual showroom
 
 Coming soon...

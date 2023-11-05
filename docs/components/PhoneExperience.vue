@@ -2,6 +2,7 @@
 import { computed, onMounted, ref, watch } from "vue";
 import { RadioGroup, RadioGroupLabel, RadioGroupOption } from "@headlessui/vue";
 import { useData } from "vitepress";
+import { API, Node } from "./types";
 const { isDark } = useData();
 
 const playersettings = {
@@ -33,7 +34,7 @@ const backgrounds = {
   dark: [97, 97, 100],
 };
 
-const scenenodes = {
+const scenenodes: { [key: string]: number | null } = {
   rootMatrixNode: null,
   iPhone_15_Plus_v1_002: null,
   iPhone_15_v1_002: null,
@@ -43,7 +44,7 @@ const viewerIframeRef = ref(null);
 const viewerready = ref(false);
 const selectedColor = ref(colors[0]);
 const selectedSize = ref(sizes[0]);
-const api = ref(null);
+const api = ref<API | null>(null);
 
 const scenematerials = {
   "aluminium-color": null,
@@ -102,7 +103,7 @@ function gammaCorrectRgb(rgb) {
 const loadTexture = (textureData) => {
   return new Promise((resolve) => {
     if (textureData.uid === null) {
-      api.value.addTexture(textureData.url, (err, uid) => {
+      api.value?.addTexture(textureData.url, (err, uid) => {
         textureData.uid = uid;
         resolve(uid);
       });
@@ -125,11 +126,12 @@ const applyColors = async (colorname) => {
   });
 
   // set the colors on the relevant materials
-  scenematerials["screen"].channels.EmitColor.texture = { uid };
+  if (scenematerials.screen)
+    scenematerials.screen.channels.EmitColor.texture = { uid };
 
   // apply the adjusted materials to the scene
   Object.keys(scenematerials).forEach((key) => {
-    api.value.setMaterial(scenematerials[key]);
+    api.value?.setMaterial(scenematerials[key]);
   });
 };
 
@@ -142,7 +144,8 @@ const showSize = (size) => {
 };
 
 const showSmall = () => {
-  api.value.translate(
+  if (!scenenodes.rootMatrixNode) return;
+  api.value?.translate(
     scenenodes.rootMatrixNode,
     [0, 0, 0],
     {
@@ -150,14 +153,17 @@ const showSmall = () => {
       easing: "easeInOutQuad",
     },
     function (err, translateTo) {
-      api.value.show(scenenodes["iPhone_15_v1_002"]);
-      api.value.hide(scenenodes["iPhone_15_Plus_v1_002"]);
+      if (!scenenodes["iPhone_15_v1_002"]) return;
+      if (!scenenodes["iPhone_15_Plus_v1_002"]) return;
+      api.value?.show(scenenodes["iPhone_15_v1_002"]);
+      api.value?.hide(scenenodes["iPhone_15_Plus_v1_002"]);
     },
   );
 };
 
 const showBig = () => {
-  api.value.translate(
+  if (!scenenodes.rootMatrixNode) return;
+  api.value?.translate(
     scenenodes.rootMatrixNode,
     [0.08, 0, 0],
     {
@@ -165,13 +171,15 @@ const showBig = () => {
       easing: "easeInOutQuad",
     },
     function (err, translateTo) {
-      api.value.hide(scenenodes["iPhone_15_v1_002"]);
-      api.value.show(scenenodes["iPhone_15_Plus_v1_002"]);
+      if (!scenenodes["iPhone_15_v1_002"]) return;
+      if (!scenenodes["iPhone_15_Plus_v1_002"]) return;
+      api.value?.hide(scenenodes["iPhone_15_v1_002"]);
+      api.value?.show(scenenodes["iPhone_15_Plus_v1_002"]);
     },
   );
 };
 
-const findNode = (nodemap, name) => {
+const findNode = (nodemap: Node[], name: string) => {
   return Object.values(nodemap).find((node) => {
     return node.name === name && node.type === "MatrixTransform";
   });
@@ -180,7 +188,7 @@ const findNode = (nodemap, name) => {
 const setBackground = () => {
   const color = gammaCorrectRgb(backgrounds[isDark.value ? "dark" : "light"]);
   const backgroundSetting = { color };
-  if (api.value) api.value.setBackground(backgroundSetting, function (err) {});
+  if (api.value) api.value?.setBackground(backgroundSetting, function (err) {});
 };
 
 watch(isDark, () => {
