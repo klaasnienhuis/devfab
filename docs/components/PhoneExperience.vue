@@ -2,7 +2,7 @@
 import { computed, onMounted, ref, watch } from "vue";
 import { RadioGroup, RadioGroupLabel, RadioGroupOption } from "@headlessui/vue";
 import { useData } from "vitepress";
-import { API, Node } from "./types";
+import { API, Material, Node } from "./types";
 const { isDark } = useData();
 
 const playersettings = {
@@ -211,7 +211,7 @@ onMounted(() => {
             });
             showSize("small");
           });
-          _api.getMaterialList(function (err, materials) {
+          _api.getMaterialList((err, materials: Material[]) => {
             materials.forEach((item) => {
               if (scenematerials[item.name] === null)
                 scenematerials[item.name] = item;
