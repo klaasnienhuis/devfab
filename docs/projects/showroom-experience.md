@@ -60,7 +60,7 @@ Take a look at the [Menu and embedding](../guide/annotations/menu) tutorial for 
 
 <CodePenEmbed id="MWLbxxP/81954e355dedbb9e33dc00220002ede6" tab="result" />
 
-I have three steps in this showroom experience. Each step has a title. By using the "next" button, the user can navigate to the next step. We've already seen this behavior in the [Product tour](../product-tour) project. The difference is that in this project, we're letting the app drive the navigation instead of the Sketchfab model.
+I have three steps in this showroom experience. Each step has a title. By using the "next" button, the user can navigate to the next step. We've already seen this behavior in the [Product tour](./product-tour) project. The difference is that in this project, we're letting the app drive the navigation instead of the Sketchfab model.
 
 What this means is, that the model can have any number of annotations in it, but we only use the ones that we specify in the app. This gives us flexibility in how we're using the model. Our model has four annotations.
 
