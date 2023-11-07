@@ -122,3 +122,62 @@ const gotoAnnotation = (api, annotation) => {
   });
 };
 ```
+
+## Bookends
+
+I want to start and end the experience with their own steps. I'm calling these bookends. The first step is a title screen. The last step is a thank you screen. It makes the whole experience a bit more polished.
+
+We're enhancing the `setStep` method to handle the bookends. We're using a `stepType` variable to keep track of the current step. We're also using a `bookendAnnotation` variable to store the annotation for the bookend. The idea is that we first start, then go through our three steps and then end. Once you arrive at the end, you can restart the experience.
+
+```js
+let stepType = "start";
+
+const setStep = () => {
+  if (stepType === "start") {
+    currentId = 0;
+    stepType = "step";
+  } else if (stepType === "end") {
+    stepType = "start";
+  } else if (currentId === steps.length - 1) stepType = "end";
+  else currentId = currentId === steps.length - 1 ? 0 : currentId + 1;
+
+  const annotation =
+    stepType === "step" ? annotations[currentId] : bookendAnnotation;
+  gotoAnnotation(api, annotation);
+  showStepContent(steps[currentId]);
+};
+```
+
+To show the currect buttontext and title, we need to apply some logic. Depending on the `stepType` and the `currentId`, we need to show different text. We're using the `getContent` method to return the correct text and title. We're using the `showStepContent` method to update the DOM.
+
+```js
+const getContent = () => {
+  let buttontext = "";
+  let title = "";
+
+  if (stepType === "start") {
+    buttontext = "Start";
+    title = startStep.name;
+  } else if (stepType === "end") {
+    buttontext = "Again";
+    title = endStep.name;
+  } else if (currentId === steps.length - 1) {
+    buttontext = "Finish";
+    title = steps[currentId].name;
+  } else {
+    buttontext = "Next";
+    title = steps[currentId].name;
+  }
+  return { buttontext, title };
+};
+
+const showStepContent = (step) => {
+  const { buttontext, title } = getContent();
+  elButton.innerHTML = buttontext;
+  elTitle.innerHTML = title;
+};
+```
+
+## Add more content
+
+Besides the title and the button, I also want to show a thumbnail image and some text. We need to add that content to your data objects and array and enhance the `getContent` and `showStepContent` methods.
