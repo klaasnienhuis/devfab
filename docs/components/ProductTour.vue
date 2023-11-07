@@ -60,7 +60,7 @@ const state: State = reactive({
       status: "upcoming",
       align: "left",
       text: "",
-      src: "./side-rails.jpg",
+      src: "/images/side-rails.jpg",
       toggle: {
         objects: ["handle"],
         title: "Side rails",
@@ -85,7 +85,7 @@ const state: State = reactive({
       status: "upcoming",
       align: "right",
       text: "Manual Trendelenburg adjustment (max. 12°) with lever at foot end",
-      src: "./trendelenburg.jpg",
+      src: "/images/trendelenburg.jpg",
     },
     5: {
       title: "Paper roll stand",
