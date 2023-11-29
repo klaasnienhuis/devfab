@@ -50,9 +50,9 @@ camera: 0,
 
 - `annotations_visible: 0` hides the annotations
 - `ui_controls: 0` hides all default controls
-- `scrollwheel: 0` disables zooming with the scrollwheel. This helps to prevent the user from zooming in or out too far.
+- `scrollwheel: 0` disables zooming with the scrollwheel. This helps to prevent the user from zooming in or out.
 
-In my experience I like to keep very strict camera control. You can opt to give users a bit more freedom, fur instance by allowing them to zoom.
+In my experience I like to keep very strict camera control. You can opt to give users a bit more freedom, for instance by allowing them to zoom.
 
 Take a look at the [Menu and embedding](../guide/annotations/menu) tutorial for further explanation of settings.
 
@@ -124,6 +124,8 @@ const gotoAnnotation = (api, annotation) => {
 ```
 
 ## Bookends
+
+<CodePenEmbed id="bGzBJeM/0332ea4c6ad139e52dc9929caecda95c" tab="result" />
 
 I want to start and end the experience with their own steps. I'm calling these bookends. The first step is a title screen. The last step is a thank you screen. It makes the whole experience a bit more polished.
 
