@@ -123,7 +123,9 @@ const skaiMaterial = ref<Material | undefined>();
 const productTour = ref<HTMLElement>();
 
 const currentAlignment = computed(() => state.steps[currentId.value].align);
-const clientWidth = computed(() => productTour.value?.clientWidth);
+const clientWidth = computed(() =>
+  productTour.value ? productTour.value.clientWidth : 640,
+);
 
 const showAnnotationDetails = (api, id) => {
   state.steps[id].status = "current";

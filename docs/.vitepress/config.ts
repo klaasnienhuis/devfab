@@ -80,8 +80,8 @@ export default defineConfig({
           // Strip `index.html` from URL
           .replace(/index.html$/g, "")
           // Optional: if Markdown files are located in a subfolder
-          .replace(/^\/guide/, "")
-      )
+          .replace(/^\/guide/, ""),
+      ),
     );
     sitemap.end();
 
@@ -99,6 +99,13 @@ export default defineConfig({
         n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
         (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
         ml('account', '551408');`,
+    ],
+    [
+      "link",
+      {
+        href: "https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css",
+        rel: "stylesheet",
+      },
     ],
   ],
   vite: {
@@ -206,6 +213,10 @@ export default defineConfig({
             { text: "Introduction", link: "/projects/" },
             { text: "Phone Showcase", link: "/projects/phone" },
             { text: "Product tour", link: "/projects/product-tour" },
+            {
+              text: "Showroom experience",
+              link: "/projects/showroom-experience",
+            },
           ],
         },
       ],
