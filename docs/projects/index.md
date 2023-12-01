@@ -26,6 +26,10 @@ Learn how to create a product tour. You can enhance the experience with texts, i
 
 [Get started...](./product-tour.html)
 
-## Virtual showroom
+## Showroom experience
 
-Coming soon...
+[![Virtual showroom](./og-showroom.jpg)](./showroom-experience.html)
+
+A showroom experience is a 3D virtual space that can act as a showroom for products, a museum for art or a virtual event space for instance. Instead of showing one model at a time, you can show multiple models in a single scene.
+
+[Get started...](./showroom-experience.html)

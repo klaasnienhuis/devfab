@@ -2,7 +2,7 @@
 title: Showroom experience with the Sketchfab API
 description: Create a multi-purpose 3D showroom experience with the Sketchfab API
 tags: [sketchfab, api, showroom]
-image: /images/og-product-tour.jpg
+image: /images/og-showroom.jpg
 ---
 
 <script setup>
