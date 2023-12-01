@@ -62,7 +62,7 @@ Take a look at the [Menu and embedding](../guide/annotations/menu) tutorial for 
 
 I have three steps in this showroom experience. Each step has a title. By using the "next" button, the user can navigate to the next step. We've already seen this behavior in the [Product tour](./product-tour) project. The difference is that in this project, we're letting the app drive the navigation instead of the Sketchfab model.
 
-What this means is, that the model can have any number of annotations in it, but we only use the ones that we specify in the app. This gives us flexibility in how we're using the model. Our model has four annotations.
+What this means is, that the model can have any number of annotations in it, but we only use the ones that we specify in the app. This gives us flexibility in how we're using the model. Our model has five annotations.
 
 ![Annotations Sketchfab](./annotations-sketchfab.jpg)
 
@@ -97,7 +97,7 @@ const parseAnnotations = (api) => {
 };
 ```
 
-The following code snippet shows you what happens when the user presses "Next". The `setStep` method is called. It creates an ID for the next annotation and calls the `gotoAnnotation` method. That method uses the `setCameraLookAt` method to move the camera to the next annotation. Once the camera has reached its destination, we set the camera constraints again. You can see why we're doing this and how exactly in the [Annotations and constraints](../guide/annotations/annotation-constraints) tutorial. In short: we're not using the annotations to navigate, but we're using them to set the camera positions directly.
+The following code snippet shows you what happens when the user presses "Next". The `setStep` method is called. It creates an index for the next annotation and calls the `gotoAnnotation` method. That method uses the `setCameraLookAt` method to move the camera to the next annotation. Once the camera has reached its destination, we set the camera constraints again. You can see why we're doing this and how exactly in the [Annotations and constraints](../guide/annotations/annotation-constraints) tutorial. In short: we're not using the annotations to navigate, but we're using them to set the camera positions directly.
 
 ```js
 const setStep = () => {
@@ -127,59 +127,74 @@ const gotoAnnotation = (api, annotation) => {
 
 <CodePenEmbed id="bGzBJeM/0332ea4c6ad139e52dc9929caecda95c" tab="result" />
 
-I want to start and end the experience with their own steps. I'm calling these bookends. The first step is a title screen. The last step is a thank you screen. It makes the whole experience a bit more polished.
+I want to start and end the experience with their own steps. I've added two annotations with the names `start` and `end`. The first step is a title screen. The last step is a thank you screen. It makes the whole experience a bit more polished.
 
-We're enhancing the `setStep` method to handle the bookends. We're using a `stepType` variable to keep track of the current step. We're also using a `bookendAnnotation` variable to store the annotation for the bookend. The idea is that we first start, then go through our three steps and then end. Once you arrive at the end, you can restart the experience.
-
-```js
-let stepType = "start";
-
-const setStep = () => {
-  if (stepType === "start") {
-    currentId = 0;
-    stepType = "step";
-  } else if (stepType === "end") {
-    stepType = "start";
-  } else if (currentId === steps.length - 1) stepType = "end";
-  else currentId = currentId === steps.length - 1 ? 0 : currentId + 1;
-
-  const annotation =
-    stepType === "step" ? annotations[currentId] : bookendAnnotation;
-  gotoAnnotation(api, annotation);
-  showStepContent(steps[currentId]);
-};
-```
-
-To show the currect buttontext and title, we need to apply some logic. Depending on the `stepType` and the `currentId`, we need to show different text. We're using the `getContent` method to return the correct text and title. We're using the `showStepContent` method to update the DOM.
+We're enhancing the data object with two new steps. We're also adding the buttontexts in the data object. The idea is that we first start, then go through our three steps and then end. Once you arrive at the end, you can restart the experience.
 
 ```js
-const getContent = () => {
-  let buttontext = "";
-  let title = "";
-
-  if (stepType === "start") {
-    buttontext = "Start";
-    title = startStep.name;
-  } else if (stepType === "end") {
-    buttontext = "Again";
-    title = endStep.name;
-  } else if (currentId === steps.length - 1) {
-    buttontext = "Finish";
-    title = steps[currentId].name;
-  } else {
-    buttontext = "Next";
-    title = steps[currentId].name;
-  }
-  return { buttontext, title };
-};
-
-const showStepContent = (step) => {
-  const { buttontext, title } = getContent();
-  elButton.innerHTML = buttontext;
-  elTitle.innerHTML = title;
-};
+const steps = [
+  {
+    title: "Start experience",
+    annotationname: "start",
+    buttontext: "Start",
+  },
+  {
+    title: "Meeting Table",
+    annotationname: "table",
+    buttontext: "Next",
+  },
+  {
+    title: "Projection Screen",
+    annotationname: "screen",
+    buttontext: "Next",
+  },
+  {
+    title: "Desk Chair",
+    annotationname: "chair",
+    buttontext: "Finish",
+  },
+  {
+    title: "Thank you",
+    annotationname: "end",
+    buttontext: "Again",
+  },
+];
 ```
 
 ## Add more content
 
 Besides the title and the button, I also want to show a thumbnail image and some text. We need to add that content to your data objects and array and enhance the `getContent` and `showStepContent` methods.
+
+<CodePenEmbed id="NWoOEGz/88dc6b92ef757e06026d8560823402d6" tab="result" />
+
+This is simply a matter of expanding the data object and putting that data somewhere in the frontend. I've added a `body` text and an `img` url to the data object.
+
+```js
+{
+  title: "Meeting Table",
+  annotationname: "table",
+  buttontext: "Next",
+  body:
+    "The Ark white conference table is crafted from a 5 mm solid laminate top on a powder-coated steel base.",
+  img: "https://assets.codepen.io/2407400/conference-table.jpg"
+},
+```
+
+One final trick is to dynamically add textures to the 3D model. Besides showing texts and images in the frontend, we can use materials in the 3D model to display information too. It's as if we're populating a virtual showroom with information. In this example we're adding an image as a texture to the `screen-projector` material. We do that when the scene loads.
+
+```js
+api.addTexture(step.branding.src, (err, uid) => {
+  const material = materials.find(
+    (material) => material.name === step.branding?.materialname,
+  );
+  if (material) {
+    material.channels.AlbedoPBR.texture = { uid };
+    material.channels.EmitColor.texture = { uid };
+    material.channels.EmitColor.enable = true;
+    material.channels.EmitColor.factor = 1;
+    api.setMaterial(material, () => {});
+  }
+});
+```
+
+I'm addiing the texture with `addTexture` and then I use the `uid` of the new texture in the AlbedoPBR and EmitColor channels. Take a look at the [Textures](../guide/materials/textures) and [Material channels](../guide/materials/channels.md) tutorials for more information.
