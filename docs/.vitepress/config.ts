@@ -180,6 +180,10 @@ export default defineConfig({
               link: "/guide/camera/camera-constraints",
             },
             { text: "Rendering", link: "/guide/camera/rendering" },
+            {
+              text: "Orbital Movement",
+              link: "/guide/camera/orbital-movement",
+            },
           ],
         },
         {
