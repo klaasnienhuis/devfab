@@ -10,7 +10,11 @@ import CodePenEmbed from '../../components/CodePenEmbed.vue'
 
 # Orbiting the camera
 
-When you navigate around a 3D model in Sketchfab, to generally orbit the camera. When you click and drag, the target of the camera stays in place and the camera moves around it, keeping the same distance to the target. This is a great way to view 3D objects and feels very natural.
+When you navigate around a 3D model in Sketchfab, you generally orbit the camera. When you click and drag, the target of the camera stays in place and the camera moves around it, keeping the same distance to the target. This is a great way to view 3D objects and feels very natural.
+
+![Orbiting the camera](./orbiting-camera.gif)
+
+_Manually orbiting the camera_
 
 When you use the API to move the camera from A to B however, the camera moves in a straight line. This results in an unnatural experience. In this chapter we'll learn how to orbit the camera with the API and why it's a good thing.
 
@@ -22,11 +26,19 @@ We're not going to bother with camera constraints in this tutorial. If you want,
 
 When you press the "Left" and "Right" buttons, the camera moves from one side of the teapot to the other side. The camera target stays at the origin. When the camera moves towards the teapot, it keeps looking at the target. When the camera passes the teapot, it turns really quickly to keep looking at the target. The quick turn is very disorienting.
 
+![Linear camera movement](./camera-straight.jpg)
+
+_Linear camera movement with the API_
+
 We can avoid the quick turn by keeping more distance between the camera and target. But sometimes, the target just needs to be where the object is. In that case, we need to orbit the camera.
 
 ## Orbital movement
 
 Orbiting the camera means that it moves around the target while keeping its distance. We can compare this kind of movement to traveling across the globe. When you fly from Tokyo to New York, you don't fly in a straight line through the earth. You follow the curve of the earth.
+
+![Orbital camera movement](./camera-orbital.jpg)
+
+_Orbital camera movement_
 
 Let's assume our target is at the center of the earth and I want to move my camera from Tokyo to New York while looking at that target. The Sketchfab API gives us the positions of the camera and target with the `getCameraLookAt` method. This returns points in space with an x, y and z coordinate. But what I need to move the camera along the surface of the earth is a latitude and longitude. This requires some math. [Movable Type](https://www.movable-type.co.uk/scripts/latlong-vectors.html) has a great explanation on how to do this.
 
@@ -76,7 +88,7 @@ This example shows how to move the camera from your current location to another 
 
 ## Interpolation
 
-We're using the `requestAnimationFrame` method to animate the camera. This method calls a function every time the browser is ready to draw a new frame. This is a great way to animate things in the browser. You can read more about it [here](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame). Alternatively, you can use the [GSAP](https://greensock.com/gsap/) library to animate things.
+We're using the `requestAnimationFrame` method to animate the camera. This method calls a function every time the browser is ready to draw a new frame. This is a great way to animate things in the browser. You can read more about it [here](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame). Alternatively, you can use `setInterval` or the [GSAP](https://greensock.com/gsap/) library to animate things.
 
 Initially, we interpolate the camera in 50 steps. But what if the distance between the start- and endposition is very large? Then we might need more steps to make the animation smooth. We can calculate the distance between the start- and endposition and use that to determine the number of steps. We can use the `getDistance` method for this.
 
@@ -85,7 +97,7 @@ const distance = getDistance(camTo.position, camFrom.position);
 const steps = Math.floor(distance / 12);
 ```
 
-`distance/12` is just a hardcoded value to get to a good number of steps. You can adjust this if you like longer or shorted durations.
+`distance/12` is just a hardcoded value to get to a good number of steps. You can adjust this if you like longer or shorter durations.
 
 <CodePenEmbed id="qBggZMJ/4b7c86643a129af7a566ac43b723890a" tab="result" />
 
@@ -111,9 +123,9 @@ const toLatLon = (position, target) => {
 
 ## Easing
 
-You probably have noticed our camera movement is very sudden. The Sketchfab API uses easing to make camera movement smooth. We can apply this easing ourselves. The site [Easings.net](https://easings.net/#) provides a great overview of different easing functions with code ready-to-go. We can use these functions to calculate the inbetween positions.
+The Sketchfab API uses easing to make camera movement smooth. You probably have noticed our camera movement is quite sudden. We can apply easing ourselves to solve this. The site [Easings.net](https://easings.net/#) provides a great overview of different easing functions with code ready-to-go. We can use these functions to calculate the inbetween positions.
 
-Instead of interpolating the new position in a linear fashion, easing will modify the speed at which the camera moves. For instance `easeInOutQuad` will start slow, then speed up and then slow down again. This is a much more natural movement.
+Instead of interpolating the new position in a linear fashion, easing will modify the speed at which the camera moves. For instance `easeInOutQuad` will start slow, then speed up and then slow down again. This is a much more natural movement and resembles how Sketchfab moves cameras.
 
 ```js
 function easeInOutQuad(x) {
