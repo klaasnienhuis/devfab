@@ -10,6 +10,7 @@
     "@headlessui/vue": "^1.7.16",
     "@sketchfab/viewer-api": "^1.12.1",
     "@vueuse/core": "^10.5.0",
+    "gsap": "^3.12.4",
     "vitepress": "latest",
     "vue": "^3.3.4",
     "vue-json-pretty": "^2.2.4",

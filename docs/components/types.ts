@@ -19,6 +19,10 @@ export interface API {
   getAnnotationList: (
     callback: (error: Error, annotationlist: Annotation[]) => void,
   ) => void;
+  hideAnnotation: (
+    index: number,
+    callback: (error: Error, index: number) => void,
+  ) => void;
   getMaterialList: (
     callback: (error: Error, materiallist: Material[]) => void,
   ) => void;
@@ -37,7 +41,7 @@ export interface API {
     eye: number[],
     target: number[],
     duration: number,
-    callback: (error: Error, id: number) => void,
+    callback: (error: Error) => void,
   ) => void;
   setCameraLookAtEndAnimationCallback: (callback: any) => void;
   setCameraConstraints: (settings: any, callback: any) => void;
@@ -50,6 +54,7 @@ export interface API {
     settings: any,
     callback: any,
   ) => void;
+  setUserInteraction: (enable: boolean) => void;
 }
 
 export interface Annotation {
