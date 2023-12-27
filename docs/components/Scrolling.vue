@@ -95,55 +95,51 @@ onMounted(() => {
             );
             //   let displayed = true;
             //   // Setup the ScrollTrigger with the animation timeline
-            ScrollTrigger.create({
+            const bib = ScrollTrigger.create({
               trigger: scrollerRef.value,
               start: "top top",
               // end: "bottom -1800px",
-              pin: "#api-iframe",
+              // pin: "#api-iframe",
               end: "+=3000px",
-              //     // markers: true,
-              //     scrub: true,
-              //     animation: timeline,
-              //     toggleActions: "play none reverse none",
-              //     // Set the camera look-at position on every update and set the caption text
-              //     onUpdate: (self) => {
-              //       const currentIndex =
-              //         self.direction === 1
-              //           ? Math.floor(scrollableAnnotation.index)
-              //           : Math.ceil(scrollableAnnotation.index);
-              //       // setCaption(annotationList.value[currentIndex]);
-              //       console.log("currentIndex", currentIndex);
-              //       if (currentIndex < annotationList.value.length - 2) {
-              //         _api.setUserInteraction(false);
-              //       } else {
-              //         _api.setUserInteraction(true);
-              //       }
-              //       // caption.querySelector('h2').innerText = annotations[currentIndex].name
-              //       // caption.querySelector('p').innerText = annotations[currentIndex].content.raw
-              //       const eye = [
-              //         scrollableAnnotation.ex,
-              //         scrollableAnnotation.ey,
-              //         scrollableAnnotation.ez,
-              //       ];
-              //       const target = [
-              //         scrollableAnnotation.tx,
-              //         scrollableAnnotation.ty,
-              //         scrollableAnnotation.tz,
-              //       ];
-              //       console.log("eye", eye);
-              //       console.log("_api", _api);
-              //       _api.setCameraLookAt(eye, target, 0, (err: Error) => {
-              //         console.log("err", err);
-              //       });
-              //     },
+              // markers: true,
+              // scrub: true,
+              animation: timeline,
+              toggleActions: "play none reverse none",
+              // Set the camera look-at position on every update and set the caption text
+              onUpdate: (self) => {
+                const currentIndex =
+                  self.direction === 1
+                    ? Math.floor(scrollableAnnotation.index)
+                    : Math.ceil(scrollableAnnotation.index);
+                console.log("currentIndex", currentIndex);
+                if (currentIndex < annotationList.value.length - 2) {
+                  _api.setUserInteraction(false);
+                } else {
+                  _api.setUserInteraction(true);
+                }
+                const eye = [
+                  scrollableAnnotation.ex,
+                  scrollableAnnotation.ey,
+                  scrollableAnnotation.ez,
+                ];
+                const target = [
+                  scrollableAnnotation.tx,
+                  scrollableAnnotation.ty,
+                  scrollableAnnotation.tz,
+                ];
+                console.log("eye", eye);
+                _api.setCameraLookAt(eye, target, 0, (err: Error) => {
+                  console.log("err", err);
+                });
+              },
             });
-            //   ScrollTrigger.create({
-            //     trigger: afterText.value,
-            //     start: "-=2999px",
-            //     end: "bottom bottom",
-            //     pin: "#text-block",
-            //     markers: true,
-            //   });
+            ScrollTrigger.create({
+              trigger: afterText.value,
+              start: "-=2999px",
+              end: "bottom bottom",
+              pin: "#text-block",
+              markers: true,
+            });
             //   // setTimeout(() => {
             //   //   annotationList.value.forEach(
             //   //     (annotation: Annotation, n: number) => {
@@ -216,17 +212,16 @@ onMounted(() => {
 
   <!-- <div class="relative"> -->
   <div class="iframe-wrapper w-screen h-screen bg-pink-500" ref="scrollerRef">
-    <div id="api-iframe">
-      <iframe
-        allow="autoplay; fullscreen; vr"
-        ref="viewerIframeRef"
-        class="w-full h-full z-10"
-        allowvr
-        allowfullscreen
-        mozallowfullscreen="true"
-        webkitallowfullscreen="true"
-      ></iframe>
-    </div>
+    <iframe
+      id="api-iframe"
+      allow="autoplay; fullscreen; vr"
+      ref="viewerIframeRef"
+      class="w-full h-full z-10"
+      allowvr
+      allowfullscreen
+      mozallowfullscreen="true"
+      webkitallowfullscreen="true"
+    ></iframe>
   </div>
   <div ref="afterText" class="h-screen">
     <div

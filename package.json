@@ -11,6 +11,7 @@
     "@sketchfab/viewer-api": "^1.12.1",
     "@vueuse/core": "^10.5.0",
     "gsap": "^3.12.4",
+    "marked": "^11.1.0",
     "vitepress": "latest",
     "vue": "^3.3.4",
     "vue-json-pretty": "^2.2.4",
