@@ -7,7 +7,8 @@ image: /images/og-product-tour.jpg
 ---
 
 <script setup>
-import ScrollingSticky from '../components/Scrolling-sticky.vue'
+// import ScrollingSticky from '../components/Scrolling-sticky.vue'
+import Scrolling from '../components/Scrolling.vue'
 import CodePenEmbed from '../components/CodePenEmbed.vue'
 
 const onClick = () => {
@@ -15,4 +16,5 @@ const onClick = () => {
 }
 </script>
 
-<ScrollingSticky />
+<!-- <ScrollingSticky /> -->
+<Scrolling />

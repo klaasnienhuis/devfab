@@ -61,6 +61,10 @@ export interface Annotation {
   name: string;
   eye: number[];
   target: number[];
+  content: {
+    raw: string;
+    rendered: string;
+  };
 }
 
 export interface Node {
