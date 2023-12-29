@@ -3,8 +3,8 @@ import { computed, onMounted, reactive, ref, watch } from "vue";
 import { useData } from "vitepress";
 import { API, Annotation, Material, Node } from "./types";
 const { isDark } = useData();
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "gsap/dist/gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { marked } from "marked";
 
 gsap.registerPlugin(ScrollTrigger);

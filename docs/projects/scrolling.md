@@ -12,6 +12,8 @@ import CodePenEmbed from '../components/CodePenEmbed.vue'
 
 </script>
 
+<iframe width="100%" height="500" src="./scrolling-fullscreen.html" frameborder="0"></iframe>
+
 Basic scrolling
 
 <CodePenEmbed id="qBvdjzO/ac8e9eadbbd9932ec306fcb1fb00c2f3" tab="result" />
