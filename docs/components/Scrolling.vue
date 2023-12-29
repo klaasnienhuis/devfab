@@ -37,22 +37,44 @@ const playersettings = {
   annotations_visible: 0,
 };
 const viewerIframeRef = ref(null);
-const scrollerRef = ref(null);
-const afterText = ref(null);
-const captionRef = ref(null);
 const api = ref<API | undefined>();
 const annotationList = ref<Annotation[]>([]);
-const scrollModel = ref<ScrollTrigger>();
 
 const state = reactive({
   annotation: {} as Annotation,
+  hotspot: {
+    x: -100,
+    y: -100,
+  },
+});
+
+const hotspotStyle = computed(() => {
+  return {
+    transform: `translate(${state.hotspot.x.toFixed(
+      0,
+    )}px, ${state.hotspot.y.toFixed(0)}px)`,
+  };
 });
 
 const markdownToHtml = (markdown: string) => {
   return marked.parse(markdown);
 };
 
-// TODO: get orbital camera data
+const getHotspotPosition = (api: API, pos: number[]) => {
+  // const pos = [position3d.X, position3d.Y, position3d.Z]
+  return new Promise((resolve, reject) => {
+    api.getWorldToScreenCoordinates(
+      JSON.parse(JSON.stringify(pos)),
+      (coord: any) => {
+        if (coord.canvasCoord === undefined) {
+          resolve({ x: -100, y: -100 });
+        } else {
+          resolve({ x: coord.canvasCoord[0], y: coord.canvasCoord[1] });
+        }
+      },
+    );
+  });
+};
 const subtractPositions = (position1: number[], position2: number[]) => {
   const dx = position2[0] - position1[0];
   const dy = position2[1] - position1[1];
@@ -156,13 +178,13 @@ onMounted(() => {
                 }
               },
             );
-            //   // Setup the ScrollTrigger with the animation timeline
-            scrollModel.value = ScrollTrigger.create({
-              trigger: scrollerRef.value,
+            // Setup the ScrollTrigger with the animation timeline
+            ScrollTrigger.create({
+              trigger: "#scroller",
               start: "top top",
-              end: "+=6000px",
-              pin: "#api-iframe",
-              pinSpacer: ".pin-spacer",
+              end: "+=6000px bottom",
+              pin: "#iframe-wrapper",
+              pinSpacer: "#pin-spacer",
               scrub: true,
               animation: timeline,
               toggleActions: "play none reverse reset",
@@ -170,19 +192,22 @@ onMounted(() => {
               onUpdate: (self) => {
                 const currentIndex =
                   self.direction === 1
-                    ? Math.floor(scrollableAnnotation.index)
-                    : Math.ceil(scrollableAnnotation.index);
+                    ? Math.floor(scrollableAnnotation.index + 0.2)
+                    : Math.ceil(scrollableAnnotation.index - 0.2);
                 state.annotation = annotationList.value[currentIndex];
-                if (currentIndex < annotationList.value.length - 2) {
+                if (currentIndex < annotationList.value.length - 1) {
                   _api.setUserInteraction(false);
+                  const hotSpotPos = state.annotation.position;
+                  getHotspotPosition(_api, hotSpotPos).then((pos) => {
+                    state.hotspot = pos;
+                  });
                 } else {
-                  _api.setUserInteraction(true);
+                  _api.setUserInteraction(false);
+                  state.hotspot = {
+                    x: -100,
+                    y: -100,
+                  };
                 }
-                const eye = [
-                  scrollableAnnotation.ex,
-                  scrollableAnnotation.ey,
-                  scrollableAnnotation.ez,
-                ];
                 const target = [
                   scrollableAnnotation.tx,
                   scrollableAnnotation.ty,
@@ -197,13 +222,6 @@ onMounted(() => {
                 _api.setCameraLookAt(pos, target, 0, (_err: Error) => {});
               },
             });
-
-            ScrollTrigger.create({
-              trigger: afterText.value,
-              start: "-=5999px",
-              end: "bottom bottom",
-              pin: "#text-block",
-            });
           });
         });
       },
@@ -216,9 +234,15 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col place-items-center bg-neutral-900 text-white">
-    <a class="back ml-4 mt-4 mr-auto" href="../"> &larr; Back to main page </a>
+    <a class="back ml-4 mt-4 mr-auto" href="./scrolling">
+      &larr; Back to main page
+    </a>
     <div class="text-4xl my-12">Statue of A'a</div>
-    <div class="w-1/3 min-w-[500px] mb-12 mt-4">
+    <div class="text-xl mb-8 animate-bounce">
+      Scroll down to explore the project
+      <v-icon :dark="true" icon="mdi-arrow-down"></v-icon>
+    </div>
+    <div class="sm:w-96 lg:w-[40rem] mb-12 mt-4 mx-12">
       <p class="mb-6 text-white/80">
         The Asahi Shimbun Displays: Containing the divine a sculpture of the
         Pacific god A'a
@@ -239,35 +263,38 @@ onMounted(() => {
         this object.
       </p>
     </div>
-    <div class="text-xl mb-8 animate-bounce">
-      Scroll down to explore the statue
-    </div>
   </div>
 
-  <div
-    class="iframe-wrapper w-screen h-screen bg-neutral-900"
-    ref="scrollerRef"
-  >
-    <div class="pin-spacer w-full h-full">
-      <div id="api-iframe" class="w-full h-full">
+  <div id="scroller" class="bg-neutral-900">
+    <div id="pin-spacer" class="">
+      <div id="iframe-wrapper" class="pointer-events-auto w-screen h-screen">
         <div
-          class="caption bg-neutral-800/80 max-w-[350px] p-6 absolute bottom-0 left-0 m-6 rounded-2xl"
-          ref="captionRef"
+          id="hotspot-wrapper"
+          class="absolute w-full h-full top-0 left-0 pointer-events-none"
         >
-          <div class="text-2xl text-white font-semibold mb-4">
+          <div
+            class="absolute w-12 h-12 -left-6 -top-6 rounded-full bg-yellow-600/90 ring-4 ring-white animate-pulse"
+            :style="hotspotStyle"
+          ></div>
+        </div>
+        <div
+          class="caption bg-neutral-800/80 p-2 sm:p-6 absolute bottom-0 left-0 sm:m-6 sm:rounded-2xl sm:max-w-sm"
+        >
+          <div
+            class="text-lg sm:text-2xl text-white font-semibold mb-2 sm:mb-4"
+          >
             {{ state.annotation.name }}
           </div>
           <div
             v-if="state.annotation.content"
-            class="text-neutral-200 relative"
+            class="text-sm sm:text-base text-neutral-200 relative max-h-48 sm:max-h-80 overflow-y-auto"
             v-html="markdownToHtml(state.annotation.content.raw)"
           ></div>
         </div>
-
         <iframe
           allow="autoplay; fullscreen; vr"
           ref="viewerIframeRef"
-          class="w-full h-full z-10"
+          class="w-screen h-screen pointer-events-none"
           allowvr
           allowfullscreen
           mozallowfullscreen="true"
@@ -276,50 +303,54 @@ onMounted(() => {
       </div>
     </div>
   </div>
-  <div ref="afterText" class="h-screen">
-    <div
-      id="text-block"
-      class="flex flex-col place-items-center bg-neutral-900 text-white"
-    >
-      <div class="w-1/3 min-w-[500px] mb-16 mt-16">
-        <p class="mb-6 text-white/80">
-          3D model by Thomas Flynn, Canon G7x + Agisoft Photoscan
-        </p>
-        <div class="text-2xl mb-2">Description</div>
-        <p class="mb-6 text-white/80">
-          God figure known as A'a, carved in anthropomorphic form with 30 small
-          figures over surface of the body and making up the facial features. A
-          lidded cavity in back.
-        </p>
-        <div class="text-2xl mb-2">Production date</div>
-        <p class="mb-6 text-white/80">
-          17thC (before 1821 (see curatorial comments)) (before 1821 (see
-          curatorial comments))
-        </p>
-        <div class="text-2xl mb-2">Dimensions</div>
-        <div class="mb-6 text-white/80">
-          <p>Height: 116.80 centimetres</p>
-          <p>Width: 36 centimetres</p>
-          <p>Depth: 36 centimetres</p>
-        </div>
-        <div class="text-2xl mb-2">Curator's comments</div>
-        <p class="mb-6 text-white/80">
-          In November 2015, wood samples taken from inside the figure were
-          tested by British Museum scientists and found to be Sandalwood. The
-          wood was too deteriorated to be definitive about the species but it is
-          likely to be Santalum insulare. This information was fed back to the
-          island of Rurutu and the Council of Elders met to discuss it. The
-          Elders chose not to accept the Sandalwood finding, preferring to
-          uphold their own histories which state that A'a was carved from pua
-          wood (Fagraea berteriana). At the same time wood samples from inside
-          the figure's cavity were radiocarbon dated by the Socttish
-          Universities Environmental Research Centre. The results suggest that
-          A'a was carved at some point between 1591 and 1647.
-        </p>
+  <div
+    id="text-block"
+    class="flex flex-col place-items-center bg-neutral-900 text-white"
+  >
+    <div class="sm:w-96 lg:w-[40rem] my-16 mx-12">
+      <p class="mb-6 text-white/80">
+        3D model by Thomas Flynn, Canon G7x + Agisoft Photoscan
+      </p>
+      <div class="text-2xl mb-2">Description</div>
+      <p class="mb-6 text-white/80">
+        God figure known as A'a, carved in anthropomorphic form with 30 small
+        figures over surface of the body and making up the facial features. A
+        lidded cavity in back.
+      </p>
+      <div class="text-2xl mb-2">Production date</div>
+      <p class="mb-6 text-white/80">
+        17thC (before 1821 (see curatorial comments)) (before 1821 (see
+        curatorial comments))
+      </p>
+      <div class="text-2xl mb-2">Dimensions</div>
+      <div class="mb-6 text-white/80">
+        <p>Height: 116.80 centimetres</p>
+        <p>Width: 36 centimetres</p>
+        <p>Depth: 36 centimetres</p>
       </div>
-      <a class="back ml-4 mb-4 mr-auto" href="../">
-        &larr; Back to main page
-      </a>
+      <div class="text-2xl mb-2">Curator's comments</div>
+      <p class="mb-6 text-white/80">
+        In November 2015, wood samples taken from inside the figure were tested
+        by British Museum scientists and found to be Sandalwood. The wood was
+        too deteriorated to be definitive about the species but it is likely to
+        be Santalum insulare. This information was fed back to the island of
+        Rurutu and the Council of Elders met to discuss it. The Elders chose not
+        to accept the Sandalwood finding, preferring to uphold their own
+        histories which state that A'a was carved from pua wood (Fagraea
+        berteriana). At the same time wood samples from inside the figure's
+        cavity were radiocarbon dated by the Socttish Universities Environmental
+        Research Centre. The results suggest that A'a was carved at some point
+        between 1591 and 1647.
+      </p>
     </div>
+    <a class="back ml-4 mb-4 mr-auto" href="./scrolling">
+      &larr; Back to main page
+    </a>
   </div>
 </template>
+
+<style scoped>
+.pin-spacer {
+  pointer-events: none;
+}
+</style>

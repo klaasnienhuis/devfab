@@ -10,6 +10,14 @@ Projects demonstrate different uses of the Sketchafb API. They are either demos 
 
 Before trying out these projects yourself, I highly recommend you go through the [Getting started](../guide/model-loading/getting-started.html) tutorial. It will give you a good understanding of the basics of the API.
 
+## Scrolling navigation
+
+![Scrolling navigation](./scrolling-navigation.jpg)
+
+Using scrolling to navigate a 3D model is practical when you have a linear story to tell. Scrolling works like scrubbing the timeline of a video. the user can control the speed at which things are moving, but you control the order in which things are shown. Art and cultural heritage are great use cases for this kind of navigation.
+
+[Get started...](./scrolling.html)
+
 ## Product showcase
 
 ![Phone showcase](./phone-showcase.jpg)

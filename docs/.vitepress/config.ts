@@ -215,6 +215,7 @@ export default defineConfig({
           text: "Projects",
           items: [
             { text: "Introduction", link: "/projects/" },
+            { text: "Scrolling navigation", link: "/projects/scrolling" },
             { text: "Phone Showcase", link: "/projects/phone" },
             { text: "Product tour", link: "/projects/product-tour" },
             {
