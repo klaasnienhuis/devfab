@@ -1,13 +1,12 @@
 ---
 layout: false
-title: Product tour with the Sketchfab API
-description: Create a 3D product tour with the Sketchfab API
-tags: [sketchfab, api, product-tour]
-image: /images/og-product-tour.jpg
+title: Scrolling navigation with the Sketchfab API
+description: Scrolling navigation with GSAP and the Sketchfab API
+tags: [sketchfab, api, scrolling, gsap]
+image: /images/og-scrolling-navigation.jpg
 ---
 
 <script setup>
-// import ScrollingSticky from '../components/Scrolling-sticky.vue'
 import Scrolling from '../components/Scrolling.vue'
 import CodePenEmbed from '../components/CodePenEmbed.vue'
 
@@ -16,5 +15,4 @@ const onClick = () => {
 }
 </script>
 
-<!-- <ScrollingSticky /> -->
 <Scrolling />

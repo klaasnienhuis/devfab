@@ -2,6 +2,7 @@
 title: Orbital camera movement
 description: Enhance your camera movement with the Sketchfab API
 tag: [sketchfab, api, camera]
+image: /images/og-camera-orbital.jpg
 ---
 
 <script setup>
@@ -135,3 +136,11 @@ const factor = (factor = easeInOutQuad(step / steps));
 ```
 
 <CodePenEmbed id="eYxxBmB/4f141b30749a2eb02c52d0857a2997d0" tab="result" />
+
+## Conclusion
+
+Orbital camera movement is a great way to move the camera around 3D models, such as products, art and characters. Calculating orbital camera movement is a bit more complex than using the built-in linear camera movement. I hope this tutorial gets you going.
+
+Linear camera movement still is very useful. For instance when moving the camera within a space, such as a building or a room.
+
+You can see orbital camera movement in action in the [Scrolling project](../../projects/scrolling.html)
