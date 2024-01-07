@@ -40,6 +40,12 @@ const viewerIframeRef = ref(null);
 const api = ref<API | undefined>();
 const annotationList = ref<Annotation[]>([]);
 
+const props = defineProps({
+  id: {
+    type: String,
+    required: false,
+  },
+});
 const state = reactive({
   annotation: {} as Annotation,
   hotspot: {
@@ -123,9 +129,11 @@ const toPosition = (
 };
 
 onMounted(() => {
+  const sceneuid = props.id ? props.id : "e4dd6d342fa044b99732b484985797b6";
+  console.log("sceneuid", sceneuid);
   import("@sketchfab/viewer-api").then((module) => {
     const client = new module.default("1.12.1", viewerIframeRef.value);
-    client.init("e4dd6d342fa044b99732b484985797b6", {
+    client.init(sceneuid, {
       success: (_api: API) => {
         api.value = _api;
         _api.addEventListener("viewerready", () => {
