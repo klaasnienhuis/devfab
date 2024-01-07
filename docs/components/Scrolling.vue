@@ -46,6 +46,7 @@ const state = reactive({
     x: -100,
     y: -100,
   },
+  progress: 0,
 });
 
 const hotspotStyle = computed(() => {
@@ -190,6 +191,7 @@ onMounted(() => {
               toggleActions: "play none reverse reset",
               // Set the camera look-at position on every update and set the caption text
               onUpdate: (self) => {
+                state.progress = self.progress * 100;
                 const currentIndex =
                   self.direction === 1
                     ? Math.floor(scrollableAnnotation.index + 0.2)
@@ -278,7 +280,7 @@ onMounted(() => {
           ></div>
         </div>
         <div
-          class="caption bg-neutral-800/80 p-2 sm:p-6 absolute bottom-0 left-0 sm:m-6 sm:rounded-2xl sm:max-w-sm"
+          class="caption bg-neutral-800/80 p-2 sm:p-6 absolute bottom-1 left-0 sm:m-6 sm:rounded-2xl sm:max-w-sm"
         >
           <div
             class="text-lg sm:text-2xl text-white font-semibold mb-2 sm:mb-4"
@@ -290,6 +292,13 @@ onMounted(() => {
             class="text-sm sm:text-base text-neutral-200 relative max-h-48 sm:max-h-80 overflow-y-auto"
             v-html="markdownToHtml(state.annotation.content.raw)"
           ></div>
+        </div>
+        <div class="absolute w-full bottom-0 bg-neutral-900">
+          <v-progress-linear
+            height="4"
+            color="yellow-darken-3"
+            :model-value="state.progress"
+          ></v-progress-linear>
         </div>
         <iframe
           allow="autoplay; fullscreen; vr"
