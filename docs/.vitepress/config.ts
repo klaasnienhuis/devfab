@@ -207,6 +207,7 @@ export default defineConfig({
               link: "/guide/annotations/annotation-constraints",
             },
             { text: "Editing annotations", link: "/guide/annotations/editing" },
+            { text: "Creating annotations", link: "/guide/annotations/create" },
           ],
         },
       ],
