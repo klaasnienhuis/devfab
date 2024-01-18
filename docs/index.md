@@ -72,3 +72,8 @@ features:
     link: /guide/annotations/
     linkText: Annotations
 ---
+
+<script setup>
+import { inject } from '@vercel/analytics';
+inject()
+</script>

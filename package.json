@@ -9,6 +9,7 @@
   "dependencies": {
     "@headlessui/vue": "^1.7.16",
     "@sketchfab/viewer-api": "^1.12.1",
+    "@vercel/analytics": "^1.1.2",
     "@vueuse/core": "^10.5.0",
     "gsap": "^3.12.4",
     "marked": "^11.1.0",
