@@ -208,6 +208,10 @@ export default defineConfig({
             },
             { text: "Editing annotations", link: "/guide/annotations/editing" },
             { text: "Creating annotations", link: "/guide/annotations/create" },
+            {
+              text: "Annotation Texture",
+              link: "/guide/annotations/annotation-texture",
+            },
           ],
         },
       ],

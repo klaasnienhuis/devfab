@@ -88,7 +88,7 @@ In this example you can click on the 3D model to add an annotation. When you unc
 
 ## Animated models
 
-Using `createAnnotationFromWorldPosition` together with the `click` event will work on animated models too. Make sure to replace the `{ pick: "fast" }` with `{ pick: "slow" }` to make sure the event is triggered when the model is animated. However, the annotations will not move with the model. To make annotations stick to the model, use the `createAnnotation` function. It casts a ray and "glues" the annotation to the model where the ray intersects.
+Using `createAnnotationFromWorldPosition` together with the `click` event will work on animated models too. Make sure to replace the `{ pick: "fast" }` with `{ pick: "slow" }` to get click-results when the model is animated. However, the annotations will not move with the model. To make annotations stick to the model, use the `createAnnotation` function. It casts a ray and "glues" the annotation to the model where the ray intersects.
 
 ```js
 api.createAnnotation(

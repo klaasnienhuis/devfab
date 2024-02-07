@@ -9,7 +9,7 @@ import CodePenEmbed from '../../components/CodePenEmbed.vue'
 
 # Annotations and the camera
 
-When you click on an annotation, the camera moves to that annotation. That is the default behavior of annotations. Sometimes you want to closely control where a camera can go. Perhaps you have a car with annotations, but you don't want users to look under the car. You can use camera constraints for that. Even though Sketchfab doesn't allow the use of annotatins and camera constraints at the same time, with the API you can!
+When you click on an annotation, the camera moves to that annotation. That is the default behavior of annotations. Sometimes you want to closely control where a camera can go. Perhaps you have a car with annotations, but you don't want users to look under the car. You can use camera constraints for that. Even though Sketchfab doesn't allow the use of annotations and camera constraints at the same time, **with the API you can!**
 
 Let's figure out how to have annotations and constrain the camera at the same time. The goal is to get the smoothest user experience without bothering the user.
 
@@ -60,7 +60,7 @@ You'll notice that the constraints now work, but the motion is not as smooth as 
 
 ## Fix camera movement
 
-We want to click on an annotation, let the camera move to the annotation and then activate the camera constraints. We can use the `setCameraLookAtEndAnimationCallback` method for that. This function will tell us whan a camera movement is over. And, lucky for us, it also works with annotations.
+We want to click on an annotation, let the camera move to the annotation and then activate the camera constraints. We can use the `setCameraLookAtEndAnimationCallback` method for that. This function will tell us when a camera movement is over. And, lucky for us, it also works with annotations.
 
 <CodePenEmbed id="mdavYqB/b53d5a0a4e207b6f8bb84fd3d1b4340b" tab="result" />
 
